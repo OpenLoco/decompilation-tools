@@ -1,7 +1,10 @@
+#include "widgets.idc"
 #include <idc.idc>
 
 static main(void)
 {
+    initWidgets();
+
     // Functions
     MakeName(0x004014DF, "fptc");
     MakeName(0x0040194E, "dsound_sound_load");
