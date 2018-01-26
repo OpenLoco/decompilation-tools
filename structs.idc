@@ -7,6 +7,7 @@ static initStructs(void)
     loco_initTown();
     loco_initUnk1();
     loco_initStation();
+    loco_initObjects();
 }
 
 static loco_setStructMember(id, offset, name, type, size)
@@ -72,4 +73,55 @@ static loco_initStation(void)
 {
     loco_makeStubStruct("station_t", 0x3D2);
     loco_makeStructArray(0x5E6EDC, "station_t", 1024, "_stations");
+}
+
+static loco_makePointerArray(offset, count, name)
+{
+    MakeUnknown(offset, count * 4, 1 | 2);
+    MakeData(offset, FF_DWRD, 4, BADADDR);
+    OpOff(offset, 1, 0);
+    MakeName(offset, name);
+    MakeArray(offset, count);
+    SetColor(offset, CIC_ITEM, 0xFFFFFF);
+}
+
+static loco_initObjects(void)
+{
+    loco_makeStubStruct("object_repository_item", 0x8);
+    loco_makeStructArray(0x4FE0B8, "object_repository_item", 64, "object_repository");
+
+    loco_makePointerArray(0x0050C3D0, 1, "_interfaceObjects");
+    loco_makePointerArray(0x0050C3D4, 128, "_soundObjects");
+    loco_makePointerArray(0x0050C5D4, 1, "_currencyObjects");
+    loco_makePointerArray(0x0050C5D8, 32, "_steamObjects");
+    loco_makePointerArray(0x0050C658, 8, "_rockObjects");
+    loco_makePointerArray(0x0050C678, 1, "_waterObjects");
+    loco_makePointerArray(0x0050C67C, 32, "_landObjects");
+    loco_makePointerArray(0x0050C6FC, 1, "_townNamesObjects");
+    loco_makePointerArray(0x0050C700, 32, "_cargoObjects");
+    loco_makePointerArray(0x0050C780, 32, "_wallObjects");
+    loco_makePointerArray(0x0050C800, 16, "_trainSignalObjects");
+    loco_makePointerArray(0x0050C840, 4, "_levelCrossingObjects");
+    loco_makePointerArray(0x0050C850, 1, "_streetLightObjects");
+    loco_makePointerArray(0x0050C854, 16, "_tunnelObjects");
+    loco_makePointerArray(0x0050C894, 8, "_bridgeObjects");
+    loco_makePointerArray(0x0050C8B4, 16, "_trainStationObjects");
+    loco_makePointerArray(0x0050C8F4, 8, "_trackExtraObjects");
+    loco_makePointerArray(0x0050C914, 8, "_trackObjects");
+    loco_makePointerArray(0x0050C934, 16, "_roadStationObjects");
+    loco_makePointerArray(0x0050C974, 4, "_roadExtraObjects");
+    loco_makePointerArray(0x0050C984, 8, "_roadObjects");
+    loco_makePointerArray(0x0050C9A4, 8, "_airportObjects");
+    loco_makePointerArray(0x0050C9C4, 8, "_dockObjects");
+    loco_makePointerArray(0x0050C9E4, 224, "_vehicleObjects");
+    loco_makePointerArray(0x0050CD64, 64, "_treeObjects");
+    loco_makePointerArray(0x0050CE64, 1, "_snowObjects");
+    loco_makePointerArray(0x0050CE68, 1, "_climateObjects");
+    loco_makePointerArray(0x0050CE6C, 1, "_hillShapeObjects");
+    loco_makePointerArray(0x0050CE70, 128, "_buildingObjects");
+    loco_makePointerArray(0x0050D070, 1, "_scaffoldingObjects");
+    loco_makePointerArray(0x0050D074, 16, "_industryObjects");
+    loco_makePointerArray(0x0050D0B4, 1, "_regionObjects");
+    loco_makePointerArray(0x0050D0B8, 32, "_competitorsObjects");
+    loco_makePointerArray(0x0050D138, 1, "_scenarioTextObjects");
 }
