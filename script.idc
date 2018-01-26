@@ -1,9 +1,11 @@
+#include "structs.idc"
 #include "widgets.idc"
 #include <idc.idc>
 
 static main(void)
 {
     initWidgets();
+    initStructs();
 
     // Functions
     MakeName(0x004014DF, "fptc");
