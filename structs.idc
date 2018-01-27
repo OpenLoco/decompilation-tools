@@ -5,19 +5,15 @@ static initStructs(void)
     loco_initWindow();
     loco_initCompany();
     loco_initTown();
-    loco_initUnk1();
+    loco_initIndustries();
     loco_initStation();
     loco_initObjects();
 }
 
 static loco_setStructMember(id, offset, name, type, size)
 {
-    if (GetMemberName(id, name) == 0) {
-        AddStrucMember(id, name, offset, type, 0, size);
-    } else {
-        SetMemberName(id, offset, name);
-        SetMemberType(id, offset, type, 0, size);
-    }
+    DelStrucMember(id, offset);
+    AddStrucMember(id, name, offset, type, 0, size);
 }
 
 static loco_makeStructArray(offset, type, count, name)
@@ -45,9 +41,78 @@ static loco_makeStubStruct(name, size)
     return id;
 }
 
+#define U8 0
+#define U16 1
+#define U32 2
+#define S8 3
+#define S16 4
+#define S32 5
+
+static loco_setStructFld(id, offset, type, name)
+{
+    if (type == U8 || type == S8) {
+        loco_setStructMember(id, offset, name, FF_BYTE | FF_DATA, 1);
+    } else if (type == U16 || type == S16) {
+        loco_setStructMember(id, offset, name, FF_WORD | FF_DATA, 2);
+    } else if (type == U32 || type == S32) {
+        loco_setStructMember(id, offset, name, FF_DWRD | FF_DATA, 4);
+    }
+}
+
+static loco_setStructVar(id, offset, type)
+{
+    loco_setStructFld(id, offset, type, sprintf("var_%03X", offset));
+}
+
+static loco_setStructSub(id, offset, type, name, count)
+{
+    DelStrucMember(id, offset);
+    AddStrucMember(id, name, offset, FF_STRU | FF_DATA, GetStrucIdByName(type), GetStrucSize(GetStrucIdByName(type)) * count);
+}
+
 static loco_initWindow(void)
 {
-    loco_makeStubStruct("window_t", 0x88E);
+    auto id;
+
+    id = loco_makeStubStruct("scroll_t", 0x12);
+    loco_setStructFld(id, 0x00, U16, "flags");
+    loco_setStructVar(id, 0x02, U16);
+    loco_setStructVar(id, 0x04, U16);
+    loco_setStructVar(id, 0x06, U16);
+    loco_setStructVar(id, 0x08, U16);
+    loco_setStructVar(id, 0x0A, U16);
+    loco_setStructVar(id, 0x0C, U16);
+    loco_setStructVar(id, 0x0E, U16);
+    loco_setStructVar(id, 0x10, U16);
+
+    id = loco_makeStubStruct("window_t", 0x88E);
+    loco_setStructFld(id, 0x000, U32, "event_handlers");
+    loco_setStructVar(id, 0x004, U32);
+    loco_setStructFld(id, 0x00C, U32, "enabled_widgets");
+    loco_setStructVar(id, 0x010, U32);
+    loco_setStructVar(id, 0x014, U32);
+    loco_setStructVar(id, 0x01c, U32);
+    loco_setStructVar(id, 0x024, U32);
+    loco_setStructFld(id, 0x02C, U32, "widgets");
+    loco_setStructFld(id, 0x030, U16, "x");
+    loco_setStructFld(id, 0x032, U16, "y");
+    loco_setStructFld(id, 0x034, U16, "width");
+    loco_setStructFld(id, 0x036, U16, "height");
+    loco_setStructFld(id, 0x038, U16, "min_width");
+    loco_setStructFld(id, 0x03A, U16, "max_width");
+    loco_setStructFld(id, 0x03C, U16, "min_height");
+    loco_setStructFld(id, 0x03E, U16, "max_height");
+    loco_setStructFld(id, 0x040, U16, "number");
+    loco_setStructVar(id, 0x042, U32);
+    loco_setStructSub(id, 0x046, "scroll_t", "scroll", 3);
+    loco_setStructVar(id, 0x870, U16);
+    loco_setStructVar(id, 0x872, U16);
+    loco_setStructVar(id, 0x848, U32);
+    loco_setStructVar(id, 0x84C, U32);
+    loco_setStructFld(id, 0x882, U8, "type");
+    loco_setStructVar(id, 0x884, U8);
+    loco_setStructVar(id, 0x886, U8);
+
     loco_makeStructArray(0x11370AC, "window_t", 12, "_windows");
 }
 
@@ -63,10 +128,10 @@ static loco_initTown(void)
     loco_makeStructArray(0x5B825C, "town_t", 80, "_towns");
 }
 
-static loco_initUnk1(void)
+static loco_initIndustries(void)
 {
-    loco_makeStubStruct("unk1_t", 0x453);
-    loco_makeStructArray(0x5C455C, "unk1_t", 128, "_unk1");
+    loco_makeStubStruct("industry_t", 0x453);
+    loco_makeStructArray(0x5C455C, "industry_t", 128, "_industries");
 }
 
 static loco_initStation(void)

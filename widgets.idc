@@ -114,6 +114,7 @@ static initWidgets(void)
     if (enumWidget == -1) {
         enumWidget = AddEnum(-1, "widget_type", 0);
     }
+    AddConstEx(enumWidget, "widget_type_scroll", 0x1A, -1);
     AddConstEx(enumWidget, "widget_end", 0x1E, -1);
 
     id = GetStrucIdByName("widget_t");
