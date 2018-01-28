@@ -18,7 +18,8 @@ static loco_setStructMember(id, offset, name, type, size)
 
 static loco_makeStructArray(offset, type, count, name)
 {
-    auto size = GetStrucSize(GetStrucIdByName(type));
+    auto size;
+    size = GetStrucSize(GetStrucIdByName(type));
 
     MakeUnknown(offset, count * size, 1 | 2);
     MakeStruct(offset, type);
@@ -61,7 +62,7 @@ static loco_setStructFld(id, offset, type, name)
 
 static loco_setStructVar(id, offset, type)
 {
-    loco_setStructFld(id, offset, type, sprintf("var_%03X", offset));
+    loco_setStructFld(id, offset, type, form("var_%03X", offset));
 }
 
 static loco_setStructSub(id, offset, type, name, count)

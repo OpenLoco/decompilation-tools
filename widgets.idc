@@ -2,9 +2,11 @@
 
 static LocoWidgetList(enumWidget, addr, name)
 {
-    auto i = 0;
+    auto i, type;
+
+    i = 0;
     while (1) {
-        auto type = Byte(addr + i * 0x10);
+        type = Byte(addr + i * 0x10);
         if (type == 0x1e) {
             MakeByte(addr + i * 0x10);
             OpEnumEx(addr + i * 0x10, 0, enumWidget, 0);
@@ -24,8 +26,8 @@ static LocoWidgetList(enumWidget, addr, name)
 
 static LocoWidgetSet(enumWidget, layoutAddr, eventAddr, name)
 {
-    LocoWidgetList(enumWidget, layoutAddr, sprintf("%s::_widgets", name));
-    LocoEvents(eventAddr, name, "", sprintf("%s::_events", name));
+    LocoWidgetList(enumWidget, layoutAddr, form("%s::_widgets", name));
+    LocoEvents(eventAddr, name, "", form("%s::_events", name));
 }
 
 static getEventName(event)
@@ -40,12 +42,14 @@ static getEventName(event)
         return "onscrollgetheight";
     }
 
-    return sprintf("%d", event);
+    return form("%d", event);
 }
 
 static IsNullSub(addr)
 {
-    auto chr = Byte(addr);
+    auto chr;
+
+    chr = Byte(addr);
     if (chr == 0xC3 || chr == 0xCB) {
         return 1;
     }
@@ -55,25 +59,26 @@ static IsNullSub(addr)
 
 static LocoEvents(addr, prefix, suffix, basename)
 {
-    auto i;
+    auto i, offset;
+
     MakeUnknown(addr, 29 * 4, 1 | 2);
     MakeStruct(addr, "window_events_t");
     SetColor(addr, CIC_ITEM, 0xFFFFFF);
     MakeName(addr, basename);
 
     for (i = 0; i <= 28; i++) {
-        auto offset = Dword(addr + i * 4);
+        offset = Dword(addr + i * 4);
         if (IsNullSub(offset)) {
-            MakeName(offset, sprintf("nullsub_%x", offset)); // SN_AUTO | SN_NOWARN
+            MakeName(offset, form("nullsub_%x", offset)); // SN_AUTO | SN_NOWARN
             continue;
         }
-        MakeName(offset, sprintf("%s::event%s_%s", prefix, suffix, getEventName(i)));
+        MakeName(offset, form("%s::event%s_%s", prefix, suffix, getEventName(i)));
     }
 }
 
 static LocoWidgetArray(enumWidget, addr, addr2, name, count)
 {
-    auto i = 0;
+    auto i, widgets, events;
 
     OpOff(addr, 0, 0);
     MakeArray(addr, count);
@@ -84,33 +89,33 @@ static LocoWidgetArray(enumWidget, addr, addr2, name, count)
     SetColor(addr2, CIC_ITEM, 0xFFFFFF);
 
     for (i = 0; i < count; i++) {
-        auto widgets = Dword(addr + i * 4);
-        LocoWidgetList(enumWidget, widgets, sprintf("%s::_widgets_%d", name, i + 1));
+        widgets = Dword(addr + i * 4);
+        LocoWidgetList(enumWidget, widgets, form("%s::_widgets_%d", name, i + 1));
 
-        auto events = Dword(addr2 + i * 4);
-        LocoEvents(events, name, sprintf("_%d", i + 1), sprintf("%s::_events_%d", name, i + 1));
+        events = Dword(addr2 + i * 4);
+        LocoEvents(events, name, form("_%d", i + 1), form("%s::_events_%d", name, i + 1));
     }
 }
 
 static initWidgets(void)
 {
-    auto id, i;
+    auto id, i, enumWidget;
 
     id = GetStrucIdByName("window_events_t");
     if (id == -1) {
         id = AddStruc(-1, "window_events_t");
         for (i = 0; i <= 28; i++) {
-            AddStrucMember(id, sprintf("event_%s", getEventName(i)), i * 4, FF_DWRD | FF_DATA | FF_0OFF, 0, 4);
+            AddStrucMember(id, form("event_%s", getEventName(i)), i * 4, FF_DWRD | FF_DATA | FF_0OFF, 0, 4);
         }
     } else {
 
         for (i = 0; i <= 28; i++) {
-            SetMemberName(id, i * 4, sprintf("event_%s", getEventName(i)));
+            SetMemberName(id, i * 4, form("event_%s", getEventName(i)));
             SetMemberType(id, i * 4, FF_DWRD | FF_DATA | FF_0OFF, 0, 1);
         }
     }
 
-    auto enumWidget = GetEnum("widget_type");
+    enumWidget = GetEnum("widget_type");
     if (enumWidget == -1) {
         enumWidget = AddEnum(-1, "widget_type", 0);
     }
