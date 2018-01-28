@@ -32,14 +32,60 @@ static LocoWidgetSet(enumWidget, layoutAddr, eventAddr, name)
 
 static getEventName(event)
 {
+    if (event == 0) {
+        return "on_close";
+    }
+
+    if (event == 1) {
+        return "on_mouse_up";
+    }
+
+    if (event == 2) {
+        return "on_resize";
+    }
+
+    if (event == 4) {
+        return "on_mouse_down";
+    }
+
+    if (event == 5) {
+        return "on_dropdown";
+    }
+
+    if (event == 7) {
+        return "on_update";
+    }
+
+    if (event == 14) {
+        return "tool_abort";
+    }
+
+    if (event == 16) {
+        return "get_scroll_size";
+    }
+
+    if (event == 20) {
+        return "text_input";
+    }
+
+    if (event == 23) {
+        return "tooltip";
+    }
+
+    if (event == 24) {
+        return "cursor";
+    }
+
+    if (event == 26) {
+        return "invalidate";
+    }
+
+    if (event == 27) {
+        return "draw";
+    }
+
     if (event == 28) {
         return "scroll_paint";
-    }
-    if (event == 27) {
-        return "onpaint";
-    }
-    if (event == 16) {
-        return "onscrollgetheight";
     }
 
     return form("%d", event);

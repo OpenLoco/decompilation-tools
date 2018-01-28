@@ -106,10 +106,13 @@ static loco_initWindow(void)
     loco_setStructFld(id, 0x040, U16, "number");
     loco_setStructVar(id, 0x042, U32);
     loco_setStructSub(id, 0x046, "scroll_t", "scroll", 3);
-    loco_setStructVar(id, 0x870, U16);
-    loco_setStructVar(id, 0x872, U16);
     loco_setStructVar(id, 0x848, U32);
     loco_setStructVar(id, 0x84C, U32);
+    loco_setStructVar(id, 0x870, U16);
+    loco_setStructVar(id, 0x872, U16);
+    loco_setStructFld(id, 0x876, U16, "thing");
+    loco_setStructVar(id, 0x878, U16);
+    loco_setStructVar(id, 0x87A, U16);
     loco_setStructFld(id, 0x882, U8, "type");
     loco_setStructVar(id, 0x884, U8);
     loco_setStructVar(id, 0x886, U8);
