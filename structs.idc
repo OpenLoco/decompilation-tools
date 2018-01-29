@@ -11,6 +11,7 @@ static initStructs(void)
     loco_initEntities();
     loco_initG1Elements();
     loco_initUserStrings();
+    loco_initDropdowns();
 
     loco_makePointerArray(0xE40134, 0x30000, "tile_map_element_pointers");
 }
@@ -179,7 +180,7 @@ static loco_initG1Elements(void)
     loco_setStructFld(id, 0x0A, U16, "y");
     loco_setStructFld(id, 0x0C, U16, "flags");
     loco_setStructFld(id, 0x0E, U16, "pad");
-    
+
     loco_makeStructArray(0x9E2424, "g1_element_t", 0x4201A, "_g1Data");
 }
 
@@ -232,4 +233,17 @@ static loco_initObjects(void)
     loco_makePointerArray(0x0050D0B4, 1, "_regionObjects");
     loco_makePointerArray(0x0050D0B8, 32, "_competitorsObjects");
     loco_makePointerArray(0x0050D138, 1, "_scenarioTextObjects");
+}
+
+static loco_initDropdowns(void)
+{
+    MakeUnknown(0x113D850, 40 * 2, 1 | 2);
+    MakeWord(0x113D850);
+    MakeArray(0x113D850, 40);
+    SetColor(0x113D850, CIC_ITEM, 0xFFFFFF);
+    MakeName(0x113D850, "_dropdownItemFormats");
+
+    loco_makeStubStruct("dropdown_format_args_t", 0x8);
+    loco_makeStructArray(0x113D8A0, "dropdown_format_args_t", 40, "_dropdownItemFormatArgs1");
+    loco_makeStructArray(0x113D9E0, "dropdown_format_args_t", 40, "_dropdownItemFormatArgs2");
 }

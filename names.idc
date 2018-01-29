@@ -287,6 +287,7 @@ static initNames(void)
     MakeName(0x004C9A95, "window_find_from_point");
     MakeName(0x004C9AFA, "widget_find_from_point");
     MakeName(0x004C9B56, "find_window");
+    MakeName(0x004C9C68, "window_create_alt");
     MakeName(0x004C9F5D, "window_create");
     MakeName(0x004CA115, "update_scroll_widgets");
     MakeName(0x004CA17F, "window_init_scroll_widgets");
