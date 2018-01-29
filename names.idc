@@ -236,7 +236,7 @@ static initNames(void)
     MakeName(0x004963FC, "formatNumeric_4");
     MakeName(0x0049650E, "emptyUserStrings");
     MakeName(0x00496522, "user_string_allocate");
-    MakeName(0x004965A6, "getUserString");
+    MakeName(0x004965A6, "empty_user_string");
     MakeName(0x0049678D, "getStringWidth_maybe");
     MakeName(0x004968C7, "date_tick");
     MakeName(0x004969DA, "get_local_time");

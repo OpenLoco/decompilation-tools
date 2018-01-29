@@ -10,6 +10,9 @@ static initStructs(void)
     loco_initObjects();
     loco_initEntities();
     loco_initG1Elements();
+    loco_initUserStrings();
+
+    loco_makePointerArray(0xE40134, 0x30000, "tile_map_element_pointers");
 }
 
 static loco_setStructMember(id, offset, name, type, size)
@@ -152,6 +155,18 @@ static loco_initEntities(void)
     loco_makeStructArray(0x6DB6DC, "entity_t", 20000, "_entities");
 }
 
+static loco_initMapAnimations(void)
+{
+    loco_makeStubStruct("map_animation_t", 6);
+    loco_makeStructArray(0x94C6DC, "map_animation_t", 0x2000, "_mapAnimations");
+}
+
+static loco_initUserStrings(void)
+{
+    loco_makeStubStruct("str_32", 32);
+    loco_makeStructArray(0x95885C, "str_32", 0x800, "_userStrings");
+}
+
 static loco_initG1Elements(void)
 {
     auto id;
@@ -165,7 +180,7 @@ static loco_initG1Elements(void)
     loco_setStructFld(id, 0x0C, U16, "flags");
     loco_setStructFld(id, 0x0E, U16, "pad");
     
-    loco_makeStructArray(0x9E2424, "g1_element_t", 15811, "_g1Data");
+    loco_makeStructArray(0x9E2424, "g1_element_t", 0x4201A, "_g1Data");
 }
 
 static loco_makePointerArray(offset, count, name)
