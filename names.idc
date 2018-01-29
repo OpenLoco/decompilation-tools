@@ -469,9 +469,6 @@ static initNames(void)
     MakeName(0x009D9D64, "prompt_browse_title");
     MakeName(0x009D9E64, "prompt_browse_filter");
     MakeName(0x009D9E84, "prompt_browse_directory");
-    MakeName(0x009E2424, "g1_data");
-    MakeName(0x009E2428, "g1_elements_p4");
-    MakeName(0x009E242C, "g1_elements_p8");
     MakeName(0x00E025C4, "dirty_blocks");
     MakeName(0x00E04320, "screenshot_buffer");
     MakeName(0x00E04328, "screenshot_hfile");

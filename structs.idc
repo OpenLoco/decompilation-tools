@@ -8,6 +8,8 @@ static initStructs(void)
     loco_initIndustries();
     loco_initStation();
     loco_initObjects();
+    loco_initEntities();
+    loco_initG1Elements();
 }
 
 static loco_setStructMember(id, offset, name, type, size)
@@ -142,6 +144,28 @@ static loco_initStation(void)
 {
     loco_makeStubStruct("station_t", 0x3D2);
     loco_makeStructArray(0x5E6EDC, "station_t", 1024, "_stations");
+}
+
+static loco_initEntities(void)
+{
+    loco_makeStubStruct("entity_t", 128);
+    loco_makeStructArray(0x6DB6DC, "entity_t", 20000, "_entities");
+}
+
+static loco_initG1Elements(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("g1_element_t", 0x10);
+    loco_setStructFld(id, 0x00, U32, "offset");
+    loco_setStructFld(id, 0x04, U16, "width");
+    loco_setStructFld(id, 0x06, U16, "height");
+    loco_setStructFld(id, 0x08, U16, "x");
+    loco_setStructFld(id, 0x0A, U16, "y");
+    loco_setStructFld(id, 0x0C, U16, "flags");
+    loco_setStructFld(id, 0x0E, U16, "pad");
+    
+    loco_makeStructArray(0x9E2424, "g1_element_t", 15811, "_g1Data");
 }
 
 static loco_makePointerArray(offset, count, name)
