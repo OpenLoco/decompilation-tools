@@ -1,14 +1,7 @@
-#include "structs.idc"
-#include "widgets.idc"
-#include "strings.idc"
 #include <idc.idc>
 
-static main(void)
+static initNames(void)
 {
-    initWidgets();
-    initStructs();
-    initStrings();
-
     // Functions
     MakeName(0x004014DF, "fptc");
     MakeName(0x0040194E, "dsound_sound_load");
