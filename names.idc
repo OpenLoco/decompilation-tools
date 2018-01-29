@@ -152,6 +152,7 @@ static initNames(void)
     MakeName(0x0046148F, "reorganise_map_elements");
     MakeName(0x004616D6, "insert_map_element");
     MakeName(0x00462893, "vehicle_check_collision");
+    MakeName(0x004656BF, "paint_surface");
     MakeName(0x00467297, "map_element_height");
     MakeName(0x00468FD3, "show_gridlines");
     MakeName(0x00468FFE, "hide_gridlines");
