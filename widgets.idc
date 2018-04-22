@@ -64,6 +64,10 @@ static getEventName(event)
         return "get_scroll_size";
     }
 
+    if (event == 17) {
+        return "scroll_mouse_down";
+    }
+
     if (event == 20) {
         return "text_input";
     }
@@ -149,9 +153,87 @@ static loco_StructOffsetOp(id, address)
     OpStroffEx(address, 0, id, 0);
 }
 
+static loco_initEnumMember(id, prefix, name, val, mask)
+{
+    auto res;
+
+    name = form("%s%s", prefix, name);
+
+    res = GetConstByName(name);
+    if (res != -1) {
+        return;
+    }
+
+    res = AddConstEx(id, name, val, mask);
+    Message("%d\n", res);
+}
+
+static loco_initEnum(id, prefix)
+{
+    loco_initEnumMember(id, prefix, "main", 0, 0b1111111);
+    loco_initEnumMember(id, prefix, "toolbar_top", 1, 0b1111111);
+    loco_initEnumMember(id, prefix, "toolbar_player", 2, 0b1111111);
+    loco_initEnumMember(id, prefix, "toolbar_time", 3, 0b1111111);
+    loco_initEnumMember(id, prefix, "toolbar_bottom", 4, 0b1111111);
+    loco_initEnumMember(id, prefix, "tooltip", 6, 0b1111111);
+    loco_initEnumMember(id, prefix, "dropdown", 7, 0b1111111);
+    loco_initEnumMember(id, prefix, "about", 9, 0b1111111);
+    loco_initEnumMember(id, prefix, "about_atari", 10, 0b1111111);
+    loco_initEnumMember(id, prefix, "about_music", 11, 0b1111111);
+    loco_initEnumMember(id, prefix, "construction", 13, 0b1111111);
+    loco_initEnumMember(id, prefix, "prompt_savegame", 14, 0b1111111);
+    loco_initEnumMember(id, prefix, "terraform", 15, 0b1111111);
+    loco_initEnumMember(id, prefix, "title_menu", 16, 0b1111111);
+    loco_initEnumMember(id, prefix, "title_exit", 17, 0b1111111);
+    loco_initEnumMember(id, prefix, "scenario_select", 18, 0b1111111);
+    loco_initEnumMember(id, prefix, "keyboard_shortcuts", 19, 0b1111111);
+    loco_initEnumMember(id, prefix, "keyboard_shortcut_edit", 20, 0b1111111);
+    loco_initEnumMember(id, prefix, "map", 21, 0b1111111);
+    loco_initEnumMember(id, prefix, "title_logo", 22, 0b1111111);
+    loco_initEnumMember(id, prefix, "vehicle", 23, 0b1111111);
+    loco_initEnumMember(id, prefix, "station", 24, 0b1111111);
+    loco_initEnumMember(id, prefix, "drag_vehicle_part", 25, 0b1111111);
+    loco_initEnumMember(id, prefix, "company", 26, 0b1111111);
+    loco_initEnumMember(id, prefix, "vehicle_list", 27, 0b1111111);
+    loco_initEnumMember(id, prefix, "build_vehicle", 28, 0b1111111);
+    loco_initEnumMember(id, prefix, "station_list", 29, 0b1111111);
+    loco_initEnumMember(id, prefix, "object_selection", 31, 0b1111111);
+    loco_initEnumMember(id, prefix, "town_list", 32, 0b1111111);
+    loco_initEnumMember(id, prefix, "town", 33, 0b1111111);
+    loco_initEnumMember(id, prefix, "industry", 34, 0b1111111);
+    loco_initEnumMember(id, prefix, "industry_list", 35, 0b1111111);
+    loco_initEnumMember(id, prefix, "messages", 37, 0b1111111);
+    loco_initEnumMember(id, prefix, "multiplayer", 39, 0b1111111);
+    loco_initEnumMember(id, prefix, "options", 40, 0b1111111);
+    loco_initEnumMember(id, prefix, "music_selection", 41, 0b1111111);
+    loco_initEnumMember(id, prefix, "company_face_selection", 42, 0b1111111);
+    loco_initEnumMember(id, prefix, "landscape_generation", 43, 0b1111111);
+    loco_initEnumMember(id, prefix, "scenario_options", 45, 0b1111111);
+    loco_initEnumMember(id, prefix, "company_list", 48, 0b1111111);
+    loco_initEnumMember(id, prefix, "tutorial", 49, 0b1111111);
+    loco_initEnumMember(id, prefix, "prompt_confirm_displaymode", 50, 0b1111111);
+    loco_initEnumMember(id, prefix, "textinput", 51, 0b1111111);
+    loco_initEnumMember(id, prefix, "prompt_browse", 52, 0b1111111);
+    loco_initEnumMember(id, prefix, "prompt_okcancel", 54, 0b1111111);
+}
+
 static initWidgets(void)
 {
     auto id, i, enumWidget;
+
+    id = GetEnum("windowtype");
+    if (id == -1) {
+        id = AddEnum(-1, "windowtype", 0);
+        set_enum_bf(id, 1);
+    }
+    loco_initEnum(id, "wt_");
+
+    id = GetEnum("windowtype32");
+    if (id == -1) {
+        id = AddEnum(-1, "windowtype32", 0x1100000);
+        set_enum_bf(id, 1);
+    }
+    loco_initEnum(id, "wtf_");
 
     id = GetStrucIdByName("window_events_t");
     if (id == -1) {
@@ -399,6 +481,195 @@ static initWidgets(void)
     loco_StructOffsetOp(id, 0x4CE978);
     loco_StructOffsetOp(id, 0x4CE983);
 
+    set_cmt(0X4C1B2C, "wtf_build_vehicle", 1);
+    set_cmt(0X4C1C08, "wtf_build_vehicle", 1);
+    set_cmt(0X4C1C0D, "wtf_build_vehicle", 1);
+    set_cmt(0X4C1C60, "wtf_build_vehicle", 1);
+    set_cmt(0X4C368A, "wtf_build_vehicle", 1);
+    set_cmt(0X4C368F, "wtf_build_vehicle", 1);
+    set_cmt(0X4C3694, "wtf_build_vehicle", 1);
+    set_cmt(0X4C36F4, "wtf_build_vehicle", 1);
+    set_cmt(0X4C36F9, "wtf_build_vehicle", 1);
+    set_cmt(0X4C36FE, "wtf_build_vehicle", 1);
+    set_cmt(0X4C3784, "wtf_build_vehicle", 1);
+    set_cmt(0X435C75, "wtf_company_list", 1);
+    set_cmt(0X43629E, "wtf_company_list", 1);
+    set_cmt(0X4362A3, "wtf_company_list", 1);
+    set_cmt(0X4362C9, "wtf_company_list", 1);
+    set_cmt(0X43669F, "wtf_company_list", 1);
+    set_cmt(0X4369C3, "wtf_company_list", 1);
+    set_cmt(0X436CE7, "wtf_company_list", 1);
+    set_cmt(0X43700B, "wtf_company_list", 1);
+    set_cmt(0X437345, "wtf_company_list", 1);
+    set_cmt(0X437579, "wtf_company_list", 1);
+    set_cmt(0X4324AB, "wtf_company", 1);
+    set_cmt(0X4324B0, "wtf_company", 1);
+    set_cmt(0X432713, "wtf_company", 1);
+    set_cmt(0X432D8E, "wtf_company", 1);
+    set_cmt(0X433268, "wtf_company", 1);
+    set_cmt(0X4339A6, "wtf_company", 1);
+    set_cmt(0X433C86, "wtf_company", 1);
+    set_cmt(0X434037, "wtf_company", 1);
+    set_cmt(0X4340C3, "wtf_company", 1);
+    set_cmt(0X43426D, "wtf_company", 1);
+    set_cmt(0X435AEB, "wtf_company", 1);
+    set_cmt(0X49DA29, "wtf_construction", 1);
+    set_cmt(0X49DA2E, "wtf_construction", 1);
+    set_cmt(0X49DA63, "wtf_construction", 1);
+    set_cmt(0X49DCAB, "wtf_construction", 1);
+    set_cmt(0X49E440, "wtf_construction", 1);
+    set_cmt(0X49E778, "wtf_construction", 1);
+    set_cmt(0X49ECDA, "wtf_construction", 1);
+    set_cmt(0X4A22C8, "wtf_construction", 1);
+    set_cmt(0X4A230F, "wtf_construction", 1);
+    set_cmt(0X4A2588, "wtf_construction", 1);
+    set_cmt(0X4A25CF, "wtf_construction", 1);
+    set_cmt(0X4A3D03, "wtf_construction", 1);
+    set_cmt(0X4A3DD4, "wtf_construction", 1);
+    set_cmt(0X4A3E39, "wtf_construction", 1);
+    set_cmt(0X4A3E9E, "wtf_construction", 1);
+    set_cmt(0X4A5D6B, "wtf_construction", 1);
+    set_cmt(0X4A5D8E, "wtf_construction", 1);
+    set_cmt(0X4A6FD0, "wtf_construction", 1);
+    set_cmt(0X457812, "wtf_industry_list", 1);
+    set_cmt(0X45786A, "wtf_industry_list", 1);
+    set_cmt(0X45786F, "wtf_industry_list", 1);
+    set_cmt(0X458096, "wtf_industry_list", 1);
+    set_cmt(0X45809B, "wtf_industry_list", 1);
+    set_cmt(0X4580B7, "wtf_industry_list", 1);
+    set_cmt(0X4586A1, "wtf_industry_list", 1);
+    set_cmt(0X458B56, "wtf_industry_list", 1);
+    set_cmt(0X455D69, "wtf_industry", 1);
+    set_cmt(0X455D6E, "wtf_industry", 1);
+    set_cmt(0X455F09, "wtf_industry", 1);
+    set_cmt(0X45653E, "wtf_industry", 1);
+    set_cmt(0X4565EE, "wtf_industry", 1);
+    set_cmt(0X4569AA, "wtf_industry", 1);
+    set_cmt(0X456C46, "wtf_industry", 1);
+    set_cmt(0X43DADC, "wtf_landscape_generation", 1);
+    set_cmt(0X43DAE1, "wtf_landscape_generation", 1);
+    set_cmt(0X43DE11, "wtf_landscape_generation", 1);
+    set_cmt(0X43DE16, "wtf_landscape_generation", 1);
+    set_cmt(0X43DEA6, "wtf_landscape_generation", 1);
+    set_cmt(0X43E3E2, "wtf_landscape_generation", 1);
+    set_cmt(0X43E8F4, "wtf_landscape_generation", 1);
+    set_cmt(0X43EAD2, "wtf_landscape_generation", 1);
+    set_cmt(0X43EC8B, "wtf_landscape_generation", 1);
+    set_cmt(0X46B9EA, "wtf_map", 1);
+    set_cmt(0X46BA64, "wtf_map", 1);
+    set_cmt(0X42A495, "wtf_messages", 1);
+    set_cmt(0X42A49A, "wtf_messages", 1);
+    set_cmt(0X42A80E, "wtf_messages", 1);
+    set_cmt(0X42A813, "wtf_messages", 1);
+    set_cmt(0X42A82F, "wtf_messages", 1);
+    set_cmt(0X42AB73, "wtf_messages", 1);
+    set_cmt(0X42ABFE, "wtf_messages", 1);
+    set_cmt(0X46E345, "wtf_multiplayer", 1);
+    set_cmt(0X46E6D4, "wtf_multiplayer", 1);
+    set_cmt(0X46E6D9, "wtf_multiplayer", 1);
+    set_cmt(0X46EB77, "wtf_multiplayer", 1);
+    set_cmt(0X46EB7C, "wtf_multiplayer", 1);
+    set_cmt(0X46EC70, "wtf_multiplayer", 1);
+    set_cmt(0X46F2E9, "wtf_multiplayer", 1);
+    set_cmt(0X4BF815, "wtf_options", 1);
+    set_cmt(0X4BF81A, "wtf_options", 1);
+    set_cmt(0X4BF82F, "wtf_options", 1);
+    set_cmt(0X4BFDCC, "wtf_options", 1);
+    set_cmt(0X4BFDD1, "wtf_options", 1);
+    set_cmt(0X4C01FE, "wtf_options", 1);
+    set_cmt(0X4C04E9, "wtf_options", 1);
+    set_cmt(0X4C0A40, "wtf_options", 1);
+    set_cmt(0X4C1093, "wtf_options", 1);
+    set_cmt(0X4C119E, "wtf_options", 1);
+    set_cmt(0X4C13A5, "wtf_options", 1);
+    set_cmt(0X4468C4, "wtf_prompt_browse", 1);
+    set_cmt(0X4468CF, "wtf_prompt_browse", 1);
+    set_cmt(0X44713E, "wtf_prompt_okcancel", 1);
+    set_cmt(0X43EEF1, "wtf_scenario_options", 1);
+    set_cmt(0X43EEF6, "wtf_scenario_options", 1);
+    set_cmt(0X43F2BC, "wtf_scenario_options", 1);
+    set_cmt(0X43F2C1, "wtf_scenario_options", 1);
+    set_cmt(0X43F3F3, "wtf_scenario_options", 1);
+    set_cmt(0X43F8B6, "wtf_scenario_options", 1);
+    set_cmt(0X43FAF3, "wtf_scenario_options", 1);
+    set_cmt(0X44008B, "wtf_scenario_options", 1);
+    set_cmt(0X443EDB, "wtf_scenario_select", 1);
+    set_cmt(0X443EE2, "wtf_scenario_select", 1);
+    set_cmt(0X43A5C0, "wtf_station_list", 1);
+    set_cmt(0X491002, "wtf_station_list", 1);
+    set_cmt(0X491007, "wtf_station_list", 1);
+    set_cmt(0X49182F, "wtf_station_list", 1);
+    set_cmt(0X491834, "wtf_station_list", 1);
+    set_cmt(0X491927, "wtf_station_list", 1);
+    set_cmt(0X49192C, "wtf_station_list", 1);
+    set_cmt(0X491948, "wtf_station_list", 1);
+    set_cmt(0X48E5C7, "wtf_station", 1);
+    set_cmt(0X48E5CC, "wtf_station", 1);
+    set_cmt(0X48E6FA, "wtf_station", 1);
+    set_cmt(0X48EBA6, "wtf_station", 1);
+    set_cmt(0X48EE86, "wtf_station", 1);
+    set_cmt(0X48F12B, "wtf_station", 1);
+    set_cmt(0X4BB4B6, "wtf_terraform", 1);
+    set_cmt(0X4BB50E, "wtf_terraform", 1);
+    set_cmt(0X4BB513, "wtf_terraform", 1);
+    set_cmt(0X4BB552, "wtf_terraform", 1);
+    set_cmt(0X4BB562, "wtf_terraform", 1);
+    set_cmt(0X4BB572, "wtf_terraform", 1);
+    set_cmt(0X4BB582, "wtf_terraform", 1);
+    set_cmt(0X4BBCF7, "wtf_terraform", 1);
+    set_cmt(0X4BBCFC, "wtf_terraform", 1);
+    set_cmt(0X4BBEA9, "wtf_terraform", 1);
+    set_cmt(0X4BC341, "wtf_terraform", 1);
+    set_cmt(0X4BC4BC, "wtf_terraform", 1);
+    set_cmt(0X4BC50B, "wtf_terraform", 1);
+    set_cmt(0X4BC7AE, "wtf_terraform", 1);
+    set_cmt(0X4BCB2F, "wtf_terraform", 1);
+    set_cmt(0X4BCE9C, "wtf_terraform", 1);
+    set_cmt(0X4BF180, "wtf_terraform", 1);
+    set_cmt(0X4CE978, "wtf_textinput", 1);
+    set_cmt(0X4CE983, "wtf_textinput", 1);
+    set_cmt(0X499C96, "wtf_town_list", 1);
+    set_cmt(0X499CEE, "wtf_town_list", 1);
+    set_cmt(0X499CF3, "wtf_town_list", 1);
+    set_cmt(0X49A488, "wtf_town_list", 1);
+    set_cmt(0X49A48D, "wtf_town_list", 1);
+    set_cmt(0X49A4A9, "wtf_town_list", 1);
+    set_cmt(0X49A7FB, "wtf_town_list", 1);
+    set_cmt(0X49AE3A, "wtf_town_list", 1);
+    set_cmt(0X49B2BA, "wtf_town_list", 1);
+    set_cmt(0X49926F, "wtf_town", 1);
+    set_cmt(0X499274, "wtf_town", 1);
+    set_cmt(0X499394, "wtf_town", 1);
+    set_cmt(0X4996E5, "wtf_town", 1);
+    set_cmt(0X499920, "wtf_town", 1);
+    set_cmt(0X499A97, "wtf_town", 1);
+    set_cmt(0X4C19FD, "wtf_vehicle_list", 1);
+    set_cmt(0X4C1A94, "wtf_vehicle_list", 1);
+    set_cmt(0X4C1A99, "wtf_vehicle_list", 1);
+    set_cmt(0X4C24B8, "wtf_vehicle_list", 1);
+    set_cmt(0X4C24BD, "wtf_vehicle_list", 1);
+    set_cmt(0X4C25EE, "wtf_vehicle_list", 1);
+    set_cmt(0X4C25F3, "wtf_vehicle_list", 1);
+    set_cmt(0X4C25F8, "wtf_vehicle_list", 1);
+    set_cmt(0X4C2614, "wtf_vehicle_list", 1);
+    set_cmt(0X4B261F, "wtf_vehicle", 1);
+    set_cmt(0X4B2624, "wtf_vehicle", 1);
+    set_cmt(0X4B29BC, "wtf_vehicle", 1);
+    set_cmt(0X4B2D86, "wtf_vehicle", 1);
+    set_cmt(0X4B30FC, "wtf_vehicle", 1);
+    set_cmt(0X4B3C81, "wtf_vehicle", 1);
+    set_cmt(0X4B4610, "wtf_vehicle", 1);
+    set_cmt(0X4B55DA, "wtf_vehicle", 1);
+    set_cmt(0X4B599E, "wtf_vehicle", 1);
+    set_cmt(0X4B5D98, "wtf_vehicle", 1);
+    set_cmt(0X4B60D8, "wtf_vehicle", 1);
+    set_cmt(0X4B9488, "wtf_vehicle", 1);
+    set_cmt(0X4B9494, "wtf_vehicle", 1);
+    set_cmt(0X4C281B, "wtf_vehicle", 1);
+    set_cmt(0X49DA76, "ui::construction", 1);
+    set_cmt(0X49DA89, "ui::construction", 1);
+    set_cmt(0X49DA9C, "ui::construction", 1);
+
     enumWidget = GetEnum("widget_type");
     if (enumWidget == -1) {
         enumWidget = AddEnum(-1, "widget_type", 0);
@@ -418,6 +689,113 @@ static initWidgets(void)
     AddStrucMember(id, "bottom", 0X8, 0x10000400, -1, 2);
     AddStrucMember(id, "image", 0XA, 0x20000400, -1, 4);
     AddStrucMember(id, "tooltip", 0XE, 0x10000400, -1, 2);
+
+    op_stroff(0x0043913A, 1, id, 0);
+    op_stroff(0x0043913E, 1, id, 0);
+    op_stroff(0x00439147, 1, id, 0);
+    op_stroff(0x0043914B, 1, id, 0);
+    op_stroff(0x004C7A1E, 1, id, 0);
+    op_stroff(0x004C7A22, 1, id, 0);
+    op_stroff(0x004C7B95, 1, id, 0);
+    op_stroff(0x004C7B99, 1, id, 0);
+    op_stroff(0x004C90FB, 1, id, 0);
+    op_stroff(0x004CA1BF, 0, id, 0);
+    op_stroff(0x004CA1CE, 0, id, 0);
+    op_stroff(0x004CA606, 1, id, 0);
+    op_stroff(0x004CA614, 1, id, 0);
+    op_stroff(0x004CA626, 1, id, 0);
+    op_stroff(0x004CA634, 1, id, 0);
+    op_stroff(0x004CA67B, 1, id, 0);
+    op_stroff(0x004CA67F, 1, id, 0);
+    op_stroff(0x004CA683, 1, id, 0);
+    op_stroff(0x004CA687, 1, id, 0);
+    op_stroff(0x004CA6B0, 1, id, 0);
+    op_stroff(0x004CA6B4, 1, id, 0);
+    op_stroff(0x004CA6B8, 1, id, 0);
+    op_stroff(0x004CA6BC, 1, id, 0);
+    op_stroff(0x004CA704, 1, id, 0);
+    op_stroff(0x004CA708, 1, id, 0);
+    op_stroff(0x004CA71C, 1, id, 0);
+    op_stroff(0x004CA720, 1, id, 0);
+    op_stroff(0x004CA735, 1, id, 0);
+    op_stroff(0x004CA75A, 1, id, 0);
+    op_stroff(0x004CA76F, 1, id, 0);
+    op_stroff(0x004CA77B, 1, id, 0);
+    op_stroff(0x004CA77F, 1, id, 0);
+    op_stroff(0x004CA7B9, 1, id, 0);
+    op_stroff(0x004CA800, 1, id, 0);
+    op_stroff(0x004CA815, 1, id, 0);
+    op_stroff(0x004CA821, 1, id, 0);
+    op_stroff(0x004CA825, 1, id, 0);
+    op_stroff(0x004CA85F, 1, id, 0);
+    op_stroff(0x004CA895, 1, id, 0);
+    op_stroff(0x004CA8AA, 1, id, 0);
+    op_stroff(0x004CA8B6, 1, id, 0);
+    op_stroff(0x004CA8BA, 1, id, 0);
+    op_stroff(0x004CA8F4, 1, id, 0);
+    op_stroff(0x004CA964, 1, id, 0);
+    op_stroff(0x004CA968, 1, id, 0);
+    op_stroff(0x004CA96C, 1, id, 0);
+    op_stroff(0x004CA970, 1, id, 0);
+    op_stroff(0x004CAABB, 1, id, 0);
+    op_stroff(0x004CAABF, 1, id, 0);
+    op_stroff(0x004CAAC3, 1, id, 0);
+    op_stroff(0x004CAB0A, 1, id, 0);
+    op_stroff(0x004CAB0E, 1, id, 0);
+    op_stroff(0x004CAB5A, 1, id, 0);
+    op_stroff(0x004CAB5E, 1, id, 0);
+    op_stroff(0x004CAB62, 1, id, 0);
+    op_stroff(0x004CAB66, 1, id, 0);
+    op_stroff(0x004CABB5, 1, id, 0);
+    op_stroff(0x004CABB9, 1, id, 0);
+    op_stroff(0x004CABFE, 1, id, 0);
+    op_stroff(0x004CAC1A, 0, id, 0);
+    op_stroff(0x004CAC24, 0, id, 0);
+    op_stroff(0x004CAC43, 1, id, 0);
+    op_stroff(0x004CAC47, 1, id, 0);
+    op_stroff(0x004CAC5F, 1, id, 0);
+    op_stroff(0x004CACA6, 1, id, 0);
+    op_stroff(0x004CACAA, 1, id, 0);
+    op_stroff(0x004CACEC, 1, id, 0);
+    op_stroff(0x004CACF0, 1, id, 0);
+    op_stroff(0x004CACF4, 1, id, 0);
+    op_stroff(0x004CACF8, 1, id, 0);
+    op_stroff(0x004CAD37, 0, id, 0);
+    op_stroff(0x004CAD4E, 1, id, 0);
+    op_stroff(0x004CADAC, 0, id, 0);
+    op_stroff(0x004CADE8, 1, id, 0);
+    op_stroff(0x004CADEC, 1, id, 0);
+    op_stroff(0x004CADF8, 0, id, 0);
+    op_stroff(0x004CADFE, 0, id, 0);
+    op_stroff(0x004CAE04, 0, id, 0);
+    op_stroff(0x004CAE0A, 0, id, 0);
+    op_stroff(0x004CB011, 1, id, 0);
+    op_stroff(0x004CB01D, 1, id, 0);
+    op_stroff(0x004CB08E, 1, id, 0);
+    op_stroff(0x004CB166, 1, id, 0);
+    op_stroff(0x004CB16A, 1, id, 0);
+    op_stroff(0x004CB16E, 1, id, 0);
+    op_stroff(0x004CB172, 1, id, 0);
+    op_stroff(0x004CB1BE, 1, id, 0);
+    op_stroff(0x004CB1CA, 1, id, 0);
+    op_stroff(0x004CB1CE, 1, id, 0);
+    op_stroff(0x004CB1D2, 1, id, 0);
+    op_stroff(0x004CB1DD, 1, id, 0);
+    op_stroff(0x004CB1E3, 1, id, 0);
+    op_stroff(0x004CB1EF, 0, id, 0);
+    op_stroff(0x004CB217, 0, id, 0);
+    op_stroff(0x004CB21D, 1, id, 0);
+    op_stroff(0x004CB22C, 1, id, 0);
+    op_stroff(0x004CB230, 1, id, 0);
+    op_stroff(0x004CB267, 1, id, 0);
+    op_stroff(0x004CB26B, 1, id, 0);
+    op_stroff(0x004CB29E, 1, id, 0);
+    op_stroff(0x004CB2A2, 1, id, 0);
+    op_stroff(0x004CB2A6, 1, id, 0);
+    op_stroff(0x004CB2AA, 1, id, 0);
+    op_stroff(0x004CB2D6, 1, id, 0);
+    op_stroff(0x004CB2E2, 1, id, 0);
+    op_stroff(0x004CB2E6, 1, id, 0);
 
     LocoWidgetSet(enumWidget, 0x508C8C, 0x4F8D64, "ui::window_36::_widgets_1");
     LocoWidgetSet(enumWidget, 0x508CF0, 0x4F8D64, "ui::window_36::_widgets_0");
