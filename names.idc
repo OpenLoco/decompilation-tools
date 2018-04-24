@@ -237,6 +237,7 @@ static initNames(void)
     MakeName(0x00495685, "gfx_get_string_width");
     MakeName(0x00495715, "gfx_get_string_width_new_lined");
     MakeName(0x004957C4, "gfx::clip_string");
+    SetType(0X4957C4, "__int16 __usercall gfx__clip_string@<cx>(__int16 width@<di>, void *buffer@<esi>);");
     MakeName(0x004958C6, "format_string");
     MakeName(0x0049598C, "formatSprite");
     MakeName(0x004959F3, "formatDistance");
@@ -366,6 +367,7 @@ static initNames(void)
     MakeName(0x004CB29C, "wdgt_17");
     MakeName(0x004CB8D8, "wdgt_0");
     MakeName(0x004CB966, "window_invalidate_by_id");
+    SetType(0x004CB966, "void __usercall window_invalidate_by_id(windowtype windowtype@<al.4>, __int16 number@<bx>);");
     MakeName(0x004CBA2D, "station_invalidate");
     MakeName(0x004CBE5F, "map_invalidate_tile_full");
     MakeName(0x004CC692, "window_close_by_id");

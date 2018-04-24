@@ -595,6 +595,10 @@ static loco_initWindow(void)
     op_stroff(0x004C253E, 0, id, 0);
     op_stroff(0x004C2547, 1, id, 0);
     op_stroff(0x004C2570, 1, id, 0);
+    op_stroff(0x0043281A, 1, id, 0);
+    op_stroff(0x00432A21, 1, id, 0);
+    op_stroff(0x00435008, 0, id, 0);
+    op_stroff(0x00435024, 1, id, 0);
     op_stroff(0x004C2640, 0, id, 0);
     op_stroff(0x004C27F8, 1, id, 0);
     op_stroff(0x004C2819, 1, id, 0);
@@ -848,8 +852,6 @@ static loco_initWindow(void)
     op_stroff(0x004CE8EF, 1, id, 0);
 
     loco_makeStructArray(0x11370AC, "window_t", 12, "_windows");
-
-    loco_StructOffsetOp(id, 0x4CE983);
 }
 
 static loco_initCompany(void)

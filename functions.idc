@@ -42,4 +42,13 @@ static initFunctions(void)
     add_func(0x004C7903, 0x004C7AE7);
     add_func(0x004C7AE7, 0x004C8048);
     add_func(0x004C8048, 0x004C877D);
+
+    del_func(0X4395A4);
+    del_func(0x4395B1);
+    del_func(0x4395BC);
+    add_func(0X4395A4, 0X4395B1);
+    add_func(0X4395B1, 0X4395BC);
+    add_func(0X4395BC, 0X4395C7);
+    add_func(0X4395C7, 0X4395D6);
+    add_func(0X4395D6, 0X4395DE);
 }
