@@ -3,6 +3,7 @@
 static initStructs(void)
 {
     loco_initWindow();
+    loco_initViewport();
     loco_initCompany();
     loco_initTown();
     loco_initIndustries();
@@ -963,6 +964,43 @@ static loco_initWindow(void)
     op_stroff(0x004CEE91, 1, id, 0);
 
     loco_makeStructArray(0x11370AC, "window_t", 12, "_windows");
+}
+
+static loco_initViewport(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("viewport_t", 0x14);
+    loco_setStructFld(id, 0x00, U16, "width");
+    loco_setStructFld(id, 0x02, U16, "height");
+    loco_setStructFld(id, 0x04, U16, "x");
+    loco_setStructFld(id, 0x06, U16, "y");
+    loco_setStructFld(id, 0x08, U16, "view_x");
+    loco_setStructFld(id, 0x0A, U16, "view_y");
+    loco_setStructFld(id, 0x0C, U16, "view_width");
+    loco_setStructFld(id, 0x0E, U16, "view_height");
+    loco_setStructFld(id, 0x10, U8, "zoom");
+    loco_setStructVar(id, 0x12, U16);
+
+    op_stroff(0x0045F05A, 1, id, 0); // viewport_t
+    op_stroff(0x0045F05D, 1, id, 0); // viewport_t
+    op_stroff(0x0045F067, 1, id, 0); // viewport_t
+    op_stroff(0x0045F06B, 1, id, 0); // viewport_t
+    op_stroff(0x0045F098, 1, id, 0); // viewport_t
+    op_stroff(0x0045F09C, 1, id, 0); // viewport_t
+    op_stroff(0x0045F0A6, 1, id, 0); // viewport_t
+    op_stroff(0x0045F0AA, 1, id, 0); // viewport_t
+    op_stroff(0x0045F0D3, 0, id, 0); // viewport_t
+    op_stroff(0x0045F0D7, 0, id, 0); // viewport_t
+    op_stroff(0x0045FCF7, 1, id, 0); // viewport_t
+    op_stroff(0x0045FCFD, 1, id, 0); // viewport_t
+    op_stroff(0x0045FD02, 1, id, 0); // viewport_t
+    op_stroff(0x0045FD08, 1, id, 0); // viewport_t
+    op_stroff(0x0045FD0E, 1, id, 0); // viewport_t
+    op_stroff(0x0045FD19, 1, id, 0); // viewport_t
+    op_stroff(0x0045FD1D, 1, id, 0); // viewport_t
+
+    loco_makeStructArray(0x113D758, "viewport_t", 10, "_viewports");
 }
 
 static loco_initCompany(void)
