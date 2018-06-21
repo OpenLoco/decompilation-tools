@@ -119,6 +119,8 @@ static initNames(void)
     MakeName(0x00445A30, "get_tutorial_scenario_filename");
     MakeName(0x00445AB9, "window_load_game_open");
     MakeName(0x00446CF4, "editor_object_flags_free");
+    MakeName(0x00446E2F, "up_one_level");
+    MakeName(0x00446E62, "append_directory_name");
     MakeName(0x00446F6B, "window_prompt_ok_cancel_open");
     MakeName(0x0044733C, "load_g1");
     MakeName(0x00447485, "gfx_clear");
@@ -147,6 +149,7 @@ static initNames(void)
     MakeName(0x00452DA4, "gfx_draw_line");
     MakeName(0x0045308A, "gfx_draw_line_on_buffer");
     MakeName(0x004530F8, "set_vehicle_type_image_max_sizes");
+    MakeName(0x00459E54, "get_map_coordinates_from_pos");
     MakeName(0x0045A0E7, "viewport_render");
     MakeName(0x0045A1A4, "viewport_paint");
     MakeName(0x0045A3EB, "paint1a");
@@ -167,6 +170,10 @@ static initNames(void)
     MakeName(0x0045B8B9, "paint4d");
     MakeName(0x0045E779, "paint_attach_to_previous_ps");
     MakeName(0x0045E7B5, "paint_arrange_structs");
+    MakeName(0x0045EFDB, "viewport_zoom_in");
+    MakeName(0x0045F015, "viewport_zoom_out");
+    MakeName(0x0045F04F, "viewport_rotate_right");
+    MakeName(0x0045F0ED, "viewport_rotate_left");
     MakeName(0x0045F1A7, "screen_get_map_xy");
     MakeName(0x0045FD8E, "screen_pos_to_map_pos");
     MakeName(0x0045FE05, "screen_get_map_xy_quadrant_with_z");
@@ -239,6 +246,7 @@ static initNames(void)
     MakeName(0x004957C4, "gfx::clip_string");
     SetType(0X4957C4, "__int16 __usercall gfx__clip_string@<cx>(__int16 width@<di>, void *buffer@<esi>);");
     MakeName(0x004958C6, "format_string");
+    MakeName(0x0049593C, "format_string_part");
     MakeName(0x0049598C, "formatSprite");
     MakeName(0x004959F3, "formatDistance");
     MakeName(0x00495A2F, "formatHeight");
@@ -313,6 +321,7 @@ static initNames(void)
     MakeName(0x004C5DD5, "gfx_redraw_screen_rect");
     MakeName(0x004C5EA9, "window_draw");
     MakeName(0x004C6118, "window_update_all");
+    MakeName(0x004C6456, "viewports_update_position");
     MakeName(0x004C68E4, "viewport_move");
     MakeName(0x004C6E65, "update_cursor_position");
     MakeName(0x004C6EE6, "game_get_next_input");
@@ -380,6 +389,7 @@ static initNames(void)
     MakeName(0x004CCC7C, "show_text_dropdown_2");
     MakeName(0x004CCDE7, "show_image_dropdown");
     MakeName(0x004CCF8C, "show_colour_dropdown");
+    MakeName(0x004CD296, "relocate_windows");
     MakeName(0x004CD3A9, "window_bring_to_front_by_id");
     SetType(0x004CD3A9, "void __usercall window_bring_to_front_by_id(windowtype windowtype@<cl.4>);");
     MakeName(0x004CD3D0, "window_dispatch_update_all");
@@ -476,6 +486,7 @@ static initNames(void)
     MakeName(0x0052336F, "_pressedWindowType");
     MakeName(0x00523370, "_pressedWindowNumber");
     MakeName(0x00523372, "_pressedWidgetIndex");
+    MakeName(0x00523376, "_clickRepeatTicks");
     MakeName(0x00523378, "_dragLastX");
     MakeName(0x0052337A, "_dragLastY");
     MakeName(0x0052337C, "_dragWindowNumber");
@@ -495,6 +506,7 @@ static initNames(void)
     MakeName(0x00523393, "current_tool");
     MakeName(0x00523394, "tool_widget_index");
     MakeName(0x00523398, "_currentScrollIndex");
+    MakeName(0x00523398, "_currentScrollOffset");
     MakeName(0x005233A4, "last_scroll_cursor_x");
     MakeName(0x005233A6, "last_scroll_cursor_y");
     MakeName(0x005233A8, "hover_type");
@@ -521,6 +533,7 @@ static initNames(void)
     MakeName(0x00525314, "ppv");
     MakeName(0x00525320, "hWnd");
     MakeName(0x00525330, "cursor_wheel");
+    MakeName(0x00525374, "_cursor_drag_state");
     MakeName(0x00525380, "key_queue_write_index");
     MakeName(0x00525384, "key_queue_read_index");
     MakeName(0x00525394, "input_queue_index");
@@ -591,7 +604,6 @@ static initNames(void)
     MakeName(0x011369A0, "textinput_buffer");
     MakeName(0x01136F94, "window_dropdown_onpaint_cell_x");
     MakeName(0x01136F96, "window_dropdown_onpaint_cell_y");
-    MakeName(0x011370AC, "window_list");
     MakeName(0x0113D754, "new_window_pointer");
     MakeName(0x0113D820, "new_viewport_pointer");
     MakeName(0x0113D84C, "dropdown_num_items");
