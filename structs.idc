@@ -51,19 +51,28 @@ static loco_makeStubStruct(name, size)
 #define U8 0
 #define U16 1
 #define U32 2
+#define U64 6
 #define S8 3
 #define S16 4
 #define S32 5
+#define S64 7
+
+static loco_setStructFldArray(id, offset, type, name, count)
+{
+    if (type == U8 || type == S8) {
+        loco_setStructMember(id, offset, name, FF_BYTE | FF_DATA, 1 * count);
+    } else if (type == U16 || type == S16) {
+        loco_setStructMember(id, offset, name, FF_WORD | FF_DATA, 2 * count);
+    } else if (type == U32 || type == S32) {
+        loco_setStructMember(id, offset, name, FF_DWRD | FF_DATA, 4 * count);
+    } else if (type == U64 || type == S64) {
+        loco_setStructMember(id, offset, name, FF_QWRD | FF_DATA, 8 * count);
+    }
+}
 
 static loco_setStructFld(id, offset, type, name)
 {
-    if (type == U8 || type == S8) {
-        loco_setStructMember(id, offset, name, FF_BYTE | FF_DATA, 1);
-    } else if (type == U16 || type == S16) {
-        loco_setStructMember(id, offset, name, FF_WORD | FF_DATA, 2);
-    } else if (type == U32 || type == S32) {
-        loco_setStructMember(id, offset, name, FF_DWRD | FF_DATA, 4);
-    }
+    loco_setStructFldArray(id, offset, type, name, 1);
 }
 
 static loco_setStructVar(id, offset, type)
@@ -92,14 +101,18 @@ static loco_initWindow(void)
     loco_setStructVar(id, 0x0E, U16);
     loco_setStructVar(id, 0x10, U16);
 
+    id = loco_makeStubStruct("viewport_config_t", 0x6);
+    loco_setStructFld(id, 0x00, U16, "viewport_target_sprite");
+    loco_setStructFld(id, 0x02, U16, "saved_view_x");
+    loco_setStructFld(id, 0x04, U16, "saved_view_y");
+
     id = loco_makeStubStruct("window_t", 0x88E);
     loco_setStructFld(id, 0x000, U32, "event_handlers");
-    loco_setStructVar(id, 0x004, U32);
-    loco_setStructFld(id, 0x00C, U32, "enabled_widgets");
-    loco_setStructVar(id, 0x010, U32);
-    loco_setStructVar(id, 0x014, U32);
-    loco_setStructVar(id, 0x01c, U32);
-    loco_setStructVar(id, 0x024, U32);
+    loco_setStructFldArray(id, 0x004, U32, "viewports", 2);
+    loco_setStructFld(id, 0x00C, U64, "enabled_widgets");
+    loco_setStructFld(id, 0x014, U64, "disabled_widgets");
+    loco_setStructFld(id, 0x01C, U64, "activated_widgets");
+    loco_setStructFld(id, 0x024, U64, "holdable_widgets");
     loco_setStructFld(id, 0x02C, U32, "widgets");
     loco_setStructFld(id, 0x030, U16, "x");
     loco_setStructFld(id, 0x032, U16, "y");
@@ -110,18 +123,16 @@ static loco_initWindow(void)
     loco_setStructFld(id, 0x03C, U16, "min_height");
     loco_setStructFld(id, 0x03E, U16, "max_height");
     loco_setStructFld(id, 0x040, U16, "number");
-    loco_setStructVar(id, 0x042, U32);
+    loco_setStructFld(id, 0x042, U32, "flags");
     loco_setStructSub(id, 0x046, "scroll_t", "scroll", 3);
     loco_setStructVar(id, 0x848, U32);
     loco_setStructVar(id, 0x84C, U32);
     loco_setStructVar(id, 0x870, U16);
     loco_setStructVar(id, 0x872, U16);
-    loco_setStructFld(id, 0x876, U16, "thing");
-    loco_setStructVar(id, 0x878, U16);
-    loco_setStructVar(id, 0x87A, U16);
+    loco_setStructSub(id, 0x876, "viewport_config_t", "viewport_configurations", 2);
     loco_setStructFld(id, 0x882, U8, "type");
     loco_setStructVar(id, 0x884, U8);
-    loco_setStructVar(id, 0x886, U8);
+    loco_setStructFldArray(id, 0x886, U8, "colours", 4);
 
     op_stroff(0x004290A7, 0, id, 0);
     op_stroff(0x004290AE, 0, id, 0);
