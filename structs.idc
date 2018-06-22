@@ -12,6 +12,7 @@ static initStructs(void)
     loco_initG1Elements();
     loco_initUserStrings();
     loco_initDropdowns();
+    loco_initGFX();
 
     loco_makePointerArray(0xE40134, 0x30000, "tile_map_element_pointers");
 }
@@ -30,8 +31,14 @@ static loco_makeStructArray(offset, type, count, name)
     MakeUnknown(offset, count * size, 1 | 2);
     MakeStruct(offset, type);
     MakeName(offset, name);
-    MakeArray(offset, count);
+    if (count > 1)
+        MakeArray(offset, count);
     SetColor(offset, CIC_ITEM, 0xFFFFFF);
+}
+
+static loco_makeStruct(offset, type, name)
+{
+    loco_makeStructArray(offset, type, 1, name);
 }
 
 static loco_makeStubStruct(name, size)
@@ -1081,4 +1088,21 @@ static loco_initDropdowns(void)
     loco_makeStubStruct("dropdown_format_args_t", 0x8);
     loco_makeStructArray(0x113D8A0, "dropdown_format_args_t", 40, "_dropdownItemFormatArgs1");
     loco_makeStructArray(0x113D9E0, "dropdown_format_args_t", 40, "_dropdownItemFormatArgs2");
+}
+
+static loco_initGFX(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("drawpixelinfo_t", 0x10);
+    loco_setStructFld(id, 0x00, U32, "bits");
+    loco_setStructFld(id, 0x04, U16, "x");
+    loco_setStructFld(id, 0x06, U16, "y");
+    loco_setStructFld(id, 0x08, U16, "width");
+    loco_setStructFld(id, 0x0A, U16, "height");
+    loco_setStructFld(id, 0x0C, U16, "pitch");
+    loco_setStructFld(id, 0x0E, U16, "zoom_level");
+
+    loco_makeStruct(0x0050B884, "drawpixelinfo_t", "screen_dpi");
+    loco_makeStruct(0x005233B8, "drawpixelinfo_t", "window_dpi");
 }

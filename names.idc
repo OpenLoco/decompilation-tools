@@ -448,12 +448,6 @@ static initNames(void)
     MakeName(0x0050B518, "path_landscapes");
     MakeName(0x0050B635, "path_objects");
     MakeName(0x0050B85C, "g1_buffer");
-    MakeName(0x0050B884, "screen_dpi");
-    MakeName(0x0050B888, "screen_dpi_left");
-    MakeName(0x0050B88A, "screen_dpi_top");
-    MakeName(0x0050B88C, "screen_dpi_width");
-    MakeName(0x0050B88E, "screen_dpi_height");
-    MakeName(0x0050B890, "screen_dpi_pitch");
     MakeName(0x0050B894, "ui_width");
     MakeName(0x0050B896, "ui_height");
     MakeName(0x0050B8A0, "dirty_blocks_width");
@@ -509,12 +503,6 @@ static initNames(void)
     MakeName(0x005233AA, "hover_number");
     MakeName(0x005233AC, "hover_widget_index");
     MakeName(0x005233B6, "modal_window_type");
-    MakeName(0x005233B8, "window_dpi_dst_ptr");
-    MakeName(0x005233BC, "window_dpi_left");
-    MakeName(0x005233BE, "window_dpi_top");
-    MakeName(0x005233C0, "window_dpi_width");
-    MakeName(0x005233C2, "window_dpi_height");
-    MakeName(0x005233C4, "window_dpi_pitch");
     MakeName(0x00523814, "cchMultiByte");
     MakeName(0x00524120, "uTimerID");
     MakeName(0x0052412C, "Target");
