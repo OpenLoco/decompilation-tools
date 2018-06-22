@@ -8,7 +8,6 @@ static initStructs(void)
     loco_initTown();
     loco_initIndustries();
     loco_initStation();
-    loco_initObjects();
     loco_initEntities();
     loco_initG1Elements();
     loco_initUserStrings();
