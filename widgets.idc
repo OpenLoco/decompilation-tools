@@ -30,67 +30,67 @@ static LocoWidgetSet(enumWidget, layoutAddr, eventAddr, name)
     LocoEvents(eventAddr, name, "", form("%s::_events", name));
 }
 
-static getEventName(event)
+static get3(index, a, b, c)
 {
-    if (event == 0) {
-        return "on_close";
+    if (index == 0)
+        return a;
+    if (index == 1)
+        return b;
+    if (index == 2)
+        return c;
+}
+
+static getEventName(event, i)
+{
+    if (event == 0)
+        return get3(i, "void", "on_close", "");
+    if (event == 1)
+        return get3(i, "void", "on_mouse_up", "__int16 widgetIndex@<dx>, widget_t * widget@<edi>");
+    if (event == 2)
+        return get3(i, "void", "on_resize", "");
+
+    if (i == 0 || i == 2) {
+        return "";
     }
 
-    if (event == 1) {
-        return "on_mouse_up";
-    }
-
-    if (event == 2) {
-        return "on_resize";
-    }
-
-    if (event == 4) {
+    if (event == 4)
         return "on_mouse_down";
-    }
-
-    if (event == 5) {
+    if (event == 5)
         return "on_dropdown";
-    }
 
-    if (event == 7) {
+    if (event == 7)
         return "on_update";
-    }
 
-    if (event == 14) {
+    if (event == 11)
+        return "tool_down";
+
+    if (event == 14)
         return "tool_abort";
-    }
 
-    if (event == 16) {
+    if (event == 16)
         return "get_scroll_size";
-    }
-
-    if (event == 17) {
+    if (event == 17)
         return "scroll_mouse_down";
-    }
 
-    if (event == 20) {
+    if (event == 19)
+        return "scroll_mouse_over";
+    if (event == 20)
         return "text_input";
-    }
+    if (event == 21)
+        return "viewport_rotate";
 
-    if (event == 23) {
+    if (event == 23)
         return "tooltip";
-    }
-
-    if (event == 24) {
+    if (event == 24)
         return "cursor";
-    }
-
-    if (event == 26) {
-        return "invalidate";
-    }
-
-    if (event == 27) {
+    if (event == 25)
+        return "on_move";
+    if (event == 26)
+        return "prepare_draw";
+    if (event == 27)
         return "draw";
-    }
-
-    if (event == 28) {
-        return "scroll_paint";
-    }
+    if (event == 28)
+        return "draw_scroll";
 
     return form("%d", event);
 }
@@ -122,7 +122,17 @@ static LocoEvents(addr, prefix, suffix, basename)
             MakeName(offset, form("nullsub_%x", offset)); // SN_AUTO | SN_NOWARN
             continue;
         }
-        MakeName(offset, form("%s::event%s_%s", prefix, suffix, getEventName(i)));
+        MakeName(offset, form("%s::event%s_%s", prefix, suffix, getEventName(i, 1)));
+
+        auto retval, args;
+        retval = getEventName(i, 0);
+        args = getEventName(i, 2);
+        if (retval != "") {
+            if (args != "")
+                args = ", " + args;
+
+            SetType(offset, sprintf("%s __usercall fn(window_t * window@<esi>%s);", retval, args));
+        }
     }
 }
 
@@ -704,15 +714,16 @@ static initWidgets(void)
     if (id == -1) {
         id = AddStruc(-1, "window_events_t");
         for (i = 0; i <= 28; i++) {
-            AddStrucMember(id, form("event_%s", getEventName(i)), i * 4, FF_DWRD | FF_DATA | FF_0OFF, 0, 4);
+            AddStrucMember(id, form("event_%s", getEventName(i, 1)), i * 4, FF_DWRD | FF_DATA | FF_0OFF, 0, 4);
         }
     } else {
         for (i = 0; i <= 28; i++) {
-            SetMemberName(id, i * 4, form("event_%s", getEventName(i)));
+            SetMemberName(id, i * 4, form("event_%s", getEventName(i, 1)));
             SetMemberType(id, i * 4, FF_DWRD | FF_DATA | FF_0OFF, 0, 1);
         }
     }
 
+    loco_StructOffsetOp(id, 0x4C6462);
     loco_StructOffsetOp(id, 0x42A495);
     loco_StructOffsetOp(id, 0x42A49A);
     loco_StructOffsetOp(id, 0x42A80E);
@@ -1157,6 +1168,16 @@ static initWidgets(void)
     AddStrucMember(id, "image", 0XA, 0x20000400, -1, 4);
     AddStrucMember(id, "tooltip", 0XE, 0x10000400, -1, 2);
 
+    op_stroff(0x004C9547, 1, id, 0);
+    op_stroff(0x004C8505, 1, id, 0);
+    op_stroff(0x004C856B, 1, id, 0);
+    op_stroff(0x004C856F, 1, id, 0);
+    op_stroff(0x004C9554, 1, id, 0);
+    op_stroff(0x004C9561, 1, id, 0);
+    op_stroff(0x004C956E, 1, id, 0);
+    op_stroff(0x004C9530, 1, id, 0);
+    op_stroff(0x004C7A18, 1, id, 0);
+    op_stroff(0x004CA138, 0, id, 0);
     op_stroff(0x0043913A, 1, id, 0);
     op_stroff(0x0043913E, 1, id, 0);
     op_stroff(0x00439147, 1, id, 0);
