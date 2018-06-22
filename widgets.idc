@@ -917,7 +917,6 @@ static initWidgets(void)
     loco_StructOffsetOp(id, 0x4C60D2);
     loco_StructOffsetOp(id, 0x4C60DC);
     loco_StructOffsetOp(id, 0x4C61C3);
-    loco_StructOffsetOp(id, 0x4C6462);
     loco_StructOffsetOp(id, 0x4C6637);
     loco_StructOffsetOp(id, 0x4C72B0);
     loco_StructOffsetOp(id, 0x4C73BD);

@@ -517,6 +517,9 @@ static loco_initWindow(void)
     op_stroff(0x00443EB7, 0, id, 0);
     op_stroff(0x00443EC9, 0, id, 0);
     op_stroff(0x00443F01, 1, id, 0);
+    op_stroff(0x004464C3, 1, id, 0);
+    op_stroff(0x004464D9, 1, id, 0);
+    op_stroff(0x004464E6, 0, id, 0);
     op_stroff(0x00457F55, 0, id, 0);
     op_stroff(0x00457FA1, 0, id, 0);
     op_stroff(0x00457FBC, 1, id, 0);
