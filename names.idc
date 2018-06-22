@@ -421,10 +421,6 @@ static initNames(void)
     MakeName(0x004D72EC, "lpClassName");
     MakeName(0x004FAE28, "file_paths");
     MakeName(0x004FD2E8, "map_animation_event_handlers");
-    MakeName(0x004FE0B8, "entry_pointers");
-    MakeName(0x004FE0BC, "entry_pointers_p4");
-    MakeName(0x004FE1C8, "paint_entry_table");
-    MakeName(0x004FE250, "object_entry_group_counts");
     MakeName(0x004FE3A6, "window_editor_object_selection_default_objects_flags");
     MakeName(0x004FEF98, "month_table");
     MakeName(0x00503DD0, "keyboard_shortcut_actions");
