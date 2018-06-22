@@ -45,52 +45,48 @@ static getEventName(event, i)
     if (event == 0)
         return get3(i, "void", "on_close", "");
     if (event == 1)
-        return get3(i, "void", "on_mouse_up", "__int16 widgetIndex@<dx>, widget_t * widget@<edi>");
+        return get3(i, "void", "on_mouse_up", "__int32 widgetIndex@<edx>, widget_t * widget@<edi>");
     if (event == 2)
         return get3(i, "void", "on_resize", "");
 
-    if (i == 0 || i == 2) {
-        return "";
-    }
-
     if (event == 4)
-        return "on_mouse_down";
+        return get3(i, "void", "on_mouse_down", "__int32 widgetIndex@<edx>, widget_t * widget@<edi>");
     if (event == 5)
-        return "on_dropdown";
+        return get3(i, "void", "on_dropdown", "__int32 widgetIndex@<edx>, __int16 itemIndex@<ax>");
 
     if (event == 7)
-        return "on_update";
+        return get3(i, "void", "on_update", "");
 
     if (event == 11)
-        return "tool_down";
+        return get3(i, "__int32 @<edi>", "on_tool_down", "__int16 x@<ax>, __int16 y@<cx>, __int8 bool@<bl>, __int32 cursor@<edi>");
 
     if (event == 14)
-        return "tool_abort";
+        return get3(i, "void", "tool_abort", "");
 
     if (event == 16)
-        return "get_scroll_size";
+        return get3(i, "void", "get_scroll_size", "__int32 scrollIndex@<eax>, __int16 width@<cx>, __int16 height@<dx>");
     if (event == 17)
-        return "scroll_mouse_down";
+        return get3(i, "void", "scroll_mouse_down", "");
 
     if (event == 19)
-        return "scroll_mouse_over";
+        return get3(i, "void", "scroll_mouse_over", "");
     if (event == 20)
-        return "text_input";
+        return get3(i, "void", "text_input", "");
     if (event == 21)
-        return "viewport_rotate";
+        return get3(i, "void", "viewport_rotate", "");
 
     if (event == 23)
-        return "tooltip";
+        return get3(i, "__int16@<ax>", "tooltip", "__int16 widgetIndex@<ax>");
     if (event == 24)
-        return "cursor";
+        return get3(i, "void", "cursor", "");
     if (event == 25)
-        return "on_move";
+        return get3(i, "void", "on_move", "__int16 x@<cx>, __int16 y@<dx>");
     if (event == 26)
-        return "prepare_draw";
+        return get3(i, "void", "prepare_draw", "");
     if (event == 27)
-        return "draw";
+        return get3(i, "void", "draw", "drawpixelinfo_t * context@<edi>");
     if (event == 28)
-        return "draw_scroll";
+        return get3(i, "void", "draw_scroll", "drawpixelinfo_t * context@<edi>, __int32 scrollIndex@<eax>");
 
     return form("%d", event);
 }
@@ -124,14 +120,20 @@ static LocoEvents(addr, prefix, suffix, basename)
         }
         MakeName(offset, form("%s::event%s_%s", prefix, suffix, getEventName(i, 1)));
 
-        auto retval, args;
+        auto retval, args, decl;
         retval = getEventName(i, 0);
         args = getEventName(i, 2);
         if (retval != "") {
             if (args != "")
                 args = ", " + args;
+            decl = sprintf("%s __usercall fn", retval);
 
-            SetType(offset, sprintf("%s __usercall fn(window_t * window@<esi>%s);", retval, args));
+            if (strstr(retval, "@") != -1) {
+                auto pos = strstr(retval, "@");
+                decl = sprintf("%s __usercall fn%s", substr(retval, 0, pos), substr(retval, pos, -1));
+            }
+
+            SetType(offset, sprintf("%s(window_t * window@<esi>%s);", decl, args));
         }
     }
 }
@@ -1152,8 +1154,12 @@ static initWidgets(void)
     if (enumWidget == -1) {
         enumWidget = AddEnum(-1, "widget_type", 0);
     }
-    AddConstEx(enumWidget, "widget_type_scroll", 0x1A, -1);
-    AddConstEx(enumWidget, "widget_end", 0x1E, -1);
+    AddConstEx(enumWidget, "widget_type_none", 0, -1);
+    AddConstEx(enumWidget, "widget_type_panel", 1, -1);
+    AddConstEx(enumWidget, "widget_type_frame", 2, -1);
+    AddConstEx(enumWidget, "widget_type_viewport", 19, -1);
+    AddConstEx(enumWidget, "widget_type_scrollview", 26, -1);
+    AddConstEx(enumWidget, "widget_end", 30, -1);
 
     id = GetStrucIdByName("widget_t");
     if (id == -1) {
