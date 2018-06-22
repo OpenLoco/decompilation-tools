@@ -93,14 +93,14 @@ static loco_initWindow(void)
 
     id = loco_makeStubStruct("scroll_t", 0x12);
     loco_setStructFld(id, 0x00, U16, "flags");
-    loco_setStructVar(id, 0x02, U16);
-    loco_setStructVar(id, 0x04, U16);
-    loco_setStructVar(id, 0x06, U16);
-    loco_setStructVar(id, 0x08, U16);
-    loco_setStructVar(id, 0x0A, U16);
-    loco_setStructVar(id, 0x0C, U16);
-    loco_setStructVar(id, 0x0E, U16);
-    loco_setStructVar(id, 0x10, U16);
+    loco_setStructFld(id, 0x02, U16, "h_left");
+    loco_setStructFld(id, 0x04, U16, "h_right");
+    loco_setStructFld(id, 0x06, U16, "h_thumb_left");
+    loco_setStructFld(id, 0x08, U16, "h_thumb_right");
+    loco_setStructFld(id, 0x0A, U16, "v_top");
+    loco_setStructFld(id, 0x0C, U16, "v_bottom");
+    loco_setStructFld(id, 0x0E, U16, "v_thumb_top");
+    loco_setStructFld(id, 0x10, U16, "v_thumb_bottom");
 
     id = loco_makeStubStruct("viewport_config_t", 0x6);
     loco_setStructFld(id, 0x00, U16, "viewport_target_sprite");
