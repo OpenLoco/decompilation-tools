@@ -155,6 +155,11 @@ static loco_initWindow(void)
     op_stroff(0x004291DA, 0, id, 0);
     op_stroff(0x004291EE, 0, id, 0);
     op_stroff(0x004291F4, 0, id, 0);
+    op_stroff(0x00429F03, 0, id, 0);
+    op_stroff(0x00429F0C, 0, id, 0);
+    op_stroff(0x00429F1F, 0, id, 0);
+    op_stroff(0x00429F2B, 0, id, 0);
+    op_stroff(0x0042A53E, 0, id, 0);
     op_stroff(0x0042A744, 0, id, 0);
     op_stroff(0x0042A74B, 0, id, 0);
     op_stroff(0x0042A754, 0, id, 0);
@@ -559,6 +564,8 @@ static loco_initWindow(void)
     op_stroff(0x0046E765, 0, id, 0);
     op_stroff(0x0046E76E, 0, id, 0);
     op_stroff(0x0046E775, 0, id, 0);
+    op_stroff(0x0046EACE, 1, id, 0);
+    op_stroff(0x0046EAD4, 1, id, 0);
     op_stroff(0x0046F116, 0, id, 0);
     op_stroff(0x0049196F, 0, id, 0);
     op_stroff(0x0049A4D0, 0, id, 0);
@@ -588,6 +595,62 @@ static loco_initWindow(void)
     op_stroff(0x004BF16B, 0, id, 0);
     op_stroff(0x004BF176, 1, id, 0);
     op_stroff(0x004BF17E, 1, id, 0);
+    op_stroff(0x004BF7CB, 0, id, 0);
+    op_stroff(0x004BF7D1, 0, id, 0);
+    op_stroff(0x004BF7D7, 0, id, 0);
+    op_stroff(0x004BF7EA, 0, id, 0);
+    op_stroff(0x004BF7F2, 0, id, 0);
+    op_stroff(0x004BF7FA, 0, id, 0);
+    op_stroff(0x004BF802, 0, id, 0);
+    op_stroff(0x004BF80A, 0, id, 0);
+    op_stroff(0x004BF80C, 0, id, 0);
+    op_stroff(0x004BF813, 1, id, 0);
+    op_stroff(0x004BF818, 1, id, 0);
+    op_stroff(0x004BF885, 0, id, 0);
+    op_stroff(0x004BF88B, 0, id, 0);
+    op_stroff(0x004BF894, 0, id, 0);
+    op_stroff(0x004BF89D, 0, id, 0);
+    op_stroff(0x004BF8AF, 0, id, 0);
+    op_stroff(0x004BF8B8, 0, id, 0);
+    op_stroff(0x004BFCC7, 0, id, 0);
+    op_stroff(0x004BFCCD, 0, id, 0);
+    op_stroff(0x004BFCD3, 0, id, 0);
+    op_stroff(0x004BFCD9, 0, id, 0);
+    op_stroff(0x004BFCDF, 0, id, 0);
+    op_stroff(0x004BFCE5, 0, id, 0);
+    op_stroff(0x004BFCEB, 0, id, 0);
+    op_stroff(0x004BFCF9, 0, id, 0);
+    op_stroff(0x004BFCFF, 0, id, 0);
+    op_stroff(0x004BFD05, 0, id, 0);
+    op_stroff(0x004BFD0B, 0, id, 0);
+    op_stroff(0x004BFD11, 0, id, 0);
+    op_stroff(0x004BFD17, 0, id, 0);
+    op_stroff(0x004BFD1D, 0, id, 0);
+    op_stroff(0x004BFD2B, 0, id, 0);
+    op_stroff(0x004BFD31, 0, id, 0);
+    op_stroff(0x004BFD37, 0, id, 0);
+    op_stroff(0x004BFD3D, 0, id, 0);
+    op_stroff(0x004BFD43, 0, id, 0);
+    op_stroff(0x004BFD49, 0, id, 0);
+    op_stroff(0x004BFD4F, 0, id, 0);
+    op_stroff(0x004BFD5A, 0, id, 0);
+    op_stroff(0x004BFD60, 0, id, 0);
+    op_stroff(0x004BFD66, 0, id, 0);
+    op_stroff(0x004BFD6C, 0, id, 0);
+    op_stroff(0x004BFD72, 0, id, 0);
+    op_stroff(0x004BFD78, 0, id, 0);
+    op_stroff(0x004BFD80, 0, id, 0);
+    op_stroff(0x004BFD86, 0, id, 0);
+    op_stroff(0x004BFD8C, 0, id, 0);
+    op_stroff(0x004BFD92, 0, id, 0);
+    op_stroff(0x004BFD98, 0, id, 0);
+    op_stroff(0x004BFD9E, 0, id, 0);
+    op_stroff(0x004BFDA6, 0, id, 0);
+    op_stroff(0x004BFDAC, 0, id, 0);
+    op_stroff(0x004BFDB2, 0, id, 0);
+    op_stroff(0x004BFDB8, 0, id, 0);
+    op_stroff(0x004BFDBE, 0, id, 0);
+    op_stroff(0x004BFDC4, 0, id, 0);
     op_stroff(0x004C1A0C, 0, id, 0);
     op_stroff(0x004C1A1B, 0, id, 0);
     op_stroff(0x004C1A22, 0, id, 0);
@@ -673,6 +736,17 @@ static loco_initWindow(void)
     op_stroff(0x004C625D, 0, id, 0);
     op_stroff(0x004C6285, 0, id, 0);
     op_stroff(0x004C6290, 1, id, 0);
+    op_stroff(0x004C62C8, 1, id, 0);
+    op_stroff(0x004C62F0, 1, id, 0);
+    op_stroff(0x004C6319, 1, id, 0);
+    op_stroff(0x004C632B, 0, id, 0);
+    op_stroff(0x004C6338, 1, id, 0);
+    op_stroff(0x004C6340, 1, id, 0);
+    op_stroff(0x004C634C, 1, id, 0);
+    op_stroff(0x004C6375, 1, id, 0);
+    op_stroff(0x004C6387, 0, id, 0);
+    op_stroff(0x004C6394, 1, id, 0);
+    op_stroff(0x004C639C, 1, id, 0);
     op_stroff(0x004C641F, 0, id, 0);
     op_stroff(0x004C6456, 0, id, 0);
     op_stroff(0x004C6465, 1, id, 0);
@@ -696,7 +770,21 @@ static loco_initWindow(void)
     op_stroff(0x004C6794, 1, id, 0);
     op_stroff(0x004C679B, 0, id, 0);
     op_stroff(0x004C67D9, 0, id, 0);
+    op_stroff(0x004C68EE, 0, id, 0);
+    op_stroff(0x004C68F2, 0, id, 0);
     op_stroff(0x004C691B, 0, id, 0);
+    op_stroff(0x004C6A5A, 1, id, 0);
+    op_stroff(0x004C6A63, 1, id, 0);
+    op_stroff(0x004C6A73, 1, id, 0);
+    op_stroff(0x004C6A7D, 1, id, 0);
+    op_stroff(0x004C6A81, 1, id, 0);
+    op_stroff(0x004C6A93, 1, id, 0);
+    op_stroff(0x004C6A99, 1, id, 0);
+    op_stroff(0x004C6A9D, 1, id, 0);
+    op_stroff(0x004C6AA8, 1, id, 0);
+    op_stroff(0x004C6AAC, 1, id, 0);
+    op_stroff(0x004C6AB0, 1, id, 0);
+    op_stroff(0x004C6AB4, 1, id, 0);
     op_stroff(0x004C719C, 1, id, 0);
     op_stroff(0x004C7310, 1, id, 0);
     op_stroff(0x004C7313, 0, id, 0);
@@ -810,6 +898,7 @@ static loco_initWindow(void)
     op_stroff(0x004C87A2, 1, id, 0);
     op_stroff(0x004C909C, 1, id, 0);
     op_stroff(0x004C90A8, 1, id, 0);
+    op_stroff(0x004C9517, 1, id, 0);
     op_stroff(0x004C951E, 1, id, 0);
     op_stroff(0x004C954B, 1, id, 0);
     op_stroff(0x004C9558, 1, id, 0);
@@ -828,9 +917,15 @@ static loco_initWindow(void)
     op_stroff(0x004C9B32, 0, id, 0);
     op_stroff(0x004C9B6A, 1, id, 0);
     op_stroff(0x004C9B72, 1, id, 0);
+    op_stroff(0x004C9B78, 1, id, 0);
     op_stroff(0x004C9B8D, 1, id, 0);
+    op_stroff(0x004C9B95, 1, id, 0);
     op_stroff(0x004CA0FA, 0, id, 0);
     op_stroff(0x004CA115, 1, id, 0);
+    op_stroff(0x004CA141, 1, id, 0);
+    op_stroff(0x004CA14A, 0, id, 0);
+    op_stroff(0x004CA158, 1, id, 0);
+    op_stroff(0x004CA161, 0, id, 0);
     op_stroff(0x004CA180, 1, id, 0);
     op_stroff(0x004CA191, 0, id, 0);
     op_stroff(0x004CA19B, 1, id, 0);
@@ -923,6 +1018,11 @@ static loco_initWindow(void)
     op_stroff(0x004CB988, 1, id, 0);
     op_stroff(0x004CB9AE, 1, id, 0);
     op_stroff(0x004CB9B6, 1, id, 0);
+    op_stroff(0x004CB9BD, 1, id, 0);
+    op_stroff(0x004CB9E5, 1, id, 0);
+    op_stroff(0x004CB9E9, 1, id, 0);
+    op_stroff(0x004CB9ED, 1, id, 0);
+    op_stroff(0x004CB9F1, 1, id, 0);
     op_stroff(0x004CBA16, 1, id, 0);
     op_stroff(0x004CBA23, 1, id, 0);
     op_stroff(0x004CC6A7, 1, id, 0);
@@ -930,6 +1030,15 @@ static loco_initWindow(void)
     op_stroff(0x004CC6CE, 1, id, 0);
     op_stroff(0x004CC6EF, 1, id, 0);
     op_stroff(0x004CC6F5, 1, id, 0);
+    op_stroff(0x004CC767, 0, id, 0);
+    op_stroff(0x004CC77A, 1, id, 0);
+    op_stroff(0x004CC77D, 1, id, 0);
+    op_stroff(0x004CC793, 1, id, 0);
+    op_stroff(0x004CC797, 1, id, 0);
+    op_stroff(0x004CC7A5, 1, id, 0);
+    op_stroff(0x004CC7A9, 0, id, 0);
+    op_stroff(0x004CC7AD, 1, id, 0);
+    op_stroff(0x004CC7B8, 1, id, 0);
     op_stroff(0x004CC7CB, 1, id, 0);
     op_stroff(0x004CC7D2, 1, id, 0);
     op_stroff(0x004CC7E8, 1, id, 0);
@@ -955,7 +1064,31 @@ static loco_initWindow(void)
     op_stroff(0x004CD308, 1, id, 0);
     op_stroff(0x004CD30F, 0, id, 0);
     op_stroff(0x004CD313, 0, id, 0);
+    op_stroff(0x004CD317, 1, id, 0);
+    op_stroff(0x004CD718, 1, id, 0);
     op_stroff(0x004CE445, 0, id, 0);
+    op_stroff(0x004CE44E, 1, id, 0);
+    op_stroff(0x004CE526, 1, id, 0);
+    op_stroff(0x004CE52C, 1, id, 0);
+    op_stroff(0x004CE63B, 1, id, 0);
+    op_stroff(0x004CE641, 0, id, 0);
+    op_stroff(0x004CE647, 1, id, 0);
+    op_stroff(0x004CE64D, 0, id, 0);
+    op_stroff(0x004CE653, 1, id, 0);
+    op_stroff(0x004CE659, 0, id, 0);
+    op_stroff(0x004CE65F, 0, id, 0);
+    op_stroff(0x004CE671, 0, id, 0);
+    op_stroff(0x004CE67A, 0, id, 0);
+    op_stroff(0x004CE687, 0, id, 0);
+    op_stroff(0x004CE699, 0, id, 0);
+    op_stroff(0x004CE6A4, 0, id, 0);
+    op_stroff(0x004CE6B1, 0, id, 0);
+    op_stroff(0x004CE760, 1, id, 0);
+    op_stroff(0x004CE76E, 1, id, 0);
+    op_stroff(0x004CE776, 1, id, 0);
+    op_stroff(0x004CE7D5, 1, id, 0);
+    op_stroff(0x004CE7D9, 1, id, 0);
+    op_stroff(0x004CE89F, 1, id, 0);
     op_stroff(0x004CE8EF, 1, id, 0);
     op_stroff(0x004CEE0C, 1, id, 0);
     op_stroff(0x004CEE10, 1, id, 0);
@@ -971,6 +1104,8 @@ static loco_initWindow(void)
     op_stroff(0x004CEE86, 1, id, 0);
     op_stroff(0x004CEE8D, 0, id, 0);
     op_stroff(0x004CEE91, 1, id, 0);
+    op_stroff(0x004CEFD8, 0, id, 0);
+    op_stroff(0x004CEFE1, 0, id, 0);
 
     loco_makeStructArray(0x11370AC, "window_t", 12, "_windows");
 }
@@ -991,23 +1126,91 @@ static loco_initViewport(void)
     loco_setStructFld(id, 0x10, U8, "zoom");
     loco_setStructVar(id, 0x12, U16);
 
-    op_stroff(0x0045F05A, 1, id, 0); // viewport_t
-    op_stroff(0x0045F05D, 1, id, 0); // viewport_t
-    op_stroff(0x0045F067, 1, id, 0); // viewport_t
-    op_stroff(0x0045F06B, 1, id, 0); // viewport_t
-    op_stroff(0x0045F098, 1, id, 0); // viewport_t
-    op_stroff(0x0045F09C, 1, id, 0); // viewport_t
-    op_stroff(0x0045F0A6, 1, id, 0); // viewport_t
-    op_stroff(0x0045F0AA, 1, id, 0); // viewport_t
-    op_stroff(0x0045F0D3, 0, id, 0); // viewport_t
-    op_stroff(0x0045F0D7, 0, id, 0); // viewport_t
-    op_stroff(0x0045FCF7, 1, id, 0); // viewport_t
-    op_stroff(0x0045FCFD, 1, id, 0); // viewport_t
-    op_stroff(0x0045FD02, 1, id, 0); // viewport_t
-    op_stroff(0x0045FD08, 1, id, 0); // viewport_t
-    op_stroff(0x0045FD0E, 1, id, 0); // viewport_t
-    op_stroff(0x0045FD19, 1, id, 0); // viewport_t
-    op_stroff(0x0045FD1D, 1, id, 0); // viewport_t
+    op_stroff(0x0045EFE2, 0, id, 0);
+    op_stroff(0x0045EFE8, 0, id, 0);
+    op_stroff(0x0045EFF3, 1, id, 0);
+    op_stroff(0x0045EFF7, 1, id, 0);
+    op_stroff(0x0045F05A, 1, id, 0);
+    op_stroff(0x0045F05D, 1, id, 0);
+    op_stroff(0x0045F067, 1, id, 0);
+    op_stroff(0x0045F06B, 1, id, 0);
+    op_stroff(0x0045F098, 1, id, 0);
+    op_stroff(0x0045F09C, 1, id, 0);
+    op_stroff(0x0045F0A6, 1, id, 0);
+    op_stroff(0x0045F0AA, 1, id, 0);
+    op_stroff(0x0045F0D3, 0, id, 0);
+    op_stroff(0x0045F0D7, 0, id, 0);
+    op_stroff(0x0045FCF7, 1, id, 0);
+    op_stroff(0x0045FCFD, 1, id, 0);
+    op_stroff(0x0045FD02, 1, id, 0);
+    op_stroff(0x0045FD08, 1, id, 0);
+    op_stroff(0x0045FD0E, 1, id, 0);
+    op_stroff(0x0045FD19, 1, id, 0);
+    op_stroff(0x0045FD1D, 1, id, 0);
+    op_stroff(0x004C64BF, 1, id, 0);
+    op_stroff(0x004C64C3, 1, id, 0);
+    op_stroff(0x004C6596, 1, id, 0);
+    op_stroff(0x004C65A0, 1, id, 0);
+    op_stroff(0x004C65D2, 1, id, 0);
+    op_stroff(0x004C65DF, 1, id, 0);
+    op_stroff(0x004C661C, 1, id, 0);
+    op_stroff(0x004C6620, 1, id, 0);
+    op_stroff(0x004C68E6, 1, id, 0);
+    op_stroff(0x004C68EA, 1, id, 0);
+    op_stroff(0x004C68F6, 1, id, 0);
+    op_stroff(0x004C6924, 1, id, 0);
+    op_stroff(0x004C6928, 1, id, 0);
+    op_stroff(0x004C692C, 1, id, 0);
+    op_stroff(0x004C692F, 1, id, 0);
+    op_stroff(0x004C6979, 0, id, 0);
+    op_stroff(0x004C697D, 0, id, 0);
+    op_stroff(0x004C6980, 0, id, 0);
+    op_stroff(0x004C6984, 0, id, 0);
+    op_stroff(0x004C6988, 0, id, 0);
+    op_stroff(0x004C698C, 0, id, 0);
+    op_stroff(0x004C6990, 0, id, 0);
+    op_stroff(0x004C6994, 0, id, 0);
+    op_stroff(0x004C6998, 1, id, 0);
+    op_stroff(0x004C699B, 1, id, 0);
+    op_stroff(0x004C69A4, 0, id, 0);
+    op_stroff(0x004C69A7, 0, id, 0);
+    op_stroff(0x004C69B0, 0, id, 0);
+    op_stroff(0x004C69B4, 0, id, 0);
+    op_stroff(0x004C69B8, 1, id, 0);
+    op_stroff(0x004C69BC, 1, id, 0);
+    op_stroff(0x004C69C8, 0, id, 0);
+    op_stroff(0x004C69CE, 0, id, 0);
+    op_stroff(0x004C69D2, 0, id, 0);
+    op_stroff(0x004C69D8, 1, id, 0);
+    op_stroff(0x004C69E1, 0, id, 0);
+    op_stroff(0x004C69E5, 0, id, 0);
+    op_stroff(0x004C69EE, 0, id, 0);
+    op_stroff(0x004C69F2, 0, id, 0);
+    op_stroff(0x004C69F6, 1, id, 0);
+    op_stroff(0x004C69FA, 1, id, 0);
+    op_stroff(0x004C6A07, 0, id, 0);
+    op_stroff(0x004C6A0E, 0, id, 0);
+    op_stroff(0x004C6A12, 0, id, 0);
+    op_stroff(0x004C6A20, 0, id, 0);
+    op_stroff(0x004C6A24, 0, id, 0);
+    op_stroff(0x004C6A28, 0, id, 0);
+    op_stroff(0x004C6A2C, 0, id, 0);
+    op_stroff(0x004C6A30, 0, id, 0);
+    op_stroff(0x004C6A34, 0, id, 0);
+    op_stroff(0x004C6A38, 0, id, 0);
+    op_stroff(0x004C6A3B, 0, id, 0);
+    op_stroff(0x004C6A6C, 1, id, 0);
+    op_stroff(0x004C6A70, 1, id, 0);
+    op_stroff(0x004C6A85, 1, id, 0);
+    op_stroff(0x004C6A8B, 1, id, 0);
+    op_stroff(0x004C6A8F, 1, id, 0);
+    op_stroff(0x004C6ABE, 1, id, 0);
+    op_stroff(0x004C6ACA, 1, id, 0);
+    op_stroff(0x004C6AD5, 1, id, 0);
+    op_stroff(0x004C6AE1, 1, id, 0);
+    op_stroff(0x004CA4A8, 1, id, 0);
+    op_stroff(0x004CA4B2, 1, id, 0);
+    op_stroff(0x004CEE98, 0, id, 0);
 
     loco_makeStructArray(0x113D758, "viewport_t", 10, "_viewports");
 }
@@ -1105,6 +1308,18 @@ static loco_initGFX(void)
     loco_setStructFld(id, 0x0A, U16, "height");
     loco_setStructFld(id, 0x0C, U16, "pitch");
     loco_setStructFld(id, 0x0E, U16, "zoom_level");
+
+    op_stroff(0x004CA5FE, 1, id, 0);
+    op_stroff(0x004CA610, 1, id, 0);
+    op_stroff(0x004CA61E, 1, id, 0);
+    op_stroff(0x004CA630, 1, id, 0);
+    op_stroff(0x004CB61A, 1, id, 0);
+    op_stroff(0x004CB622, 1, id, 0);
+    op_stroff(0x004CB62D, 1, id, 0);
+    op_stroff(0x004CB638, 1, id, 0);
+    op_stroff(0x004CB643, 1, id, 0);
+    op_stroff(0x004CB64E, 1, id, 0);
+    op_stroff(0x004CB659, 1, id, 0);
 
     loco_makeStruct(0x0050B884, "drawpixelinfo_t", "screen_dpi");
     loco_makeStruct(0x005233B8, "drawpixelinfo_t", "window_dpi");
