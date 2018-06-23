@@ -14,6 +14,7 @@ static initStructs(void)
     loco_initUserStrings();
     loco_initDropdowns();
     loco_initGFX();
+    loco_initColours();
 
     loco_makePointerArray(0xE40134, 0x30000, "tile_map_element_pointers");
 }
@@ -1315,4 +1316,19 @@ static loco_initGFX(void)
 
     loco_makeStruct(0x0050B884, "drawpixelinfo_t", "screen_dpi");
     loco_makeStruct(0x005233B8, "drawpixelinfo_t", "window_dpi");
+}
+
+static loco_initColours(void)
+{
+    auto idA, idB, i;
+
+    idA = loco_makeStubStruct("colourmap_a", 0x8);
+    idB = loco_makeStubStruct("colourmap_b", 0x8);
+    for (i = 0; i < 8; i++) {
+        loco_setStructFld(idA, i, U8, sprintf("shade_%d", i));
+        loco_setStructFld(idB, i, U8, sprintf("shade_%d", i + 8));
+    }
+
+    loco_makeStructArray(0x1136BA0, "colourmap_a", 31, "ColourMapA");
+    loco_makeStructArray(0x1136C98, "colourmap_b", 31, "ColourMapB");
 }
