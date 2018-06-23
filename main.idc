@@ -8,10 +8,10 @@
 
 static main(void)
 {
-    initFunctions();
-    initWidgets();
     initStructs();
     initStrings();
     initObjects();
+    initFunctions();
+    initWidgets();
     initNames();
 }
