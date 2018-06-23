@@ -1,3 +1,4 @@
+#include "common.idc"
 #include <idc.idc>
 
 static initStructs(void)
@@ -54,15 +55,6 @@ static loco_makeStubStruct(name, size)
 
     return id;
 }
-
-#define U8 0
-#define U16 1
-#define U32 2
-#define U64 6
-#define S8 3
-#define S16 4
-#define S32 5
-#define S64 7
 
 static loco_setStructFldArray(id, offset, type, name, count)
 {
