@@ -60,12 +60,16 @@ static loco_makeStubStruct(name, size)
 static loco_setStructFldArray(id, offset, type, name, count)
 {
     if (type == U8 || type == S8) {
+        loco_DelStrucMember(id, offset, 1 * count);
         loco_setStructMember(id, offset, name, FF_BYTE | FF_DATA, 1 * count);
     } else if (type == U16 || type == S16) {
+        loco_DelStrucMember(id, offset, 2 * count);
         loco_setStructMember(id, offset, name, FF_WORD | FF_DATA, 2 * count);
     } else if (type == U32 || type == S32) {
+        loco_DelStrucMember(id, offset, 4 * count);
         loco_setStructMember(id, offset, name, FF_DWRD | FF_DATA, 4 * count);
     } else if (type == U64 || type == S64) {
+        loco_DelStrucMember(id, offset, 8 * count);
         loco_setStructMember(id, offset, name, FF_QWRD | FF_DATA, 8 * count);
     }
 }
@@ -80,10 +84,22 @@ static loco_setStructVar(id, offset, type)
     loco_setStructFld(id, offset, type, form("var_%03X", offset));
 }
 
+static loco_DelStrucMember(id, offset, size)
+{
+    auto i;
+
+    for (i = 0; i < size; i++) {
+        DelStrucMember(id, offset + i);
+    }
+}
+
 static loco_setStructSub(id, offset, type, name, count)
 {
-    DelStrucMember(id, offset);
-    AddStrucMember(id, name, offset, FF_STRU | FF_DATA, GetStrucIdByName(type), GetStrucSize(GetStrucIdByName(type)) * count);
+    auto bytes;
+
+    bytes = GetStrucSize(GetStrucIdByName(type)) * count;
+    loco_DelStrucMember(id, offset, bytes);
+    AddStrucMember(id, name, offset, FF_STRU | FF_DATA, GetStrucIdByName(type), bytes);
 }
 
 static loco_initWindow(void)
