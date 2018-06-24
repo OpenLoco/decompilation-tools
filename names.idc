@@ -320,6 +320,7 @@ static initNames(void)
     MakeName(0x004C58C7, "gfx_fill_rect_inset");
     SetType(0x004C58C7, "void __usercall gfx_fill_rect_inset(__int16 flags@<si>, __int16 left@<ax>, __int16 top@<cx>, __int16 right@<bx>, __int16 bottom@<dx>, int colour@<ebp>);");
     MakeName(0x004C5C69, "gfx_set_dirty_blocks");
+    SetType(0x004C5C69, "void __usercall gfx_set_dirty_blocks(__int16 left@<ax>, __int16 top@<bx>, __int16 right@<dx>, __int16 bottom@<bp>);");
     MakeName(0x004C5CFA, "gfx_draw_dirty_blocks");
     MakeName(0x004C5DD5, "gfx_redraw_screen_rect");
     MakeName(0x004C5EA9, "window_draw");
@@ -386,6 +387,7 @@ static initNames(void)
     MakeName(0x004CC692, "window_close_by_id");
     SetType(0x004CC692, "void __usercall window_close_by_id(windowtype windowtype@<cl.4>);");
     MakeName(0x004CC6EA, "window_close");
+    SetType(0x004CC6EA, "void __usercall window_close(window_t *window@<esi>);");
     MakeName(0x004CC750, "window_bring_to_front");
     MakeName(0x004CC7CB, "window_set_disabled_widgets_and_invalidate");
     MakeName(0x004CC807, "show_text_dropdown_custom_width");
