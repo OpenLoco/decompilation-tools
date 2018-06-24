@@ -291,7 +291,6 @@ static initNames(void)
     MakeName(0x004B5088, "track_design_save_reset_scenery");
     MakeName(0x004B6033, "window_vehicle_create");
     MakeName(0x004B671C, "get_vehicle_status_format");
-    MakeName(0x004B8405, "paint_small_scenery_entry");
     MakeName(0x004BB586, "windowmgr::open_terraform");
     MakeName(0x004BB63F, "terraform_4BB63F");
     MakeName(0x004BC4B7, "terraform_4BC4B7");
