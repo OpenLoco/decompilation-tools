@@ -83,8 +83,7 @@ static initNames(void)
     MakeName(0x00431E32, "toggle_pause");
     MakeName(0x0043454F, "windowmgr__open_company");
     SetType(0x0043454F, "void __usercall windowmgr__open_company(__int16 company_idx@<ax>);");
-    MakeName(0x00435003, "ui__company_face_selection__event_draw");
-    SetType(0x00435003, "void __usercall ui__company_face_selection__event_draw(window_t *window@<esi>);");
+    MakeName(0x00438A6C, "gui_init");
     MakeName(0x004392BD, "resize_interface");
     MakeName(0x0043AF37, "top_toolbar_view_menu_dropdown");
     MakeName(0x0043B26C, "about_window_open");
@@ -93,6 +92,7 @@ static initNames(void)
     MakeName(0x0043C70E, "stop_tutorial");
     MakeName(0x0043C7CF, "write_tutorial_input");
     MakeName(0x0043C88C, "reset_all");
+    MakeName(0x0043CB9F, "editor_init");
     MakeName(0x0043CD35, "window_resize_gui_scenario_editor");
     MakeName(0x0043D7DC, "show_scenario_editor");
     MakeName(0x004402F4, "update_misc_things");
@@ -107,6 +107,7 @@ static initNames(void)
     MakeName(0x00441A6C, "config_read");
     MakeName(0x00441BB8, "config_write");
     MakeName(0x00441C26, "save_scenario_or_game");
+    MakeName(0x00441FA7, "loadTitleSequence");
     MakeName(0x00442BBF, "write_cs_chunk");
     MakeName(0x004436E0, "scenario_write_checksum");
     MakeName(0x00443807, "window_levelselect_init_tabs");
@@ -206,6 +207,7 @@ static initNames(void)
     MakeName(0x00471FF8, "unload_object");
     MakeName(0x00472031, "unload_all_objects");
     MakeName(0x00472172, "object_get_localised_text");
+    MakeName(0x0047221F, "object_load_images");
     MakeName(0x0047237D, "reset_loaded_objects");
     MakeName(0x004723F1, "scenario_write_available_items");
     MakeName(0x0047247E, "read_and_load_objects");
@@ -299,6 +301,7 @@ static initNames(void)
     MakeName(0x004BE621, "exit_with_error");
     MakeName(0x004BE92A, "process_keyboard_input");
     MakeName(0x004BEC5B, "process_keyboard_input_2");
+    MakeName(0x004BF089, "close_topmost_window");
     MakeName(0x004BF12C, "rotate_view");
     MakeName(0x004BF18A, "shortcut_underground_view_toggle");
     MakeName(0x004BF194, "shortcut_remove_base_land_toggle");
@@ -310,6 +313,7 @@ static initNames(void)
     MakeName(0x004BF3AB, "take_screenshot");
     MakeName(0x004BF3B3, "toggle_last_announcement");
     MakeName(0x004BF3DC, "send_chat");
+    MakeName(0x004BF7B9, "windowmgr::open_options");
     MakeName(0x004C1AA2, "windowmgr::create_vehicle_list");
     MakeName(0x004C1C64, "windowmgr::open_build_vehicle");
     MakeName(0x004C57C0, "viewport_init_all");
@@ -320,6 +324,7 @@ static initNames(void)
     MakeName(0x004C5DD5, "gfx_redraw_screen_rect");
     MakeName(0x004C5EA9, "window_draw");
     MakeName(0x004C6118, "window_update_all");
+    MakeName(0x004C641F, "viewport_set_underground_flag");
     MakeName(0x004C6456, "viewports_update_position");
     MakeName(0x004C68E4, "viewport_move");
     MakeName(0x004C6E65, "update_cursor_position");
@@ -399,8 +404,22 @@ static initNames(void)
     MakeName(0x004CDB2B, "viewport_interaction_right_over");
     MakeName(0x004CE3D6, "tool_cancel");
     MakeName(0x004CE438, "window_get_main");
-    MakeName(0x004CE523, "open_textinput");
-    MakeName(0x004CE6F2, "textinput_cancel");
+    MakeName(0x004CE523, "ui::textinput::open");
+    MakeName(0x004CE6C9, "ui::textinput::sub_4CE6C9");
+    MakeName(0x004CE6F2, "ui::textinput::cancel");
+    MakeName(0x004CE6FF, "ui::textinput::sub_4CE6FF");
+    MakeName(0x004CE910, "ui::textinput::sub_4CE910");
+    set_name(0x004CE971, "handle_return", SN_LOCAL);
+    set_name(0x004CE97C, "handle_escape", SN_LOCAL);
+    set_name(0x004CE987, "handle_home", SN_LOCAL);
+    set_name(0x004CE9A2, "handle_end", SN_LOCAL);
+    set_name(0x004CE9B0, "handle_left", SN_LOCAL);
+    set_name(0x004CE9F0, "handle_right", SN_LOCAL);
+    set_name(0x004CEA32, "handle_key", SN_LOCAL);
+    set_name(0x004CEAA5, "handle_delete", SN_LOCAL);
+    set_name(0x004CEAE4, "handle_backspace", SN_LOCAL);
+    set_name(0x004CEB42, "render", SN_LOCAL);
+    MakeName(0x004CEB67, "txtutils_4CEB67");
     MakeName(0x004CEC25, "viewport_update_pointers");
     MakeName(0x004CEC50, "clip_drawpixelinfo");
     MakeName(0x004CF142, "set_cursor_to_1");
