@@ -779,8 +779,6 @@ static loco_initWindow(void)
     op_stroff(0x004C6794, 1, id, 0);
     op_stroff(0x004C679B, 0, id, 0);
     op_stroff(0x004C67D9, 0, id, 0);
-    op_stroff(0x004C68EE, 0, id, 0);
-    op_stroff(0x004C68F2, 0, id, 0);
     op_stroff(0x004C691B, 0, id, 0);
     op_stroff(0x004C6A5A, 1, id, 0);
     op_stroff(0x004C6A63, 1, id, 0);
@@ -1166,6 +1164,8 @@ static loco_initViewport(void)
     op_stroff(0x004C6620, 1, id, 0);
     op_stroff(0x004C68E6, 1, id, 0);
     op_stroff(0x004C68EA, 1, id, 0);
+    op_stroff(0x004C68EE, 0, id, 0);
+    op_stroff(0x004C68F2, 0, id, 0);
     op_stroff(0x004C68F6, 1, id, 0);
     op_stroff(0x004C6924, 1, id, 0);
     op_stroff(0x004C6928, 1, id, 0);
