@@ -129,6 +129,7 @@ static initVariables()
     loco_var(0x0050D13C, "u32", "installed_object_list");
     loco_var(0x0050D154, "u32", "total_num_images");
     loco_var(0x0050D1E8, "u32", "current_sound_device");
+    loco_var(0x0050D555, "u8", "enable_sound");
     loco_var(0x0050D5B4, "u8", "playing_title_music");
     loco_var(0x005183FC, "u32[8192]", "strings");
     loco_var(0x005230C8, "u32", "map_elements");
@@ -217,6 +218,7 @@ static initVariables()
     loco_var(0x009C68E4, "u16", "game_command_map_z");
     loco_var(0x009C68E6, "u16", "game_command_error_reason_stringid");
     loco_var(0x009CCA34, "u8", "scenario_header_chunk");
+    loco_var(0x009D0E73, "u8[257]", "FileName");
     loco_var(0x009D118E, "u8[260]", "path_buffer");
     loco_var(0x009D1C9C, "u32", "save_scenario_or_game_flags");
     loco_var(0x009D1CBC, "u32", "common_hfile");
@@ -281,6 +283,7 @@ static initVariables()
     loco_var(0x0113DC70, "u32", "dropdown_num_columns");
     loco_var(0x0113DC74, "u32", "dropdown_num_rows");
     loco_var(0x0113DE00, "u32", "cursor_pointer");
+    loco_var(0x0113DE04, "u32", "hCursor");
     loco_var(0x0113DF44, "u32", "CodePage");
     loco_var(0x0113DF54, "u8[260]", "Filename");
     loco_var(0x0113E0AC, "u32", "lpString");
