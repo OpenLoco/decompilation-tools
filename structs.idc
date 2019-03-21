@@ -150,6 +150,7 @@ static loco_initWindow(void)
     loco_setStructVar(id, 0x884, U8);
     loco_setStructFldArray(id, 0x886, U8, "colours", 4);
 
+    // sort on
     op_stroff(0x004290A7, 0, id, 0);
     op_stroff(0x004290AE, 0, id, 0);
     op_stroff(0x004290B2, 0, id, 0);
@@ -1113,6 +1114,7 @@ static loco_initWindow(void)
     op_stroff(0x004CEE91, 1, id, 0);
     op_stroff(0x004CEFD8, 0, id, 0);
     op_stroff(0x004CEFE1, 0, id, 0);
+    // sort off
 
     loco_makeStructArray(0x11370AC, "window_t", 12, "_windows");
 }
@@ -1133,6 +1135,7 @@ static loco_initViewport(void)
     loco_setStructFld(id, 0x10, U8, "zoom");
     loco_setStructVar(id, 0x12, U16);
 
+    // sort on
     op_stroff(0x0045EFE2, 0, id, 0);
     op_stroff(0x0045EFE8, 0, id, 0);
     op_stroff(0x0045EFF3, 1, id, 0);
@@ -1220,6 +1223,7 @@ static loco_initViewport(void)
     op_stroff(0x004CA4A8, 1, id, 0);
     op_stroff(0x004CA4B2, 1, id, 0);
     op_stroff(0x004CEE98, 0, id, 0);
+    // sort off
 
     loco_makeStructArray(0x113D758, "viewport_t", 10, "_viewports");
 }
@@ -1318,6 +1322,7 @@ static loco_initGFX(void)
     loco_setStructFld(id, 0x0C, U16, "pitch");
     loco_setStructFld(id, 0x0E, U16, "zoom_level");
 
+    // sort on
     op_stroff(0x004CA5FE, 1, id, 0);
     op_stroff(0x004CA610, 1, id, 0);
     op_stroff(0x004CA61E, 1, id, 0);
@@ -1329,6 +1334,7 @@ static loco_initGFX(void)
     op_stroff(0x004CB643, 1, id, 0);
     op_stroff(0x004CB64E, 1, id, 0);
     op_stroff(0x004CB659, 1, id, 0);
+    // sort off
 
     loco_makeStruct(0x0050B884, "drawpixelinfo_t", "screen_dpi");
     loco_makeStruct(0x005233B8, "drawpixelinfo_t", "window_dpi");

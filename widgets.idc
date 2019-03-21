@@ -242,6 +242,8 @@ static initWidgets(void)
     loco_initEnum(id, "wt_");
     loco_initEnumMember(id, "wtfind_", "flag_80", 0x80, 0x80);
     loco_initEnumMember(id, "wtfind_", "flag_40", 0x40, 0x40);
+
+    // sort on
     op_enum(0x0049A4B0, 1, id, 0);
     op_enum(0x0049A802, 1, id, 0);
     op_enum(0x0049AE41, 1, id, 0);
@@ -642,6 +644,7 @@ static initWidgets(void)
     op_enum(0x004A6FAD, 1, id, 0);
     op_enum(0x004CDBAB, 1, id, 0);
     op_enum(0x0043B26C, 1, id, 0);
+    // sort off
 
     id = GetEnum("windowtype32");
     if (id == -1) {
@@ -650,6 +653,7 @@ static initWidgets(void)
     }
     loco_initEnum(id, "wtf_");
 
+    // sort on
     op_enum(0x0043B55A, 1, id, 0);
     op_enum(0x0043B4E8, 1, id, 0);
     op_enum(0x004A096D, 1, id, 0);
@@ -711,6 +715,7 @@ static initWidgets(void)
     op_enum(0x00431A3A, 1, id, 0);
     op_enum(0x00431BBC, 1, id, 0);
     op_enum(0x004291C4, 1, id, 0);
+    // sort off
 
     id = GetStrucIdByName("window_events_t");
     if (id == -1) {
@@ -725,6 +730,7 @@ static initWidgets(void)
         }
     }
 
+    // sort on
     loco_StructOffsetOp(id, 0x4C6462);
     loco_StructOffsetOp(id, 0x42A495);
     loco_StructOffsetOp(id, 0x42A49A);
@@ -959,6 +965,7 @@ static initWidgets(void)
     loco_StructOffsetOp(id, 0x4CE8F1);
     loco_StructOffsetOp(id, 0x4CE978);
     loco_StructOffsetOp(id, 0x4CE983);
+    // sort off
 
     set_cmt(0X4C1B2C, "wtf_build_vehicle", 1);
     set_cmt(0X4C1C08, "wtf_build_vehicle", 1);
@@ -1173,6 +1180,7 @@ static initWidgets(void)
     AddStrucMember(id, "image", 0XA, 0x20000400, -1, 4);
     AddStrucMember(id, "tooltip", 0XE, 0x10000400, -1, 2);
 
+    // sort on
     op_stroff(0x0043913A, 1, id, 0);
     op_stroff(0x0043913E, 1, id, 0);
     op_stroff(0x00439147, 1, id, 0);
@@ -1306,6 +1314,7 @@ static initWidgets(void)
     op_stroff(0x004CB9D5, 1, id, 0);
     op_stroff(0x004CB9D9, 1, id, 0);
     op_stroff(0x004CB9DD, 1, id, 0);
+    // sort off
 
     LocoWidgetSet(enumWidget, 0x508C8C, 0x4F8D64, "ui::window_36::_widgets_1");
     LocoWidgetSet(enumWidget, 0x508CF0, 0x4F8D64, "ui::window_36::_widgets_0");

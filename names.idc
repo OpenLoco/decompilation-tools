@@ -2,7 +2,7 @@
 
 static initNames(void)
 {
-    // Functions
+    // sort on
     MakeName(0x004014DF, "fptc");
     MakeName(0x0040194E, "dsound_sound_load");
     MakeName(0x00401999, "dsound_sound_start");
@@ -431,7 +431,6 @@ static initNames(void)
     MakeName(0x004CF621, "progressbar_increment");
     MakeName(0x004D2D3F, "__cropzeros");
     MakeName(0x004D2D8D, "__positive");
-    // Data
     MakeName(0x004D1090, "LeadUp1");
     MakeName(0x004D10BC, "LeadUp2");
     MakeName(0x004D1178, "TrailUp0");
@@ -656,4 +655,5 @@ static initNames(void)
     MakeName(0x011427E0, "uNumber");
     MakeName(0x011427F8, "lpMem");
     MakeName(0x011427FC, "hHeap");
+    // sort off
 }
