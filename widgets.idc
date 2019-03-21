@@ -575,7 +575,9 @@ static initWidgets(void)
     op_enum(0x004BE891, 1, id, 0);
     op_enum(0x004BEB42, 1, id, 0);
     op_enum(0x004BEE13, 1, id, 0);
+    op_enum(0x004BEE23, 1, id, 0);
     op_enum(0x004BEE2C, 1, id, 0);
+    op_enum(0x004BEE3C, 1, id, 0);
     op_enum(0x004BEE45, 1, id, 0);
     op_enum(0x004BEE55, 1, id, 0);
     op_enum(0x004BEFD0, 1, id, 0);
@@ -621,6 +623,7 @@ static initWidgets(void)
     op_enum(0x004C835E, 1, id, 0);
     op_enum(0x004C84D2, 1, id, 0);
     op_enum(0x004C84DC, 1, id, 0);
+    op_enum(0x004C85C1, 1, id, 0);
     op_enum(0x004C87B5, 1, id, 0);
     op_enum(0x004C906D, 1, id, 0);
     op_enum(0x004C90D9, 1, id, 0);
@@ -644,6 +647,11 @@ static initWidgets(void)
     op_enum(0x004CF457, 1, id, 0);
     op_enum(0x004CF756, 1, id, 0);
     op_enum(0x004CF77A, 1, id, 0);
+    op_enum(0x0052336F, 0, id, 0);
+    op_enum(0x0052337E, 0, id, 0);
+    op_enum(0x00523392, 0, id, 0);
+    op_enum(0x005233A8, 0, id, 0);
+    op_enum(0x005233B6, 0, id, 0);
     // sort off
 
     id = GetEnum("windowtype32");
