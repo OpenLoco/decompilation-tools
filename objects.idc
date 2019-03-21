@@ -338,24 +338,18 @@ static initObject_07(void)
     op_stroff(0x00497A9B, 1, id, 0);
     op_stroff(0x00497AAC, 1, id, 0);
     op_stroff(0x00497AC0, 1, id, 0);
-    op_stroff(0x00497B02, 1, id, 0);
-    op_stroff(0x00497B0C, 1, id, 0);
-    op_stroff(0x00497B44, 1, id, 0);
-    op_stroff(0x00497B86, 1, id, 0);
-    op_stroff(0x00498E46, 1, id, 0);
-    op_stroff(0x00498E51, 1, id, 0);
-    op_stroff(0x00498E5C, 1, id, 0);
-    op_stroff(0x00498E67, 1, id, 0);
-    op_stroff(0x00498E72, 1, id, 0);
-    op_stroff(0x00498E7D, 1, id, 0);
     op_stroff(0x00497ACA, 1, id, 0);
     op_stroff(0x00497ADE, 1, id, 0);
     op_stroff(0x00497AEF, 1, id, 0);
+    op_stroff(0x00497B02, 1, id, 0);
+    op_stroff(0x00497B0C, 1, id, 0);
     op_stroff(0x00497B20, 1, id, 0);
     op_stroff(0x00497B31, 1, id, 0);
+    op_stroff(0x00497B44, 1, id, 0);
     op_stroff(0x00497B4E, 1, id, 0);
     op_stroff(0x00497B62, 1, id, 0);
     op_stroff(0x00497B73, 1, id, 0);
+    op_stroff(0x00497B86, 1, id, 0);
     op_stroff(0x00497B90, 1, id, 0);
     op_stroff(0x00497BA4, 1, id, 0);
     op_stroff(0x00497BB5, 1, id, 0);
@@ -366,6 +360,12 @@ static initObject_07(void)
     op_stroff(0x00498E1D, 1, id, 0);
     op_stroff(0x00498E27, 0, id, 0);
     op_stroff(0x00498E3B, 0, id, 0);
+    op_stroff(0x00498E46, 1, id, 0);
+    op_stroff(0x00498E51, 1, id, 0);
+    op_stroff(0x00498E5C, 1, id, 0);
+    op_stroff(0x00498E67, 1, id, 0);
+    op_stroff(0x00498E72, 1, id, 0);
+    op_stroff(0x00498E7D, 1, id, 0);
     // sort off
 }
 
@@ -437,14 +437,14 @@ static initObject_21(void)
     loco_setStructFld(id, 0x02, U16, "str2");
 
     // sort on
-    op_stroff(0x0043F038, 1, id, 0);
-    op_stroff(0x0043F0E1, 1, id, 0);
-    op_stroff(0x00440178, 1, id, 0);
-    op_stroff(0x004441B0, 1, id, 0);
     op_stroff(0x0043EDE3, 1, id, 0);
     op_stroff(0x0043EDED, 0, id, 0);
     op_stroff(0x0043EDF6, 0, id, 0);
     op_stroff(0x0043EE0B, 0, id, 0);
     op_stroff(0x0043EE10, 0, id, 0);
+    op_stroff(0x0043F038, 1, id, 0);
+    op_stroff(0x0043F0E1, 1, id, 0);
+    op_stroff(0x00440178, 1, id, 0);
+    op_stroff(0x004441B0, 1, id, 0);
     // sort off
 }
