@@ -11,6 +11,7 @@ static initStructs(void)
     loco_initStation();
     loco_initEntities();
     loco_initG1Elements();
+    loco_initMapAnimations();
     loco_initUserStrings();
     loco_initDropdowns();
     loco_initGFX();
