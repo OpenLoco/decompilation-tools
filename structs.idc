@@ -15,8 +15,6 @@ static initStructs(void)
     loco_initDropdowns();
     loco_initGFX();
     loco_initColours();
-
-    loco_makePointerArray(0xE40134, 0x30000, "tile_map_element_pointers");
 }
 
 static loco_setStructMember(id, offset, name, type, size)
@@ -1115,8 +1113,6 @@ static loco_initWindow(void)
     op_stroff(0x004CEFD8, 0, id, 0);
     op_stroff(0x004CEFE1, 0, id, 0);
     // sort off
-
-    loco_makeStructArray(0x11370AC, "window_t", 12, "_windows");
 }
 
 static loco_initViewport(void)
@@ -1224,50 +1220,41 @@ static loco_initViewport(void)
     op_stroff(0x004CA4B2, 1, id, 0);
     op_stroff(0x004CEE98, 0, id, 0);
     // sort off
-
-    loco_makeStructArray(0x113D758, "viewport_t", 10, "_viewports");
 }
 
 static loco_initCompany(void)
 {
     loco_makeStubStruct("company_t", 0x8FA8);
-    loco_makeStructArray(0x531784, "company_t", 15, "_companies");
 }
 
 static loco_initTown(void)
 {
     loco_makeStubStruct("town_t", 0x270);
-    loco_makeStructArray(0x5B825C, "town_t", 80, "_towns");
 }
 
 static loco_initIndustries(void)
 {
     loco_makeStubStruct("industry_t", 0x453);
-    loco_makeStructArray(0x5C455C, "industry_t", 128, "_industries");
 }
 
 static loco_initStation(void)
 {
     loco_makeStubStruct("station_t", 0x3D2);
-    loco_makeStructArray(0x5E6EDC, "station_t", 1024, "_stations");
 }
 
 static loco_initEntities(void)
 {
     loco_makeStubStruct("entity_t", 128);
-    loco_makeStructArray(0x6DB6DC, "entity_t", 20000, "_entities");
 }
 
 static loco_initMapAnimations(void)
 {
     loco_makeStubStruct("map_animation_t", 6);
-    loco_makeStructArray(0x94C6DC, "map_animation_t", 0x2000, "_mapAnimations");
 }
 
 static loco_initUserStrings(void)
 {
     loco_makeStubStruct("str_32", 32);
-    loco_makeStructArray(0x95885C, "str_32", 0x800, "_userStrings");
 }
 
 static loco_initG1Elements(void)
@@ -1282,8 +1269,6 @@ static loco_initG1Elements(void)
     loco_setStructFld(id, 0x0A, U16, "y");
     loco_setStructFld(id, 0x0C, U16, "flags");
     loco_setStructFld(id, 0x0E, U16, "pad");
-
-    loco_makeStructArray(0x9E2424, "g1_element_t", 0x4201A, "_g1Data");
 }
 
 static loco_makePointerArray(offset, count, name)
@@ -1298,15 +1283,7 @@ static loco_makePointerArray(offset, count, name)
 
 static loco_initDropdowns(void)
 {
-    MakeUnknown(0x113D850, 40 * 2, 1 | 2);
-    MakeWord(0x113D850);
-    MakeArray(0x113D850, 40);
-    SetColor(0x113D850, CIC_ITEM, 0xFFFFFF);
-    MakeName(0x113D850, "_dropdownItemFormats");
-
     loco_makeStubStruct("dropdown_format_args_t", 0x8);
-    loco_makeStructArray(0x113D8A0, "dropdown_format_args_t", 40, "_dropdownItemFormatArgs1");
-    loco_makeStructArray(0x113D9E0, "dropdown_format_args_t", 40, "_dropdownItemFormatArgs2");
 }
 
 static loco_initGFX(void)
@@ -1335,9 +1312,6 @@ static loco_initGFX(void)
     op_stroff(0x004CB64E, 1, id, 0);
     op_stroff(0x004CB659, 1, id, 0);
     // sort off
-
-    loco_makeStruct(0x0050B884, "drawpixelinfo_t", "screen_dpi");
-    loco_makeStruct(0x005233B8, "drawpixelinfo_t", "window_dpi");
 }
 
 static loco_initColours(void)
@@ -1350,7 +1324,4 @@ static loco_initColours(void)
         loco_setStructFld(idA, i, U8, sprintf("shade_%d", i));
         loco_setStructFld(idB, i, U8, sprintf("shade_%d", i + 8));
     }
-
-    loco_makeStructArray(0x1136BA0, "colourmap_a", 31, "ColourMapA");
-    loco_makeStructArray(0x1136C98, "colourmap_b", 31, "ColourMapB");
 }

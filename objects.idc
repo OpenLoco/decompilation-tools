@@ -132,19 +132,6 @@ static initObjects(void)
         MakeName(list, name);
     }
 
-    offset = 0x004FE250;
-    set_name(offset, "object_entry_group_counts");
-    create_word(offset);
-    make_array(offset, 34);
-
-    offset = 0x4FE294;
-    create_word(offset);
-    make_array(offset, 34);
-
-    offset = 0x4FE2D8;
-    create_byte(offset);
-    make_array(offset, 34);
-
     offset = 0x4FE2FC;
     loco_makePointerArray(offset, 34, "");
     for (i = 0; i < 34; i++) {
@@ -153,11 +140,6 @@ static initObjects(void)
         create_byte(list);
         make_array(list, loco_getObjectType(i, 1));
     }
-
-    offset = 0x4FE384;
-    create_byte(offset);
-    op_bin(offset, -1);
-    make_array(offset, 34);
 
     initObject_00();
     initObject_01();
