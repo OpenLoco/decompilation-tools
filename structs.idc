@@ -121,6 +121,13 @@ static loco_initWindow(void)
     loco_setStructFld(id, 0x02, U16, "saved_view_x");
     loco_setStructFld(id, 0x04, U16, "saved_view_y");
 
+    id = loco_makeStubStruct("SavedView_t", 0x8);
+    loco_setStructFld(id, 0x00, U16, "mapX");
+    loco_setStructFld(id, 0x02, U16, "mapY");
+    loco_setStructFld(id, 0x04, U8, "zoomLevel");
+    loco_setStructFld(id, 0x05, U8, "rotation");
+    loco_setStructFld(id, 0x06, U16, "surfaceZ");
+
     id = loco_makeStubStruct("window_t", 0x88E);
     loco_setStructFld(id, 0x000, U32, "event_handlers");
     loco_setStructFldArray(id, 0x004, U32, "viewports", 2);
@@ -140,13 +147,12 @@ static loco_initWindow(void)
     loco_setStructFld(id, 0x040, U16, "number");
     loco_setStructFld(id, 0x042, U32, "flags");
     loco_setStructSub(id, 0x046, "scroll_t", "scroll", 3);
-    loco_setStructVar(id, 0x848, U32);
-    loco_setStructVar(id, 0x84C, U32);
-    loco_setStructVar(id, 0x870, U16);
-    loco_setStructVar(id, 0x872, U16);
+    loco_setStructVar(id, 0x848, "SavedView_t", "saved_view", 1);
+    loco_setStructVar(id, 0x870, U16, "current_tab");
+    loco_setStructVar(id, 0x872, U16, "frame_no");
     loco_setStructSub(id, 0x876, "viewport_config_t", "viewport_configurations", 2);
     loco_setStructFld(id, 0x882, U8, "type");
-    loco_setStructVar(id, 0x884, U8);
+    loco_setStructVar(id, 0x884, U8, "owner");
     loco_setStructFldArray(id, 0x886, U8, "colours", 4);
 
     // sort on
@@ -1225,7 +1231,26 @@ static loco_initViewport(void)
 
 static loco_initCompany(void)
 {
-    loco_makeStubStruct("company_t", 0x8FA8);
+    id = loco_makeStubStruct("company_t", 0x8FA8);
+    loco_setStructFld(id, 0x00, U16, "name");
+    loco_setStructFld(id, 0x02, U16, "owner_name");
+    loco_setStructFld(id, 0x04, U16, "challenge_flags");
+    loco_setStructFld(id, 0x08, U32, "cash.var_00");
+    loco_setStructFld(id, 0x0C, U16, "cash.var_02");
+    loco_setStructFld(id, 0x12, U32, "update_counter");
+    loco_setStructFld(id, 0x16, U16, "performance_index");
+    loco_setStructFld(id, 0x18, U8, "competitor_id");
+    loco_setStructFld(id, 0x19, U8, "owner_emotion");
+    loco_setStructFld(id, 0x1A, U8, "colour.primary");
+    loco_setStructFld(id, 0x1B, U8, "colour.secondary");
+    loco_setStructFld(id, 0x88CE, U32, "companyValue.var_00");
+    loco_setStructFld(id, 0x88D2, U16, "companyValue.var_04");
+    loco_setStructFld(id, 0x8B9E, U32, "vehicleProfit.var_00");
+    loco_setStructFld(id, 0x8BA2, U16, "vehicleProfit.var_04");
+    loco_setStructFld(id, 0x8BBC, U16, "observation_thing");
+    loco_setStructFld(id, 0x8BBE, U16, "observation_x");
+    loco_setStructFld(id, 0x8BC0, U16, "observation_y");
+    loco_setStructSub(id, 0x8BCE, U32, "cargoDelivered", 32);
 }
 
 static loco_initTown(void)
