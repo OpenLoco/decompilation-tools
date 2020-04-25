@@ -404,6 +404,7 @@ static initNames(void)
     MakeName(0x004CD47A, "process_mouse_over");
     MakeName(0x004CD658, "viewport_interaction_get_item_left");
     MakeName(0x004CDB2B, "viewport_interaction_right_over");
+    MakeName(0x004CE367, "input::toolSet");
     MakeName(0x004CE3D6, "tool_cancel");
     MakeName(0x004CE438, "window_get_main");
     MakeName(0x004CE523, "ui::textinput::open");
