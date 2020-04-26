@@ -147,12 +147,12 @@ static loco_initWindow(void)
     loco_setStructFld(id, 0x040, U16, "number");
     loco_setStructFld(id, 0x042, U32, "flags");
     loco_setStructSub(id, 0x046, "scroll_t", "scroll", 3);
-    loco_setStructVar(id, 0x848, "SavedView_t", "saved_view", 1);
-    loco_setStructVar(id, 0x870, U16, "current_tab");
-    loco_setStructVar(id, 0x872, U16, "frame_no");
+    loco_setStructSub(id, 0x848, "SavedView_t", "saved_view", 1);
+    loco_setStructFld(id, 0x870, U16, "current_tab");
+    loco_setStructFld(id, 0x872, U16, "frame_no");
     loco_setStructSub(id, 0x876, "viewport_config_t", "viewport_configurations", 2);
     loco_setStructFld(id, 0x882, U8, "type");
-    loco_setStructVar(id, 0x884, U8, "owner");
+    loco_setStructFld(id, 0x884, U8, "owner");
     loco_setStructFldArray(id, 0x886, U8, "colours", 4);
 
     // sort on
@@ -1231,6 +1231,8 @@ static loco_initViewport(void)
 
 static loco_initCompany(void)
 {
+    auto id;
+
     id = loco_makeStubStruct("company_t", 0x8FA8);
     loco_setStructFld(id, 0x00, U16, "name");
     loco_setStructFld(id, 0x02, U16, "owner_name");
