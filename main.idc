@@ -1,3 +1,4 @@
+#include "enums.idc"
 #include "functions.idc"
 #include "names.idc"
 #include "objects.idc"
@@ -9,6 +10,7 @@
 
 static main(void)
 {
+    initEnums();
     initStructs();
     initStrings();
     initObjects();

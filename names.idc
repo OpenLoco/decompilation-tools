@@ -78,6 +78,7 @@ static initNames(void)
     MakeName(0x0040FBD9, "SEH_12A719C");
     MakeName(0x0040FC61, "SEH_12A7E8C");
     MakeName(0x0040FC79, "SEH_12A7F2C");
+    set_cmt(0x004296B7, "context", 0);
     MakeName(0x0042A4A8, "windowmgr::open_messages");
     MakeName(0x00431315, "do_game_command");
     MakeName(0x00431A8A, "window_error_open");
@@ -346,6 +347,7 @@ static initNames(void)
     MakeName(0x0049748C, "TownManager::updateMonthly");
     MakeName(0x00497616, "recalculate_town_label");
     MakeName(0x0049771C, "recalculate_town_labels");
+    MakeName(0x00498EAF, "window_town_prepare_0");
     MakeName(0x004999AD, "ui::town::repositionTabs");
     MakeName(0x004999E1, "ui::town::drawTabs");
     MakeName(0x00499A87, "town::initViewport");
@@ -423,6 +425,12 @@ static initNames(void)
     MakeName(0x004C6118, "window_update_all");
     MakeName(0x004C641F, "viewport_set_underground_flag");
     MakeName(0x004C6456, "viewports_update_position");
+    set_cmt(0x004C64BF, "view_width", 1);
+    set_cmt(0x004C64C3, "view_height", 1);
+    set_cmt(0x004C6545, "0", 1);
+    set_cmt(0x004C6559, "1", 1);
+    set_cmt(0x004C656D, "2", 1);
+    set_cmt(0x004C6581, "3", 1);
     MakeName(0x004C68E4, "viewport_move");
     MakeName(0x004C6E65, "update_cursor_position");
     MakeName(0x004C6EE6, "game_get_next_input");
@@ -524,6 +532,8 @@ static initNames(void)
     MakeName(0x004CEB67, "txtutils_4CEB67");
     MakeName(0x004CEC25, "ViewportManager::collectGarbage");
     MakeName(0x004CEC50, "clip_drawpixelinfo");
+    set_cmt(0x004CEE1C, "right", 1);
+    set_cmt(0x004CEE1F, "bottom", 1);
     MakeName(0x004CF142, "set_cursor_to_1");
     MakeName(0x004CF167, "set_cursor");
     MakeName(0x004CF194, "widget::draw_tab");
