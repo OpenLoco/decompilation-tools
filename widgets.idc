@@ -215,12 +215,14 @@ static loco_initEnum(id, prefix)
     loco_initEnumMember(id, prefix, "town", 33, 0b111111);
     loco_initEnumMember(id, prefix, "industry", 34, 0b111111);
     loco_initEnumMember(id, prefix, "industry_list", 35, 0b111111);
+    loco_initEnumMember(id, prefix, "news", 36, 0b111111);
     loco_initEnumMember(id, prefix, "messages", 37, 0b111111);
     loco_initEnumMember(id, prefix, "multiplayer", 39, 0b111111);
     loco_initEnumMember(id, prefix, "options", 40, 0b111111);
     loco_initEnumMember(id, prefix, "music_selection", 41, 0b111111);
     loco_initEnumMember(id, prefix, "company_face_selection", 42, 0b111111);
     loco_initEnumMember(id, prefix, "landscape_generation", 43, 0b111111);
+    loco_initEnumMember(id, prefix, "landscape_generation_confirm", 44, 0b111111);
     loco_initEnumMember(id, prefix, "scenario_options", 45, 0b111111);
     loco_initEnumMember(id, prefix, "company_list", 48, 0b111111);
     loco_initEnumMember(id, prefix, "tutorial", 49, 0b111111);
@@ -1316,11 +1318,11 @@ static initWidgets(void)
     op_stroff(0x004CB9DD, 1, id, 0);
     // sort off
 
-    LocoWidgetSet(enumWidget, 0x508C8C, 0x4F8D64, "ui::window_36::_widgets_1");
-    LocoWidgetSet(enumWidget, 0x508CF0, 0x4F8D64, "ui::window_36::_widgets_0");
-    LocoWidgetSet(enumWidget, 0x508D54, 0x4F8DD8, "ui::window_36::_widgets_2");
-    LocoWidgetSet(enumWidget, 0x508F1C, 0x4F96D8, "ui::window_12::_widgets_0");
-    LocoWidgetSet(enumWidget, 0x508F30, 0x4F96D8, "ui::window_12::_widgets_1");
+    LocoWidgetSet(enumWidget, 0x508C8C, 0x4F8D64, "ui::news::_widgets_1");
+    LocoWidgetSet(enumWidget, 0x508CF0, 0x4F8D64, "ui::news::_widgets_0");
+    LocoWidgetSet(enumWidget, 0x508D54, 0x4F8DD8, "ui::news::_widgets_2");
+    LocoWidgetSet(enumWidget, 0x508F1C, 0x4F96D8, "ui::error::_widgets_0");
+    LocoWidgetSet(enumWidget, 0x508F30, 0x4F96D8, "ui::error::_widgets_1");
     LocoWidgetSet(enumWidget, 0x508F54, 0x4F9A90, "ui::window_46");
     LocoWidgetSet(enumWidget, 0x509680, 0x4F9A1C, "ui::company_face_selection");
     LocoWidgetSet(enumWidget, 0x509C20, 0x4FA1F4, "ui::window_0::_widgets");
@@ -1344,11 +1346,11 @@ static initWidgets(void)
     LocoWidgetSet(enumWidget, 0x50AE00, 0x4FB37C, "ui::prompt_ok_cancel::_widgets");
     LocoWidgetSet(enumWidget, 0x50C1B4, 0x4FDDC8, "ui::map");
     LocoWidgetSet(enumWidget, 0x50D164, 0x4FE3C8, "ui::object_selection");
-    LocoWidgetSet(enumWidget, 0x522504, 0x50063C, "ui::window_25::_widgets"); //  (created on vehicle event)
+    LocoWidgetSet(enumWidget, 0x522504, 0x50063C, "ui::drag_vehicle_part::_widgets"); //  (created on vehicle event)
     LocoWidgetSet(enumWidget, 0x5228FC, 0x503CDC, "ui::keyboard_shortcuts");
     LocoWidgetSet(enumWidget, 0x522960, 0x503D50, "ui::keyboard_shortcuts_edit");
     LocoWidgetSet(enumWidget, 0x5229A4, 0x5041F8, "ui::music_selection");
-    LocoWidgetSet(enumWidget, 0x523040, 0x504274, "ui::window_44");
+    LocoWidgetSet(enumWidget, 0x523040, 0x504274, "ui::landscape_generation_confirm");
     LocoWidgetSet(enumWidget, 0x523094, 0x5042E8, "ui::prompt_confirm_display_mode");
     LocoWidgetSet(enumWidget, 0x5234CC, 0x504774, "ui::tooltip::_widgets"); // type: 6
     LocoWidgetSet(enumWidget, 0x5234E0, 0x5048D0, "ui::dropdown::_widgets"); // type: 7
