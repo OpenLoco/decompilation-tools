@@ -481,7 +481,7 @@ static initNames(void)
     SetType(0x004CB966, "void __usercall window_invalidate_by_id(windowtype windowtype@<al.4>, __int16 number@<bx>);");
     MakeName(0x004CBA2D, "station_invalidate");
     MakeName(0x004CBE5F, "map_invalidate_tile_full");
-	SetType(0x004CBE5F, "void __usercall map_invalidate_tile_full(__int16 x@<ax>, __int16 y@<cx>);");
+    SetType(0x004CBE5F, "void __usercall map_invalidate_tile_full(__int16 x@<ax>, __int16 y@<cx>);");
     MakeName(0x004CC692, "window_close_by_id");
     SetType(0x004CC692, "void __usercall window_close_by_id(windowtype windowtype@<cl.4>);");
     MakeName(0x004CC6EA, "window_close");

@@ -16,7 +16,7 @@ static initStructs(void)
     loco_initDropdowns();
     loco_initGFX();
     loco_initColours();
-	loco_initTile();
+    loco_initTile();
 }
 
 static loco_setStructMember(id, offset, name, type, size)
