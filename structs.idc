@@ -1267,7 +1267,27 @@ static loco_initIndustries(void)
 
 static loco_initStation(void)
 {
-    loco_makeStubStruct("station_t", 0x3D2);
+    auto id;
+
+    id = loco_makeStubStruct("station_cargo_stats", 0x0D);
+    loco_setStructFld(id, 0x00, U16, "quantity");
+    loco_setStructFld(id, 0x02, U16, "origin_station");
+    loco_setStructFld(id, 0x04, U8, "flags");
+    loco_setStructFld(id, 0x05, U8, "age");
+    loco_setStructFld(id, 0x06, U8, "rating");
+    loco_setStructFld(id, 0x07, U8, "enroute_age");
+    loco_setStructFld(id, 0x0B, U8, "industry_id");
+
+    id = loco_makeStubStruct("station_t", 0x3D2);
+    loco_setStructFld(id, 0x00, U16, "name");
+    loco_setStructFldArray(id, 0x08, U16, "label_left", 4);
+    loco_setStructFldArray(id, 0x10, U16, "label_right", 4);
+    loco_setStructFldArray(id, 0x18, U16, "label_top", 4);
+    loco_setStructFldArray(id, 0x20, U16, "label_left", 4);
+    loco_setStructFld(id, 0x28, U8, "owner");
+    loco_setStructFld(id, 0x2A, U16, "flags");
+    loco_setStructFld(id, 0x2C, U16, "town");
+    loco_setStructSub(id, 0x2E, "station_cargo_stats", "cargo_stats", 32);
 }
 
 static loco_initEntities(void)
