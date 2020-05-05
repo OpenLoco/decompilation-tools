@@ -1289,7 +1289,7 @@ static loco_initStation(void)
     loco_setStructFldArray(id, 0x08, U16, "label_left", 4);
     loco_setStructFldArray(id, 0x10, U16, "label_right", 4);
     loco_setStructFldArray(id, 0x18, U16, "label_top", 4);
-    loco_setStructFldArray(id, 0x20, U16, "label_left", 4);
+    loco_setStructFldArray(id, 0x20, U16, "label_bottom", 4);
     loco_setStructFld(id, 0x28, U8, "owner");
     loco_setStructFld(id, 0x2A, U16, "flags");
     loco_setStructFld(id, 0x2C, U16, "town");
