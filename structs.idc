@@ -1286,10 +1286,13 @@ static loco_initStation(void)
 
     id = loco_makeStubStruct("station_t", 0x3D2);
     loco_setStructFld(id, 0x00, U16, "name");
+    loco_setStructFld(id, 0x02, U16, "x");
+    loco_setStructFld(id, 0x04, U16, "y");
+    loco_setStructFld(id, 0x06, U16, "z");
     loco_setStructFldArray(id, 0x08, U16, "label_left", 4);
     loco_setStructFldArray(id, 0x10, U16, "label_right", 4);
     loco_setStructFldArray(id, 0x18, U16, "label_top", 4);
-    loco_setStructFldArray(id, 0x20, U16, "label_left", 4);
+    loco_setStructFldArray(id, 0x20, U16, "label_bottom", 4);
     loco_setStructFld(id, 0x28, U8, "owner");
     loco_setStructFld(id, 0x2A, U16, "flags");
     loco_setStructFld(id, 0x2C, U16, "town");
