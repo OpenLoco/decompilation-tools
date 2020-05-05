@@ -146,10 +146,16 @@ static loco_initWindow(void)
     loco_setStructFld(id, 0x03E, U16, "max_height");
     loco_setStructFld(id, 0x040, U16, "number");
     loco_setStructFld(id, 0x042, U32, "flags");
-    loco_setStructSub(id, 0x046, "scroll_t", "scroll", 3);
+    loco_setStructSub(id, 0x046, "scroll_t", "scroll", 2);
+    loco_setStructFldArray(id, 0x06A, U16, "row_info", 1000);
+    loco_setStructFld(id, 0x83A, U16, "row_count");
+    loco_setStructFld(id, 0x83E, U16, "row_height");
+    loco_setStructFld(id, 0x840, U16, "row_hover");
+    loco_setStructFld(id, 0x844, U16, "sort_mode");
     loco_setStructSub(id, 0x848, "SavedView_t", "saved_view", 1);
     loco_setStructFld(id, 0x870, U16, "current_tab");
     loco_setStructFld(id, 0x872, U16, "frame_no");
+    loco_setStructFld(id, 0x874, U16, "current_secondary_tab");
     loco_setStructSub(id, 0x876, "viewport_config_t", "viewport_configurations", 2);
     loco_setStructFld(id, 0x882, U8, "type");
     loco_setStructFld(id, 0x884, U8, "owner");
