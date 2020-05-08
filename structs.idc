@@ -16,6 +16,7 @@ static initStructs(void)
     loco_initDropdowns();
     loco_initGFX();
     loco_initColours();
+    loco_initTile();
 }
 
 static loco_setStructMember(id, offset, name, type, size)
@@ -1381,4 +1382,13 @@ static loco_initColours(void)
         loco_setStructFld(idA, i, U8, sprintf("shade_%d", i));
         loco_setStructFld(idB, i, U8, sprintf("shade_%d", i + 8));
     }
+}
+
+static loco_initTile(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("map_pos", 0x04);
+    loco_setStructFld(id, 0x00, U16, "x");
+    loco_setStructFld(id, 0x02, U16, "y");
 }
