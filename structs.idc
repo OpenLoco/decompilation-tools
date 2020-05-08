@@ -1268,7 +1268,25 @@ static loco_initTown(void)
 
 static loco_initIndustries(void)
 {
-    loco_makeStubStruct("industry_t", 0x453);
+    auto id;
+
+    id = loco_makeStubStruct("industry_t", 0x453);
+    loco_setStructFld(id, 0x00, U16, "name");
+    loco_setStructFld(id, 0x02, U16, "x");
+    loco_setStructFld(id, 0x04, U16, "y");
+    loco_setStructFld(id, 0x06, U16, "flags");
+    loco_setStructFld(id, 0x08, U32, "prng1");
+    loco_setStructFld(id, 0x0C, U32, "prng2");
+    loco_setStructFld(id, 0x10, U8, "object_id");
+    loco_setStructFld(id, 0xD5, U16, "town");
+    loco_setStructFld(id, 0xD7, U32, "tile_loop");
+    loco_setStructFld(id, 0xE0, U8, "owner");
+    loco_setStructFldArray(id, 0x189, U16, "quantity_produced_cargo", 2);
+    loco_setStructFldArray(id, 0x193, U16, "quantity_received_cargo", 3);
+    loco_setStructFldArray(id, 0x1A9, U8, "history_size", 2);
+    loco_setStructFldArray(id, 0x1AB, U8, "history_1", 20*12);
+    loco_setStructFldArray(id, 0x29B, U8, "history_2", 20*12);
+    loco_setStructFldArray(id, 0x38B, U32, "history_min_production", 2);
 }
 
 static loco_initStation(void)
