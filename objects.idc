@@ -145,6 +145,8 @@ static initObjects(void)
     initObject_01();
     initObject_02();
     initObject_07();
+    initObject_08();
+    initObject_1E();
     initObject_20();
     initObject_21();
 }
@@ -349,6 +351,28 @@ static initObject_07(void)
     op_stroff(0x00498E72, 1, id, 0);
     op_stroff(0x00498E7D, 1, id, 0);
     // sort off
+}
+
+static initObject_08(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x08, 0) + "_t", 0x10);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x06, U16, "units_and_cargo_name");
+    loco_setStructFld(id, 0x08, U16, "unit_name_singular");
+    loco_setStructFld(id, 0x0A, U16, "unit_name_plural");
+    loco_setStructFld(id, 0x0C, U32, "sprite");
+}
+
+static initObject_1E(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x1E, 0) + "_t", 0xF1);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFldArray(id, 0xDE, U8, "produced_cargo_t", 2);
+    loco_setStructFldArray(id, 0xE0, U8, "recieved_cargo_type", 3);
 }
 
 static initObject_20(void)
