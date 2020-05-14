@@ -1279,6 +1279,7 @@ static loco_initIndustries(void)
     loco_setStructFld(id, 0x08, U32, "prng1");
     loco_setStructFld(id, 0x0C, U32, "prng2");
     loco_setStructFld(id, 0x10, U8, "object_id");
+    loco_setStructFld(id, 0x11, U8, "under_construction");
     loco_setStructFld(id, 0xD5, U16, "town");
     loco_setStructFld(id, 0xD7, U32, "tile_loop");
     loco_setStructFld(id, 0xE0, U8, "owner");

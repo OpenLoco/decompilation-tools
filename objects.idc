@@ -371,8 +371,13 @@ static initObject_1E(void)
 
     id = loco_makeStubStruct("obj_" + loco_getObjectType(0x1E, 0) + "_t", 0xF1);
     loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0xCA, U16, "designed");
+    loco_setStructFld(id, 0xCC, U16, "obsolete");
+    loco_setStructFld(id, 0xCF, U8, "cost_index");
+    loco_setStructFld(id, 0xD0, U16, "cost_factor");
     loco_setStructFldArray(id, 0xDE, U8, "produced_cargo_type", 2);
     loco_setStructFldArray(id, 0xE0, U8, "received_cargo_type", 3);
+    loco_setStructFld(id, 0xE4, U32, "flags");
 }
 
 static initObject_20(void)
