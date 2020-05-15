@@ -53,10 +53,13 @@ static getEventName(event, i)
         return get3(i, "void", "on_mouse_down", "__int32 widgetIndex@<edx>, widget_t * widget@<edi>");
     if (event == 5)
         return get3(i, "void", "on_dropdown", "__int32 widgetIndex@<edx>, __int16 itemIndex@<ax>");
-
+    if (event == 6)
+        return get3(i, "void", "on_periodic_update", "");
     if (event == 7)
         return get3(i, "void", "on_update", "");
 
+    if (event == 10)
+        return get3(i, "void", "on_tool_update", "");
     if (event == 11)
         return get3(i, "__int32 @<edi>", "on_tool_down", "__int16 x@<ax>, __int16 y@<cx>, __int8 bool@<bl>, __int32 cursor@<edi>");
 
