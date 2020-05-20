@@ -146,6 +146,7 @@ static initObjects(void)
     initObject_02();
     initObject_07();
     initObject_08();
+    initObject_1C();
     initObject_1E();
     initObject_20();
     initObject_21();
@@ -363,6 +364,16 @@ static initObject_08(void)
     loco_setStructFld(id, 0x08, U16, "unit_name_singular");
     loco_setStructFld(id, 0x0A, U16, "unit_name_plural");
     loco_setStructFld(id, 0x0C, U32, "sprite");
+}
+
+static initObject_1C(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x1C, 0) + "_t", 0xA9);
+    loco_setStructFld(id, 0x00, U16, "name");
+    loco_setStructFld(id, 0x90, U32, "colours");
+    loco_setStructFld(id, 0xCC, U8, "flags");
 }
 
 static initObject_1E(void)
