@@ -221,6 +221,9 @@ static initNames(void)
     MakeName(0x0045F04F, "viewport_rotate_right");
     MakeName(0x0045F0ED, "viewport_rotate_left");
     MakeName(0x0045F1A7, "screen_get_map_xy");
+    MakeName(0x0045FD41, "ui::viewport_coord_to_map_coord");
+    SetType(0x0045FD41, "void __usercall ui::viewport_coord_to_map_coord(__int16 x@<ax>, __int16 y@<bx>, __int16 z@<bp>, __int32 rotation@<edx>);");
+    set_func_cmt(0x0045FD41, "returns map_pos{x@<ax>, y@<bx>}", 1);
     MakeName(0x0045FD8E, "screen_pos_to_map_pos");
     MakeName(0x0045FE05, "screen_get_map_xy_quadrant_with_z");
     MakeName(0x0045FE4C, "screen_get_map_xy_side");
@@ -445,7 +448,9 @@ static initNames(void)
     MakeName(0x004C96E7, "handle_input");
     MakeName(0x004C9984, "invalidate_all_windows_after_input");
     MakeName(0x004C99B9, "window_invalidate_pressed_image_buttons");
-    MakeName(0x004C9A95, "ui::windowmgr::find_at");
+    MakeName(0x004C9A95, "ui::WindowManager::findAt");
+    SetType(0x004C9A95, "__int32 __usercall ui::WindowManager::findAt@<esi>(__int16 x@<ax>, __int16 y@<bx>);");
+    set_func_cmt(0x004C9A95, "returns window pointer (or null)", 1);
     MakeName(0x004C9AFA, "widget_find_from_point");
     MakeName(0x004C9B56, "find_window");
     SetType(0x004C9B56, "void __usercall find_window(windowtype windowtype@<cl.4>);");
