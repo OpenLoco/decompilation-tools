@@ -144,8 +144,12 @@ static initObjects(void)
     initObject_00();
     initObject_01();
     initObject_02();
+    initObject_05();
+    initObject_06();
     initObject_07();
     initObject_08();
+    initObject_09();
+    initObject_18();
     initObject_1C();
     initObject_1E();
     initObject_20();
@@ -305,6 +309,26 @@ static initObject_02(void)
     // sort off
 }
 
+static initObject_05(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x05, 0) + "_t", 0x07);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U8, "cost_index");
+    loco_setStructFld(id, 0x04, U8, "cost_factor");
+}
+
+static initObject_06(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x06, 0) + "_t", 0x1A);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U8, "cost_index");
+    loco_setStructFld(id, 0x08, U8, "cost_factor");
+}
+
 static initObject_07(void)
 {
     auto id, i;
@@ -364,6 +388,33 @@ static initObject_08(void)
     loco_setStructFld(id, 0x08, U16, "unit_name_singular");
     loco_setStructFld(id, 0x0A, U16, "unit_name_plural");
     loco_setStructFld(id, 0x0C, U32, "sprite");
+}
+
+static initObject_09(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x09, 0) + "_t", 0x0A);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U32, "sprite");
+    loco_setStructFld(id, 0x07, U8, "flags");
+}
+
+static initObject_18(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x18, 0) + "_t", 0x4C);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x03, U8, "height");
+    loco_setStructFld(id, 0x06, U8, "num_rotations");
+    loco_setStructFld(id, 0x07, U8, "growth");
+    loco_setStructFldArray(id, 0x0A, U32, "sprites", 12);
+    loco_setStructFld(id, 0x3D, U8, "season_state");
+    loco_setStructFld(id, 0x3F, U8, "cost_index");
+    loco_setStructFld(id, 0x40, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x42, U16, "clear_cost_factor");
+    loco_setStructFld(id, 0x44, U32, "colours");
 }
 
 static initObject_1C(void)
