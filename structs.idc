@@ -1264,7 +1264,24 @@ static loco_initCompany(void)
 
 static loco_initTown(void)
 {
-    loco_makeStubStruct("town_t", 0x270);
+    auto id;
+
+    id = loco_makeStubStruct("town_t", 0x270);
+    loco_setStructFld(id, 0x00, U16, "name");
+    loco_setStructFld(id, 0x02, U16, "x");
+    loco_setStructFld(id, 0x04, U16, "y");
+    loco_setStructFld(id, 0x06, U16, "flags");
+    loco_setStructFld(id, 0x30, U32, "population");
+    loco_setStructFldArray(id, 0x3A, S16, "company_ratings", 15);
+    loco_setStructFld(id, 0x58, U16, "companies_with_rating");
+    loco_setStructFld(id, 0x5A, U8, "size");
+    loco_setStructFld(id, 0x5B, U8, "history_size");
+    loco_setStructFldArray(id, 0x5C, U8, "history", 20*12);
+    loco_setStructFld(id, 0x14C, S32, "history_min_population");
+    loco_setStructFldArray(id, 0x158, S16, "monthly_cargo_delivered", 32);
+    loco_setStructFld(id, 0x198, U32, "cargo_influence_flags");
+    loco_setStructFld(id, 0x1A4, U8, "build_speed");
+    loco_setStructFld(id, 0x1A6, U16, "num_stations");
 }
 
 static loco_initIndustries(void)
