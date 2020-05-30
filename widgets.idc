@@ -227,11 +227,13 @@ static loco_initEnum(id, prefix)
     loco_initEnumMember(id, prefix, "landscape_generation", 43, 0b111111);
     loco_initEnumMember(id, prefix, "landscape_generation_confirm", 44, 0b111111);
     loco_initEnumMember(id, prefix, "scenario_options", 45, 0b111111);
+    loco_initEnumMember(id, prefix, "progress_bar", 47, 0b111111);
     loco_initEnumMember(id, prefix, "company_list", 48, 0b111111);
     loco_initEnumMember(id, prefix, "tutorial", 49, 0b111111);
     loco_initEnumMember(id, prefix, "prompt_confirm_displaymode", 50, 0b111111);
     loco_initEnumMember(id, prefix, "textinput", 51, 0b111111);
     loco_initEnumMember(id, prefix, "prompt_browse", 52, 0b111111);
+    loco_initEnumMember(id, prefix, "preview_image", 53, 0b111111);
     loco_initEnumMember(id, prefix, "prompt_okcancel", 54, 0b111111);
 }
 
