@@ -149,6 +149,7 @@ static initObjects(void)
     initObject_07();
     initObject_08();
     initObject_09();
+    initObject_15();
     initObject_18();
     initObject_1C();
     initObject_1E();
@@ -398,6 +399,39 @@ static initObject_09(void)
     loco_setStructFld(id, 0x00, U16, "str");
     loco_setStructFld(id, 0x02, U32, "sprite");
     loco_setStructFld(id, 0x07, U8, "flags");
+}
+
+static initObject_15(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("airport_var_AE_object", 0x7);
+    loco_setStructFld(id, 0x00, U16, "x");
+    loco_setStructFld(id, 0x02, U16, "y");
+    loco_setStructFld(id, 0x04, U16, "z");
+    loco_setStructFld(id, 0x06, U16, "flags");
+
+    id = loco_makeStubStruct("airport_var_B2_object", 0xC);
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x15, 0) + "_t", 0xBA);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x04, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x06, U8, "cost_index");
+    loco_setStructFld(id, 0x10, U16, "allowed_plane_types");
+    loco_setStructFld(id, 0x12, U8, "num_sprite_sets");
+    loco_setStructFld(id, 0x13, U8, "num_tiles");
+    loco_setStructFld(id, 0xA0, U32, "large_tiles");
+    loco_setStructFld(id, 0xA4, U8, "min_x");
+    loco_setStructFld(id, 0xA5, U8, "min_y");
+    loco_setStructFld(id, 0xA6, U8, "max_x");
+    loco_setStructFld(id, 0xA7, U8, "max_y");
+    loco_setStructFld(id, 0xA8, U16, "designed_year");
+    loco_setStructFld(id, 0xAA, U16, "obsolete_year");
+    loco_setStructFld(id, 0xAC, U8, "num_nodes");
+    loco_setStructFld(id, 0xAD, U8, "num_edges");
+    loco_setStructFld(id, 0xAE, U32, "struct_AE_ptr");
+    loco_setStructFld(id, 0xB2, U32, "struct_B2_ptr");
 }
 
 static initObject_18(void)
