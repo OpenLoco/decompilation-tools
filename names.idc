@@ -221,6 +221,9 @@ static initNames(void)
     MakeName(0x0045F04F, "viewport_rotate_right");
     MakeName(0x0045F0ED, "viewport_rotate_left");
     MakeName(0x0045F1A7, "screen_get_map_xy");
+    MakeName(0x0045FCE6, "ui::screenGetMapXyWithZ");
+    SetType(0x0045FCE6, "void __usercall ui::screenGetMapXyWithZ(__int16 mouse_x@<ax>, __int16 mouse_y@<bx>, __int16 z@<bp>);");
+    set_func_cmt(0x0045FCE6, "returns optional map_pos{x@<ax>, y@<bx>}", 1);
     MakeName(0x0045FD41, "ui::viewport_coord_to_map_coord");
     SetType(0x0045FD41, "void __usercall ui::viewport_coord_to_map_coord(__int16 x@<ax>, __int16 y@<bx>, __int16 z@<bp>, __int32 rotation@<edx>);");
     set_func_cmt(0x0045FD41, "returns map_pos{x@<ax>, y@<bx>}", 1);
