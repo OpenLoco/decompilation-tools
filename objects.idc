@@ -149,6 +149,7 @@ static initObjects(void)
     initObject_07();
     initObject_08();
     initObject_09();
+    initObject_0E();
     initObject_15();
     initObject_18();
     initObject_1C();
@@ -399,6 +400,25 @@ static initObject_09(void)
     loco_setStructFld(id, 0x00, U16, "str");
     loco_setStructFld(id, 0x02, U32, "sprite");
     loco_setStructFld(id, 0x07, U8, "flags");
+}
+
+static initObject_0E(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0E, 0) + "_t", 0x2B);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U8, "no_roof");
+    loco_setStructFld(id, 0x08, U8, "span_length");
+    loco_setStructFld(id, 0x09, U8, "pillar_spacing");
+    loco_setStructFld(id, 0x0A, U16, "max_speed");
+    loco_setStructFld(id, 0x0C, U8, "max_height");
+    loco_setStructFld(id, 0x0D, U8, "cost_index");
+    loco_setStructFld(id, 0x0E, U16, "base_cost_factor");
+    loco_setStructFld(id, 0x10, U16, "height_cost_factor");
+    loco_setStructFld(id, 0x12, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x14, U16, "disabled_track_cfg");
+    loco_setStructFld(id, 0x2A, U16, "designed_year");
 }
 
 static initObject_15(void)
