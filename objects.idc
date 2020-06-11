@@ -151,6 +151,7 @@ static initObjects(void)
     initObject_09();
     initObject_0E();
     initObject_15();
+    initObject_16();
     initObject_18();
     initObject_1C();
     initObject_1E();
@@ -452,6 +453,21 @@ static initObject_15(void)
     loco_setStructFld(id, 0xAD, U8, "num_edges");
     loco_setStructFld(id, 0xAE, U32, "struct_AE_ptr");
     loco_setStructFld(id, 0xB2, U32, "struct_B2_ptr");
+}
+
+static initObject_16(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x16, 0) + "_t", 0x28);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x04, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x06, U8, "cost_index");
+    loco_setStructFld(id, 0x12, U8, "num_aux_01");
+    loco_setStructFld(id, 0x13, U8, "num_aux_02_ent");
+    loco_setStructFld(id, 0x20, U16, "designed_year");
+    loco_setStructFld(id, 0x22, U16, "obsolete_year");
 }
 
 static initObject_18(void)
