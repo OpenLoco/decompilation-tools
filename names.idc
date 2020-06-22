@@ -167,7 +167,8 @@ static initNames(void)
     MakeName(0x00446E62, "append_directory_name");
     MakeName(0x00446F6B, "window_prompt_ok_cancel_open");
     MakeName(0x0044733C, "load_g1");
-    MakeName(0x00447485, "gfx_clear");
+    MakeName(0x00447485, "gfx::clear");
+    SetType(0x00447485, "void __usercall gfx__clear(drawpixelinfo_t *dpi@<edi>, __int32 fill@<ebp>);");	
     MakeName(0x004474BA, "gfx_fill_rect");
     SetType(0x004474BA, "void __usercall gfx_fill_rect(__int16 left@<ax>, __int16 top@<cx>, __int16 right@<bx>, __int16 bottom@<dx>, int colour@<ebp>);");
     MakeName(0x00447C21, "pixel_is_present_bmp");
@@ -309,7 +310,8 @@ static initNames(void)
     MakeName(0x00494ECF, "gfx_draw_string_centred_wrapped");
     MakeName(0x00495224, "gfx_draw_string_left_wrapped");
     MakeName(0x00495301, "gfx_wrap_string");
-    MakeName(0x00495685, "gfx_get_string_width");
+    MakeName(0x00495685, "gfx::getStringWidth");
+    SetType(0x00495685, "__int16 __usercall gfx::getStringWidth@<cx>(char *buffer@<esi>);");
     MakeName(0x00495715, "gfx_get_string_width_new_lined");
     MakeName(0x004957C4, "gfx::clip_string");
     SetType(0x004957C4, "__int16 __usercall gfx__clip_string@<cx>(__int16 width@<di>, void *buffer@<esi>);");
