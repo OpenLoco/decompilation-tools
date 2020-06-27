@@ -17,6 +17,7 @@ static initStructs(void)
     loco_initGFX();
     loco_initColours();
     loco_initTile();
+    loco_initMessage();
 }
 
 static loco_setStructMember(id, offset, name, type, size)
@@ -1429,4 +1430,15 @@ static loco_initTile(void)
     id = loco_makeStubStruct("map_pos", 0x04);
     loco_setStructFld(id, 0x00, U16, "x");
     loco_setStructFld(id, 0x02, U16, "y");
+}
+
+static loco_initMessage(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("message", 0xD4);
+    loco_setStructFld(id, 0x00, U8, "var_00");
+    loco_setStructFldArray(id, 0x01, U8, "messageString", 198);
+    loco_setStructFld(id, 0x0C7, U8, "companyId");
+    loco_setStructFld(id, 0x0D0, U32, "date");
 }
