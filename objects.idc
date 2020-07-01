@@ -149,6 +149,16 @@ static initObjects(void)
     initObject_07();
     initObject_08();
     initObject_09();
+    initObject_0A();
+    initObject_0E();
+    initObject_0F();
+    initObject_10();
+    initObject_11();
+    initObject_12();
+    initObject_13();
+    initObject_14();
+    initObject_15();
+    initObject_16();
     initObject_18();
     initObject_1C();
     initObject_1E();
@@ -398,6 +408,200 @@ static initObject_09(void)
     loco_setStructFld(id, 0x00, U16, "str");
     loco_setStructFld(id, 0x02, U32, "sprite");
     loco_setStructFld(id, 0x07, U8, "flags");
+}
+
+static initObject_0A(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0A, 0) + "_t", 0x1D);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "track_side");
+    loco_setStructFld(id, 0x05, U8, "num_frames");
+    loco_setStructFld(id, 0x06, U16, "cost_factor");
+    loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x0A, U8, "cost_index");
+    loco_setStructFld(id, 0x12, U8, "num_compatible");
+    loco_setStructFldArray(id, 0x13, U8, "mods", 7);
+    loco_setStructFld(id, 0x1A, U16, "designed_year");
+    loco_setStructFld(id, 0x1C, U16, "obsolete_year");
+}
+
+static initObject_0E(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0E, 0) + "_t", 0x2B);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U8, "no_roof");
+    loco_setStructFld(id, 0x08, U8, "span_length");
+    loco_setStructFld(id, 0x09, U8, "pillar_spacing");
+    loco_setStructFld(id, 0x0A, U16, "max_speed");
+    loco_setStructFld(id, 0x0C, U8, "max_height");
+    loco_setStructFld(id, 0x0D, U8, "cost_index");
+    loco_setStructFld(id, 0x0E, U16, "base_cost_factor");
+    loco_setStructFld(id, 0x10, U16, "height_cost_factor");
+    loco_setStructFld(id, 0x12, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x14, U16, "disabled_track_cfg");
+    loco_setStructFld(id, 0x1A, U8, "track_num_compatible");
+    loco_setStructFldArray(id, 0x1B, U8, "track_mods", 7);
+    loco_setStructFld(id, 0x22, U8, "road_num_compatible");
+    loco_setStructFldArray(id, 0x23, U8, "road_mods", 7);
+    loco_setStructFld(id, 0x2A, U16, "designed_year");
+}
+
+static initObject_0F(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0F, 0) + "_t", 0xAC);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x04, U16, "track_pieces");
+    loco_setStructFld(id, 0x06, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x0A, U8, "cost_index");
+    loco_setStructFld(id, 0x0C, U8, "flags");
+    loco_setStructFld(id, 0x22, U8, "num_compatible");
+    loco_setStructFldArray(id, 0x23, U8, "mods", 7);
+    loco_setStructFld(id, 0x2A, U16, "designed_year");
+    loco_setStructFld(id, 0x2C, U16, "obsolete_year");
+}
+
+static initObject_10(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x10, 0) + "_t", 0x12);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "track_pieces");
+    loco_setStructFld(id, 0x04, U8, "is_overhead");
+    loco_setStructFld(id, 0x05, U8, "cost_index");
+    loco_setStructFld(id, 0x06, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
+}
+
+static initObject_11(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x11, 0) + "_t", 0x35);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "track_pieces");
+    loco_setStructFld(id, 0x04, U16, "station_track_pieces");
+    loco_setStructFld(id, 0x07, U8, "num_compatible");
+    loco_setStructFld(id, 0x08, U8, "num_mods");
+    loco_setStructFld(id, 0x09, U8, "num_signals");
+    loco_setStructFldArray(id, 0x0A, U8, "mods", 4);
+    loco_setStructFld(id, 0x14, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x16, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x18, U16, "tunel_cost_factor");
+    loco_setStructFld(id, 0x1A, U8, "cost_index");
+    loco_setStructFld(id, 0x1C, U16, "curve_speed");
+    loco_setStructFld(id, 0x22, U16, "flags");
+    loco_setStructFld(id, 0x24, U8, "num_bridges");
+    loco_setStructFldArray(id, 0x25, U8, "briges", 7);
+    loco_setStructFld(id, 0x2C, U8, "num_stations");
+    loco_setStructFldArray(id, 0x2D, U8, "stations", 7);
+    loco_setStructFld(id, 0x34, U8, "display_offset");
+}
+
+static initObject_12(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x12, 0) + "_t", 0x6E);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x04, U16, "road_pieces");
+    loco_setStructFld(id, 0x06, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x0A, U8, "cost_index");
+    loco_setStructFld(id, 0x0B, U8, "flags");
+    loco_setStructFld(id, 0x20, U8, "num_compatible");
+    loco_setStructFldArray(id, 0x21, U8, "mods", 7);
+    loco_setStructFld(id, 0x28, U16, "designed_year");
+    loco_setStructFld(id, 0x2A, U16, "obsolete_year");
+}
+
+static initObject_13(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x13, 0) + "_t", 0x12);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "road_pieces");
+    loco_setStructFld(id, 0x04, U8, "is_overhead");
+    loco_setStructFld(id, 0x05, U8, "cost_index");
+    loco_setStructFld(id, 0x06, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
+}
+
+static initObject_14(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x14, 0) + "_t", 0x30);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "road_pieces");
+    loco_setStructFld(id, 0x04, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x06, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x08, U16, "tunnel_cost_factor");
+    loco_setStructFld(id, 0x0A, U8, "cost_index");
+    loco_setStructFld(id, 0x12, U16, "flags");
+    loco_setStructFld(id, 0x14, U8, "num_bridges");
+    loco_setStructFldArray(id, 0x15, U8, "bridges", 7);
+    loco_setStructFld(id, 0x1C, U8, "num_stations");
+    loco_setStructFldArray(id, 0x1D, U8, "stations", 7);
+    loco_setStructFld(id, 0x25, U8, "num_mods");
+    loco_setStructFldArray(id, 0x27, U8, "mods", 2);
+    loco_setStructFld(id, 0x28, U8, "num_compatible");
+}
+
+static initObject_15(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("airport_var_AE_object", 0x7);
+    loco_setStructFld(id, 0x00, U16, "x");
+    loco_setStructFld(id, 0x02, U16, "y");
+    loco_setStructFld(id, 0x04, U16, "z");
+    loco_setStructFld(id, 0x06, U16, "flags");
+
+    id = loco_makeStubStruct("airport_var_B2_object", 0xC);
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x15, 0) + "_t", 0xBA);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x04, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x06, U8, "cost_index");
+    loco_setStructFld(id, 0x10, U16, "allowed_plane_types");
+    loco_setStructFld(id, 0x12, U8, "num_sprite_sets");
+    loco_setStructFld(id, 0x13, U8, "num_tiles");
+    loco_setStructFld(id, 0xA0, U32, "large_tiles");
+    loco_setStructFld(id, 0xA4, U8, "min_x");
+    loco_setStructFld(id, 0xA5, U8, "min_y");
+    loco_setStructFld(id, 0xA6, U8, "max_x");
+    loco_setStructFld(id, 0xA7, U8, "max_y");
+    loco_setStructFld(id, 0xA8, U16, "designed_year");
+    loco_setStructFld(id, 0xAA, U16, "obsolete_year");
+    loco_setStructFld(id, 0xAC, U8, "num_nodes");
+    loco_setStructFld(id, 0xAD, U8, "num_edges");
+    loco_setStructFld(id, 0xAE, U32, "struct_AE_ptr");
+    loco_setStructFld(id, 0xB2, U32, "struct_B2_ptr");
+}
+
+static initObject_16(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x16, 0) + "_t", 0x28);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "build_cost_factor");
+    loco_setStructFld(id, 0x04, U16, "sell_cost_factor");
+    loco_setStructFld(id, 0x06, U8, "cost_index");
+    loco_setStructFld(id, 0x12, U8, "num_aux_01");
+    loco_setStructFld(id, 0x13, U8, "num_aux_02_ent");
+    loco_setStructFld(id, 0x20, U16, "designed_year");
+    loco_setStructFld(id, 0x22, U16, "obsolete_year");
 }
 
 static initObject_18(void)

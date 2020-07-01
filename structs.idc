@@ -1144,7 +1144,7 @@ static loco_initViewport(void)
     loco_setStructFld(id, 0x0C, U16, "view_width");
     loco_setStructFld(id, 0x0E, U16, "view_height");
     loco_setStructFld(id, 0x10, U8, "zoom");
-    loco_setStructVar(id, 0x12, U16);
+    loco_setStructFld(id, 0x12, U16, "flags");
 
     // sort on
     op_stroff(0x0045EFE2, 0, id, 0);
