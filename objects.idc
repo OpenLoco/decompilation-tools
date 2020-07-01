@@ -421,6 +421,8 @@ static initObject_0A(void)
     loco_setStructFld(id, 0x06, U16, "cost_factor");
     loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
     loco_setStructFld(id, 0x0A, U8, "cost_index");
+    loco_setStructFld(id, 0x12, U8, "num_compatible");
+    loco_setStructFldArray(id, 0x13, U8, "mods", 7);
     loco_setStructFld(id, 0x1A, U16, "designed_year");
     loco_setStructFld(id, 0x1C, U16, "obsolete_year");
 }
@@ -441,6 +443,10 @@ static initObject_0E(void)
     loco_setStructFld(id, 0x10, U16, "height_cost_factor");
     loco_setStructFld(id, 0x12, U16, "sell_cost_factor");
     loco_setStructFld(id, 0x14, U16, "disabled_track_cfg");
+    loco_setStructFld(id, 0x1A, U8, "track_num_compatible");
+    loco_setStructFldArray(id, 0x1B, U8, "track_mods", 7);
+    loco_setStructFld(id, 0x22, U8, "road_num_compatible");
+    loco_setStructFldArray(id, 0x23, U8, "road_mods", 7);
     loco_setStructFld(id, 0x2A, U16, "designed_year");
 }
 
@@ -455,7 +461,8 @@ static initObject_0F(void)
     loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
     loco_setStructFld(id, 0x0A, U8, "cost_index");
     loco_setStructFld(id, 0x0C, U8, "flags");
-    loco_setStructFld(id, 0x23, U8, "num_compatible");
+    loco_setStructFld(id, 0x22, U8, "num_compatible");
+    loco_setStructFldArray(id, 0x23, U8, "mods", 7);
     loco_setStructFld(id, 0x2A, U16, "designed_year");
     loco_setStructFld(id, 0x2C, U16, "obsolete_year");
 }
@@ -509,7 +516,8 @@ static initObject_12(void)
     loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
     loco_setStructFld(id, 0x0A, U8, "cost_index");
     loco_setStructFld(id, 0x0B, U8, "flags");
-    loco_setStructFld(id, 0x21, U8, "num_compatible");
+    loco_setStructFld(id, 0x20, U8, "num_compatible");
+    loco_setStructFldArray(id, 0x21, U8, "mods", 7);
     loco_setStructFld(id, 0x28, U16, "designed_year");
     loco_setStructFld(id, 0x2A, U16, "obsolete_year");
 }
