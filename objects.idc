@@ -552,7 +552,7 @@ static initObject_14(void)
     loco_setStructFld(id, 0x1C, U8, "num_stations");
     loco_setStructFldArray(id, 0x1D, U8, "stations", 7);
     loco_setStructFld(id, 0x25, U8, "num_mods");
-    loco_setStructFldArray(id, 0x27, U8, "mods", 2);
+    loco_setStructFldArray(id, 0x26, U8, "mods", 2);
     loco_setStructFld(id, 0x28, U8, "num_compatible");
 }
 
