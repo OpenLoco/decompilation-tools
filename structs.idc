@@ -1240,6 +1240,7 @@ static loco_initViewport(void)
 static loco_initCompany(void)
 {
     auto id;
+    id = loco_makeStubStruct("currency48_t", 0x6);
 
     id = loco_makeStubStruct("company_t", 0x8FA8);
     loco_setStructFld(id, 0x00, U16, "name");
@@ -1247,20 +1248,36 @@ static loco_initCompany(void)
     loco_setStructFld(id, 0x04, U16, "challenge_flags");
     loco_setStructFld(id, 0x08, U32, "cash.var_00");
     loco_setStructFld(id, 0x0C, U16, "cash.var_02");
+    loco_setStructFld(id, 0x0E, U32, "current_loan");
     loco_setStructFld(id, 0x12, U32, "update_counter");
     loco_setStructFld(id, 0x16, U16, "performance_index");
     loco_setStructFld(id, 0x18, U8, "competitor_id");
     loco_setStructFld(id, 0x19, U8, "owner_emotion");
     loco_setStructFld(id, 0x1A, U8, "colour.primary");
     loco_setStructFld(id, 0x1B, U8, "colour.secondary");
-    loco_setStructFld(id, 0x88CE, U32, "companyValue.var_00");
-    loco_setStructFld(id, 0x88D2, U16, "companyValue.var_04");
+    loco_setStructFldArray(id, 0x1C, U16, "vehicleColours", 10);
+    loco_setStructFld(id, 0x30, U16, "customVehicleColoursSet");
+    loco_setStructFldArray(id, 0x34, U32, "unlocked_vehicles", 7);
+    loco_setStructFld(id, 0x50, U16, "available_vehicles");
+    loco_setStructFld(id, 0x57, U8, "numExpenditureMonths");
+    loco_setStructFldArray(id, 0x58, U32, "expenditures", 17*16);
+    loco_setStructFld(id, 0x498, U32, "startedDate");
+    loco_setStructFld(id, 0x2579, U8, "headquarters_z");
+    loco_setStructFld(id, 0x257A, U16, "headquarters_x");
+    loco_setStructFld(id, 0x257C, U16, "headquarters_y");
+    loco_setStructFldArray(id, 0x85FC, U32, "cargo_units_delivered_history", 120);
+    loco_setStructFldArray(id, 0x87DC, U16, "performance_index_history", 120);
+    loco_setStructFld(id, 0x88CC, U16, "history_size");
+    loco_setStructSub(id, 0x88CE, "currency48_t", "companyValueHistory", 120);
     loco_setStructFld(id, 0x8B9E, U32, "vehicleProfit.var_00");
     loco_setStructFld(id, 0x8BA2, U16, "vehicleProfit.var_04");
+    loco_setStructFldArray(id, 0x8BA4, U16, "transportTypeCount", 6);
     loco_setStructFld(id, 0x8BBC, U16, "observation_thing");
     loco_setStructFld(id, 0x8BBE, U16, "observation_x");
     loco_setStructFld(id, 0x8BC0, U16, "observation_y");
-    loco_setStructSub(id, 0x8BCE, U32, "cargoDelivered", 32);
+    loco_setStructFldArray(id, 0x8BCE, U32, "cargoDelivered", 32);
+    loco_setStructFldArray(id, 0x8C54, U32, "cargo_units_distance_history", 120);
+    loco_setStructFld(id, 0x8E34, U16, "jail_status");
 }
 
 static loco_initTown(void)
