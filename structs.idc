@@ -1454,8 +1454,10 @@ static loco_initMessage(void)
     auto id;
 
     id = loco_makeStubStruct("message", 0xD4);
-    loco_setStructFld(id, 0x00, U8, "var_00");
+    loco_setStructFld(id, 0x00, U8, "type");
     loco_setStructFldArray(id, 0x01, U8, "messageString", 198);
     loco_setStructFld(id, 0x0C7, U8, "companyId");
+    loco_setStructFld(id, 0x0CA, U16, "item_id_1");
+    loco_setStructFld(id, 0x0CC, U16, "item_id_2");
     loco_setStructFld(id, 0x0D0, U32, "date");
 }
