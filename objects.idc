@@ -637,6 +637,8 @@ static initObject_1E(void)
 
     id = loco_makeStubStruct("obj_" + loco_getObjectType(0x1E, 0) + "_t", 0xF1);
     loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x0A, U16, "nameSingular");
+    loco_setStructFld(id, 0x0C, U16, "namePlural");
     loco_setStructFld(id, 0xCA, U16, "designed");
     loco_setStructFld(id, 0xCC, U16, "obsolete");
     loco_setStructFld(id, 0xCF, U8, "cost_index");
