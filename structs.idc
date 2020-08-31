@@ -3,6 +3,7 @@
 
 static initStructs(void)
 {
+    loco_initTile();
     loco_initWindow();
     loco_initViewport();
     loco_initCompany();
@@ -16,7 +17,6 @@ static initStructs(void)
     loco_initDropdowns();
     loco_initGFX();
     loco_initColours();
-    loco_initTile();
     loco_initMessage();
 }
 
@@ -1354,6 +1354,8 @@ static loco_initStation(void)
     loco_setStructFld(id, 0x2A, U16, "flags");
     loco_setStructFld(id, 0x2C, U16, "town");
     loco_setStructSub(id, 0x2E, "station_cargo_stats", "cargo_stats", 32);
+    loco_setStructFld(id, 0x1CE, U16, "stationTileSize");
+    loco_setStructSub(id, 0x1D0, "map_pos3", "stationTiles", 80);
 }
 
 static loco_initEntities(void)
@@ -1447,6 +1449,11 @@ static loco_initTile(void)
     id = loco_makeStubStruct("map_pos", 0x04);
     loco_setStructFld(id, 0x00, U16, "x");
     loco_setStructFld(id, 0x02, U16, "y");
+
+    id = loco_makeStubStruct("map_pos3", 0x06);
+    loco_setStructFld(id, 0x00, U16, "x");
+    loco_setStructFld(id, 0x02, U16, "y");
+    loco_setStructFld(id, 0x04, U16, "z");
 }
 
 static loco_initMessage(void)
