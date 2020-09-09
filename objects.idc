@@ -628,7 +628,8 @@ static initObject_1C(void)
     id = loco_makeStubStruct("obj_" + loco_getObjectType(0x1C, 0) + "_t", 0xA9);
     loco_setStructFld(id, 0x00, U16, "name");
     loco_setStructFld(id, 0x90, U32, "colours");
-    loco_setStructFld(id, 0xCC, U8, "flags");
+    loco_setStructFld(id, 0x98, U8, "flags");
+    loco_setStructFldArray(id, 0xA2, U8, "producedCargoType", 2);
 }
 
 static initObject_1E(void)
