@@ -141,32 +141,32 @@ static initObjects(void)
         make_array(list, loco_getObjectType(i, 1));
     }
 
-    initObject_00();
-    initObject_01();
-    initObject_02();
-    initObject_05();
-    initObject_06();
-    initObject_07();
-    initObject_08();
-    initObject_09();
-    initObject_0A();
-    initObject_0E();
-    initObject_0F();
-    initObject_10();
-    initObject_11();
-    initObject_12();
-    initObject_13();
-    initObject_14();
-    initObject_15();
-    initObject_16();
-    initObject_18();
-    initObject_1C();
-    initObject_1E();
-    initObject_20();
-    initObject_21();
+    initObject_interfaceSkin();
+    initObject_sound();
+    initObject_currency();
+    initObject_water();
+    initObject_land();
+    initObject_townNames();
+    initObject_cargo();
+    initObject_wall();
+    initObject_trackSignal();
+    initObject_bridge();
+    initObject_trackStation();
+    initObject_trackExtra();
+    initObject_track();
+    initObject_roadStation();
+    initObject_roadExtra();
+    initObject_road();
+    initObject_airport();
+    initObject_dock();
+    initObject_tree();
+    initObject_building();
+    initObject_industry();
+    initObject_competitors();
+    initObject_scenarioText();
 }
 
-static initObject_00(void)
+static initObject_interfaceSkin(void)
 {
     auto id;
 
@@ -268,7 +268,7 @@ static initObject_00(void)
     // sort off
 }
 
-static initObject_01(void)
+static initObject_sound(void)
 {
     auto id;
 
@@ -291,7 +291,7 @@ static initObject_01(void)
     // sort off
 }
 
-static initObject_02(void)
+static initObject_currency(void)
 {
     auto id;
 
@@ -319,7 +319,7 @@ static initObject_02(void)
     // sort off
 }
 
-static initObject_05(void)
+static initObject_water(void)
 {
     auto id;
 
@@ -329,7 +329,7 @@ static initObject_05(void)
     loco_setStructFld(id, 0x04, U8, "cost_factor");
 }
 
-static initObject_06(void)
+static initObject_land(void)
 {
     auto id;
 
@@ -339,7 +339,7 @@ static initObject_06(void)
     loco_setStructFld(id, 0x08, U8, "cost_factor");
 }
 
-static initObject_07(void)
+static initObject_townNames(void)
 {
     auto id, i;
 
@@ -388,7 +388,7 @@ static initObject_07(void)
     // sort off
 }
 
-static initObject_08(void)
+static initObject_cargo(void)
 {
     auto id;
 
@@ -400,7 +400,7 @@ static initObject_08(void)
     loco_setStructFld(id, 0x0C, U32, "sprite");
 }
 
-static initObject_09(void)
+static initObject_wall(void)
 {
     auto id;
 
@@ -410,7 +410,7 @@ static initObject_09(void)
     loco_setStructFld(id, 0x07, U8, "flags");
 }
 
-static initObject_0A(void)
+static initObject_trackSignal(void)
 {
     auto id;
 
@@ -427,7 +427,7 @@ static initObject_0A(void)
     loco_setStructFld(id, 0x1C, U16, "obsolete_year");
 }
 
-static initObject_0E(void)
+static initObject_bridge(void)
 {
     auto id;
 
@@ -450,7 +450,7 @@ static initObject_0E(void)
     loco_setStructFld(id, 0x2A, U16, "designed_year");
 }
 
-static initObject_0F(void)
+static initObject_trackStation(void)
 {
     auto id;
 
@@ -467,7 +467,7 @@ static initObject_0F(void)
     loco_setStructFld(id, 0x2C, U16, "obsolete_year");
 }
 
-static initObject_10(void)
+static initObject_trackExtra(void)
 {
     auto id;
 
@@ -480,7 +480,7 @@ static initObject_10(void)
     loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
 }
 
-static initObject_11(void)
+static initObject_track(void)
 {
     auto id;
 
@@ -505,7 +505,7 @@ static initObject_11(void)
     loco_setStructFld(id, 0x34, U8, "display_offset");
 }
 
-static initObject_12(void)
+static initObject_roadStation(void)
 {
     auto id;
 
@@ -522,7 +522,7 @@ static initObject_12(void)
     loco_setStructFld(id, 0x2A, U16, "obsolete_year");
 }
 
-static initObject_13(void)
+static initObject_roadExtra(void)
 {
     auto id;
 
@@ -535,7 +535,7 @@ static initObject_13(void)
     loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
 }
 
-static initObject_14(void)
+static initObject_road(void)
 {
     auto id;
 
@@ -556,7 +556,7 @@ static initObject_14(void)
     loco_setStructFld(id, 0x28, U8, "num_compatible");
 }
 
-static initObject_15(void)
+static initObject_airport(void)
 {
     auto id;
 
@@ -589,7 +589,7 @@ static initObject_15(void)
     loco_setStructFld(id, 0xB2, U32, "struct_B2_ptr");
 }
 
-static initObject_16(void)
+static initObject_dock(void)
 {
     auto id;
 
@@ -604,7 +604,7 @@ static initObject_16(void)
     loco_setStructFld(id, 0x22, U16, "obsolete_year");
 }
 
-static initObject_18(void)
+static initObject_tree(void)
 {
     auto id;
 
@@ -621,7 +621,7 @@ static initObject_18(void)
     loco_setStructFld(id, 0x44, U32, "colours");
 }
 
-static initObject_1C(void)
+static initObject_building(void)
 {
     auto id;
 
@@ -632,7 +632,7 @@ static initObject_1C(void)
     loco_setStructFldArray(id, 0xA2, U8, "producedCargoType", 2);
 }
 
-static initObject_1E(void)
+static initObject_industry(void)
 {
     auto id;
 
@@ -649,7 +649,7 @@ static initObject_1E(void)
     loco_setStructFld(id, 0xE4, U32, "flags");
 }
 
-static initObject_20(void)
+static initObject_competitors(void)
 {
     auto id;
 
@@ -708,7 +708,7 @@ static initObject_20(void)
     // sort off
 }
 
-static initObject_21(void)
+static initObject_scenarioText(void)
 {
     auto id;
 
