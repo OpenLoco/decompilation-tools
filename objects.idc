@@ -144,12 +144,16 @@ static initObjects(void)
     initObject_interfaceSkin();
     initObject_sound();
     initObject_currency();
+    initObject_rock();
     initObject_water();
     initObject_land();
     initObject_townNames();
     initObject_cargo();
     initObject_wall();
     initObject_trackSignal();
+    initObject_levelCrossing();
+    initObject_streetLight();
+    initObject_tunnel();
     initObject_bridge();
     initObject_trainStation();
     initObject_trackExtra();
@@ -160,7 +164,11 @@ static initObjects(void)
     initObject_airport();
     initObject_dock();
     initObject_tree();
+    initObject_snow();
+    initObject_hillShapes();
     initObject_building();
+    initObject_region();
+    initObject_scaffolding();
     initObject_industry();
     initObject_competitors();
     initObject_scenarioText();
@@ -319,6 +327,15 @@ static initObject_currency(void)
     // sort off
 }
 
+static initObject_rock(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x04, 0) + "_t", 0x07);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U32, "image");
+}
+
 static initObject_water(void)
 {
     auto id;
@@ -427,6 +444,39 @@ static initObject_trackSignal(void)
     loco_setStructFldArray(id, 0x13, U8, "mods", 7);
     loco_setStructFld(id, 0x1A, U16, "designed_year");
     loco_setStructFld(id, 0x1C, U16, "obsolete_year");
+}
+
+static initObject_levelCrossing(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0B, 0) + "_t", 0x13);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U16, "costFactor");
+    loco_setStructFld(id, 0x05, U8, "costIndex");
+    loco_setStructFld(id, 0x08, U8, "closingFrames");
+    loco_setStructFld(id, 0x09, U8, "closedFrames");
+    loco_setStructFld(id, 0x0C, U16, "designedYear");
+    loco_setStructFld(id, 0x0E, U32, "image");
+}
+
+static initObject_streetLight(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0C, 0) + "_t", 0xC);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFldArray(id, 0x02, U16, "designedYear", 3);
+    loco_setStructFld(id, 0x08, U32, "image");
+}
+
+static initObject_tunnel(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0D, 0) + "_t", 0x7);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U32, "image");
 }
 
 static initObject_bridge(void)
@@ -632,6 +682,26 @@ static initObject_tree(void)
     loco_setStructFld(id, 0x44, U32, "colours");
 }
 
+static initObject_snow(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x19, 0) + "_t", 0x07);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U32, "image");
+}
+
+static initObject_hillShapes(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x1B, 0) + "_t", 0x0E);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U8, "hillHeightMapCount");
+    loco_setStructFld(id, 0x03, U8, "mountainHeightMapCount");
+    loco_setStructFld(id, 0x04, U32, "image");
+}
+
 static initObject_building(void)
 {
     auto id;
@@ -643,6 +713,15 @@ static initObject_building(void)
     loco_setStructFld(id, 0x96, U16, "obsoleteYear");
     loco_setStructFld(id, 0x98, U8, "flags");
     loco_setStructFldArray(id, 0xA2, U8, "producedCargoType", 2);
+}
+
+static initObject_scaffolding(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x1D, 0) + "_t", 0x7);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U32, "image");
 }
 
 static initObject_industry(void)
@@ -660,6 +739,15 @@ static initObject_industry(void)
     loco_setStructFldArray(id, 0xDE, U8, "produced_cargo_type", 2);
     loco_setStructFldArray(id, 0xE0, U8, "received_cargo_type", 3);
     loco_setStructFld(id, 0xE4, U32, "flags");
+}
+
+static initObject_region(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x1F, 0) + "_t", 0x7);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U32, "image");
 }
 
 static initObject_competitors(void)
