@@ -62,15 +62,19 @@ static getEventName(event, i)
         return get3(i, "void", "on_tool_update", "");
     if (event == 11)
         return get3(i, "__int32 @<edi>", "on_tool_down", "__int16 x@<ax>, __int16 y@<cx>, __int8 bool@<bl>, __int32 cursor@<edi>");
-
+    if (event == 12)
+        return get3(i, "void", "toolDragContinue", "__int16 x@<ax>, __int16 y@<cx>, __int32 widgetIndex@<edx>");
+    if (event == 13)
+        return get3(i, "void", "toolDragEnd", "__int32 widgetIndex@<edx>");
     if (event == 14)
-        return get3(i, "void", "tool_abort", "");
+        return get3(i, "void", "toolAbort", "__int32 widgetIndex@<edx>");
 
     if (event == 16)
         return get3(i, "void", "get_scroll_size", "__int32 scrollIndex@<eax>, __int16 width@<cx>, __int16 height@<dx>");
     if (event == 17)
         return get3(i, "void", "scroll_mouse_down", "");
-
+    if (event == 18)
+        return get3(i, "void", "scroll_mouse_drag", "");
     if (event == 19)
         return get3(i, "void", "scroll_mouse_over", "");
     if (event == 20)
