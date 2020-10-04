@@ -435,6 +435,7 @@ static initObject_trackSignal(void)
     id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0A, 0) + "_t", 0x1D);
     loco_setStructFld(id, 0x00, U16, "str");
     loco_setStructFld(id, 0x02, U16, "track_side");
+    loco_setStructFld(id, 0x04, U8, "animationSpeed");
     loco_setStructFld(id, 0x05, U8, "num_frames");
     loco_setStructFld(id, 0x06, U16, "cost_factor");
     loco_setStructFld(id, 0x08, U16, "sell_cost_factor");
@@ -453,7 +454,8 @@ static initObject_levelCrossing(void)
     id = loco_makeStubStruct("obj_" + loco_getObjectType(0x0B, 0) + "_t", 0x13);
     loco_setStructFld(id, 0x00, U16, "str");
     loco_setStructFld(id, 0x02, U16, "costFactor");
-    loco_setStructFld(id, 0x05, U8, "costIndex");
+    loco_setStructFld(id, 0x06, U8, "costIndex");
+    loco_setStructFld(id, 0x07, U8, "animationSpeed");
     loco_setStructFld(id, 0x08, U8, "closingFrames");
     loco_setStructFld(id, 0x09, U8, "closedFrames");
     loco_setStructFld(id, 0x0C, U16, "designedYear");
