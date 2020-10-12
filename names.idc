@@ -590,6 +590,8 @@ static initNames(void)
     MakeName(0x0052623B, "objectiveDeliveredCargoType");
     MakeName(0x0052623C, "objectiveDeliveredCargoAmount");
     MakeName(0x00526240, "objectiveTimeLimitYears");
+    MakeName(0x00526243, "objectiveMonthsInChallenge");
+    MakeName(0x00526245, "objectiveCompletedChallengeInMonths");
     MakeName(0x00526247, "industry_flags");
     MakeName(0x00526248, "forbiddenVehiclesPlayers");
     MakeName(0x0052624A, "forbiddenVehiclesCompetitors");
@@ -600,7 +602,7 @@ static initNames(void)
     MakeName(0x009C8716, "scenario_start_year");
     MakeName(0x009C871A, "scenario_flags");
     MakeName(0x009C873E, "scenarioTitle");
-    MakeName(0x009C877E, "scenarioDetails");
+    MakeName(0x009C877E, "scenarioDetailsSelectionScreen");
     MakeName(0x009C888E, "numberOfForests");
     MakeName(0x009C8890, "minimumForestRadius");
     MakeName(0x009C8891, "maximumForestRadius");
