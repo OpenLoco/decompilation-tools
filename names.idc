@@ -601,7 +601,7 @@ static initNames(void)
     MakeName(0x009C8714, "editor_step");
     MakeName(0x009C8716, "scenario_start_year");
     MakeName(0x009C871A, "scenario_flags");
-    MakeName(0x009C873E, "scenarioTitle");
+    MakeName(0x009C873E, "scenarioTitleSelectionScreen");
     MakeName(0x009C877E, "scenarioDetailsSelectionScreen");
     MakeName(0x009C888E, "numberOfForests");
     MakeName(0x009C8890, "minimumForestRadius");
