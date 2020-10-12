@@ -1276,6 +1276,7 @@ static loco_initCompany(void)
     loco_setStructFld(id, 0x8BBE, U16, "observation_x");
     loco_setStructFld(id, 0x8BC0, U16, "observation_y");
     loco_setStructFldArray(id, 0x8BCE, U32, "cargoDelivered", 32);
+    loco_setStructFld(id, 0x8C4E, U8, "challengeProgress");
     loco_setStructFldArray(id, 0x8C54, U32, "cargo_units_distance_history", 120);
     loco_setStructFld(id, 0x8E34, U16, "jail_status");
 }
