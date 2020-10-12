@@ -204,6 +204,7 @@ static initVariables()
     loco_var(0x00525F5E, "u32", "scenario_ticks");
     loco_var(0x00525F64, "u32", "scenario_ticks_2");
     loco_var(0x00525F6C, "u16", "map_animations_count");
+    loco_var(0x00526114, "u8[256]", "scenarioDetails");
     loco_var(0x00531780, "u8", "current_rain_level");
     loco_var(0x00531784, "company_t[15]", "_companies");
     loco_var(0x005B825C, "town_t[80]", "towns");

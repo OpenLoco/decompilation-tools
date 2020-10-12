@@ -88,6 +88,7 @@ static initNames(void)
     MakeName(0x004343BC, "companyWindow::repositionTabs");
     MakeName(0x004343FC, "companyWindow::toggleRenameCompany");
     MakeName(0x00434413, "companyWindow::drawTabs");
+    SetType(0x00434413, "void __usercall companyWindow::drawTabs(window_t *self@<esi>, drawpixelinfo_t *dpi@<edi>);");
     MakeName(0x0043454F, "companyWindow::openCompany");
     MakeName(0x004345EE, "companyWindow::openFinances");
     MakeName(0x00434731, "companyWindow::openChallenge");
@@ -170,7 +171,7 @@ static initNames(void)
     MakeName(0x00447485, "gfx::clear");
     SetType(0x00447485, "void __usercall gfx__clear(drawpixelinfo_t *dpi@<edi>, __int32 fill@<ebp>);");	
     MakeName(0x004474BA, "gfx_fill_rect");
-    SetType(0x004474BA, "void __usercall gfx_fill_rect(__int16 left@<ax>, __int16 top@<cx>, __int16 right@<bx>, __int16 bottom@<dx>, int colour@<ebp>);");
+    SetType(0x004474BA, "void __usercall gfx_fill_rect(__int16 left@<ax>, __int16 top@<cx>, __int16 right@<bx>, __int16 bottom@<dx>, int colour@<ebp>, drawpixelinfo_t *dpi@<edi>);");
     MakeName(0x00447C21, "pixel_is_present_bmp");
     MakeName(0x00448C79, "draw_image");
     MakeName(0x00448D90, "gfx_draw_sprite_palete_set");
@@ -301,6 +302,7 @@ static initNames(void)
     MakeName(0x00492C41, "placeAirportStation");
     MakeName(0x00493AA7, "placeDockStation");
     MakeName(0x00494B3F, "draw_string_494B3F");
+    SetType(0x00494B3F, "void __usercall draw_string_494B3F(drawpixelinfo_t *dpi@<edi>, __int16 x@<cx>, __int16 y@<dx>, __int8 colour@<al>, __int16 stringId@<bx>, __int32 args@<esi>);");
     MakeName(0x00494BBF, "draw_string_494BBF");
     MakeName(0x00494C78, "draw_string_494C78");
     MakeName(0x00494CB2, "draw_string_underline");
@@ -309,6 +311,7 @@ static initNames(void)
     MakeName(0x00494E33, "draw_string_centred_raw");
     MakeName(0x00494ECF, "gfx_draw_string_centred_wrapped");
     MakeName(0x00495224, "gfx_draw_string_left_wrapped");
+    SetType(0x00495224, "__int16 __usercall gfx_draw_string_left_wrapped@<dx>(drawpixelinfo_t *dpi@<edi>, __int16 x@<cx>, __int16 y@<dx>, __int16 width@<bp>, __int8 colour@<al>, __int16 stringId@<bx>, __int32 args@<esi>);");
     MakeName(0x00495301, "gfx_wrap_string");
     MakeName(0x00495685, "gfx::getStringWidth");
     SetType(0x00495685, "__int16 __usercall gfx::getStringWidth@<cx>(char *buffer@<esi>);");
@@ -468,7 +471,8 @@ static initNames(void)
     MakeName(0x004CA1ED, "widget_scroll_update_thumbs");
     MakeName(0x004CA2D0, "viewportmgr::create");
     MakeName(0x004CA4BD, "window_invalidate");
-    MakeName(0x004CA4DF, "window_draw_widgets");
+    MakeName(0x004CA4DF, "window::draw");
+    SetType(0x004CA4DF, "void __usercall window::draw(window_t *window@<esi>, drawpixelinfo_t *dpi@<edi>);");
     MakeName(0x004CA679, "wdgt_29");
     MakeName(0x004CA6AE, "wdgt_22");
     MakeName(0x004CA750, "wdgt_23");
@@ -586,6 +590,8 @@ static initNames(void)
     MakeName(0x0052623B, "objectiveDeliveredCargoType");
     MakeName(0x0052623C, "objectiveDeliveredCargoAmount");
     MakeName(0x00526240, "objectiveTimeLimitYears");
+    MakeName(0x00526243, "objectiveMonthsInChallenge");
+    MakeName(0x00526245, "objectiveCompletedChallengeInMonths");
     MakeName(0x00526247, "industry_flags");
     MakeName(0x00526248, "forbiddenVehiclesPlayers");
     MakeName(0x0052624A, "forbiddenVehiclesCompetitors");
@@ -595,8 +601,8 @@ static initNames(void)
     MakeName(0x009C8714, "editor_step");
     MakeName(0x009C8716, "scenario_start_year");
     MakeName(0x009C871A, "scenario_flags");
-    MakeName(0x009C873E, "scenarioTitle");
-    MakeName(0x009C877E, "scenarioDetails");
+    MakeName(0x009C873E, "scenarioTitleSelectionScreen");
+    MakeName(0x009C877E, "scenarioDetailsSelectionScreen");
     MakeName(0x009C888E, "numberOfForests");
     MakeName(0x009C8890, "minimumForestRadius");
     MakeName(0x009C8891, "maximumForestRadius");
