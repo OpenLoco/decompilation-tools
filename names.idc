@@ -95,6 +95,8 @@ static initNames(void)
     MakeName(0x004347D0, "companyWindow::openUnknownAlt");
     MakeName(0x00434F52, "open_company_face_selection");
     MakeName(0x00435ACC, "companyWindow::openAndSetName");
+    MakeName(0x00437D60, "performanceToRating");
+    SetType(0x00437D60, "__int16 __usercall performanceToRating@<ax>(__int16 performanceIndex@<ax>);");
     MakeName(0x00438047, "companymgr::getOwnerStatus");
     MakeName(0x00438A6C, "gui_init");
     MakeName(0x004392BD, "resize_interface");
