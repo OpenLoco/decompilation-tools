@@ -593,6 +593,7 @@ static initNames(void)
     MakeName(0x0052623B, "objectiveDeliveredCargoType");
     MakeName(0x0052623C, "objectiveDeliveredCargoAmount");
     MakeName(0x00526240, "objectiveTimeLimitYears");
+    MakeName(0x00526241, "objectiveTimeLimitUntilYear");
     MakeName(0x00526243, "objectiveMonthsInChallenge");
     MakeName(0x00526245, "objectiveCompletedChallengeInMonths");
     MakeName(0x00526247, "industry_flags");
