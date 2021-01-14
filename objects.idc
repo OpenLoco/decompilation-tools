@@ -163,6 +163,7 @@ static initObjects(void)
     initObject_road();
     initObject_airport();
     initObject_dock();
+    initObject_vehicle();
     initObject_tree();
     initObject_snow();
     initObject_hillShapes();
@@ -665,6 +666,94 @@ static initObject_dock(void)
     loco_setStructFld(id, 0x13, U8, "num_aux_02_ent");
     loco_setStructFld(id, 0x20, U16, "designed_year");
     loco_setStructFld(id, 0x22, U16, "obsolete_year");
+}
+
+static initObject_vehicle(void)
+{
+    auto id;
+    id = loco_makeStubStruct("vehicle_object_sound_3", 0x1B);
+    loco_setStructFld(id, 0x00, U8, "sound_object_id");
+
+    id = loco_makeStubStruct("simple_animation", 0x3);
+    loco_setStructFld(id, 0x00, U8, "object_id");
+    loco_setStructFld(id, 0x01, U8, "height");
+    loco_setStructFld(id, 0x02, U8, "type");
+
+    id = loco_makeStubStruct("vehicle_object_unk", 0x6);
+    loco_setStructFld(id, 0x00, U8, "length");
+    loco_setStructFld(id, 0x01, U8, "var_01");
+    loco_setStructFld(id, 0x02, U8, "front_bogie_sprite_index");
+    loco_setStructFld(id, 0x03, U8, "back_bogie_sprite_index");
+    loco_setStructFld(id, 0x04, U8, "body_sprite_index");
+    loco_setStructFld(id, 0x05, U8, "var_05");
+
+    id = loco_makeStubStruct("VehicleObjectBogieSprite", 0x12);
+    loco_setStructFld(id, 0x00, U8, "rollStates");
+    loco_setStructFld(id, 0x01, U8, "flags");
+    loco_setStructFld(id, 0x02, U8, "spriteWidth");
+    loco_setStructFld(id, 0x03, U8, "spriteHeightNegative");
+    loco_setStructFld(id, 0x04, U8, "spriteHeightPositive");
+    loco_setStructFld(id, 0x05, U8, "numRollSprites");
+    loco_setStructFld(id, 0x06, U32, "flatImageIds");
+    loco_setStructFld(id, 0x0A, U32, "gentleImageIds");
+    loco_setStructFld(id, 0x0E, U32, "steepImageIds");
+
+    id = loco_makeStubStruct("VehicleObjectBodySprite", 0x1E);
+    loco_setStructFld(id, 0x00, U8, "numFlatRotationFrames");
+    loco_setStructFld(id, 0x01, U8, "numSlopedRotationFrames");
+    loco_setStructFld(id, 0x02, U8, "numAnimationFrames");
+    loco_setStructFld(id, 0x03, U8, "vehicle_type");
+    loco_setStructFld(id, 0x04, U8, "numCargoFrames");
+    loco_setStructFld(id, 0x05, U8, "numRollFrames");
+    loco_setStructFld(id, 0x06, U8, "bogey_position");
+    loco_setStructFld(id, 0x07, U8, "flags");
+    loco_setStructFld(id, 0x08, U8, "spriteWidth");
+    loco_setStructFld(id, 0x09, U8, "spriteHeightPositive");
+    loco_setStructFld(id, 0x0A, U8, "spriteHeightNegative");
+    loco_setStructFld(id, 0x0B, U8, "flatRotationIndex");
+    loco_setStructFld(id, 0x0C, U8, "slopedRotationIndex");
+    loco_setStructFld(id, 0x0D, U8, "numFramesPerRotation");
+    loco_setStructFld(id, 0x0E, U32, "flatImageId");
+    loco_setStructFld(id, 0x12, U32, "unkImageId");
+    loco_setStructFld(id, 0x16, U32, "gentleImageId");
+    loco_setStructFld(id, 0x1A, U32, "steepImageId");
+
+    id = loco_makeStubStruct("obj_" + loco_getObjectType(0x17, 0) + "_t", 0x15E);
+    loco_setStructFld(id, 0x00, U16, "str");
+    loco_setStructFld(id, 0x02, U8, "mode");
+    loco_setStructFld(id, 0x03, U8, "type");
+    loco_setStructFld(id, 0x04, U8, "var_04");
+    loco_setStructFld(id, 0x05, U8, "track_type");
+    loco_setStructFld(id, 0x06, U8, "num_mods");
+    loco_setStructFld(id, 0x07, U8, "cost_index");
+    loco_setStructFld(id, 0x08, U16, "cost_factor");
+    loco_setStructFld(id, 0x0A, U8, "reliability");
+    loco_setStructFld(id, 0x0B, U8, "run_cost_index");
+    loco_setStructFld(id, 0x0C, U16, "run_cost_factor");
+    loco_setStructFld(id, 0x0E, U8, "colour_type");
+    loco_setStructFld(id, 0x0F, U8, "num_compat");
+    loco_setStructFldArray(id, 0x10, U16, "compatible_vehicles", 8);
+    loco_setStructFld(id, 0x20, U8, "required_track_extras");
+    loco_setStructSub(id, 0x24, "vehicle_object_unk", "var_24", 4);
+    loco_setStructSub(id, 0x3C, "VehicleObjectBodySprite", "bodySprites", 4);
+    loco_setStructSub(id, 0xB4, "VehicleObjectBogieSprite", "bogieSprites", 2);
+    loco_setStructFld(id, 0xD8, U16, "power");
+    loco_setStructFld(id, 0xDA, U16, "speed");
+    loco_setStructFld(id, 0xDC, U16, "rack_speed");
+    loco_setStructFld(id, 0xDE, U16, "weight");
+    loco_setStructFld(id, 0xE0, U16, "flags");
+    loco_setStructFld(id, 0xE2, U8, "max_primary_cargo");
+    loco_setStructFld(id, 0xE3, U8, "max_secondary_cargo");
+    loco_setStructFld(id, 0xE4, U32, "primary_cargo_types");
+    loco_setStructFld(id, 0xE8, U32, "secondary_cargo_types");
+    loco_setStructFld(id, 0x10C, U8, "num_simultaneous_cargo_types");
+    loco_setStructSub(id, 0x10D, "simple_animation", "animation", 2);
+    loco_setStructFld(id, 0x114, U16, "designed");
+    loco_setStructFld(id, 0x116, U16, "obsolete");
+    loco_setStructFld(id, 0x118, U8, "rack_rail_type");
+    loco_setStructFld(id, 0x119, U8, "start_sound_type");
+    loco_setStructSub(id, 0x11A, "vehicle_object_sound_3", "sound", 1);
+    loco_setStructFld(id, 0x15A, U8, "num_sounds");
 }
 
 static initObject_tree(void)
