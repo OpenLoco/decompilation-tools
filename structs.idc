@@ -18,6 +18,7 @@ static initStructs(void)
     loco_initGFX();
     loco_initColours();
     loco_initMessage();
+    loco_initPaintStructs();
 }
 
 static loco_setStructMember(id, offset, name, type, size)
@@ -1385,6 +1386,55 @@ static loco_initG1Elements(void)
     loco_setStructFld(id, 0x0A, U16, "y");
     loco_setStructFld(id, 0x0C, U16, "flags");
     loco_setStructFld(id, 0x0E, U16, "pad");
+}
+
+static loco_initPaintStructs(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("AttachedPaintStruct", 0x12);
+    loco_setStructFld(id, 0x00, U32, "imageId");
+    loco_setStructFld(id, 0x04, U32, "colourimageId");
+    loco_setStructFld(id, 0x08, U16, "x");
+    loco_setStructFld(id, 0x0A, U16, "y");
+    loco_setStructFld(id, 0x0C, U8, "flags");
+    loco_setStructFld(id, 0x0D, U8, "pad_0D");
+    loco_setStructFld(id, 0x0E, U32, "next");
+
+    id = loco_makeStubStruct("PaintStringStruct", 0x20);
+    loco_setStructFld(id, 0x00, U16, "stringId");
+    loco_setStructFld(id, 0x02, U32, "next");
+    loco_setStructFld(id, 0x06, U16, "x");
+    loco_setStructFld(id, 0x08, U16, "y");
+    loco_setStructFldArray(id, 0x0A, U16, "args", 7);
+    loco_setStructFld(id, 0x1A, U32, "yOffsets");
+    loco_setStructFld(id, 0x1E, U16, "colour");
+
+    id = loco_makeStubStruct("PaintStructBoundBox", 0xC);
+    loco_setStructFld(id, 0x00, U16, "x");
+    loco_setStructFld(id, 0x02, U16, "y");
+    loco_setStructFld(id, 0x04, U16, "z");
+    loco_setStructFld(id, 0x06, U16, "xEnd");
+    loco_setStructFld(id, 0x08, U16, "yEnd");
+    loco_setStructFld(id, 0x0A, U16, "zEnd");
+
+    id = loco_makeStubStruct("PaintStruct", 0x34);
+    loco_setStructFld(id, 0x00, U32, "imageId");
+    loco_setStructFld(id, 0x04, U32, "colourimageId");
+    loco_setStructSub(id, 0x08, "PaintStructBoundBox", "bounds", 1);
+    loco_setStructFld(id, 0x14, U16, "x");
+    loco_setStructFld(id, 0x16, U16, "y");
+    loco_setStructFld(id, 0x18, U16, "quadrantIndex");
+    loco_setStructFld(id, 0x1A, U8, "flags");
+    loco_setStructFld(id, 0x1B, U8, "quadrantFlags");
+    loco_setStructFld(id, 0x1C, U32, "attachedPS");
+    loco_setStructFld(id, 0x20, U32, "children");
+    loco_setStructFld(id, 0x24, U32, "nextQuadrantPS");
+    loco_setStructFld(id, 0x28, U8, "type");
+    loco_setStructFld(id, 0x29, U8, "var_29");
+    loco_setStructFld(id, 0x2C, U16, "map_x");
+    loco_setStructFld(id, 0x2E, U16, "map_y");
+    loco_setStructFld(id, 0x30, U32, "tileElement");
 }
 
 static loco_makePointerArray(offset, count, name)
