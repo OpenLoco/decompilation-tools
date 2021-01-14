@@ -203,10 +203,10 @@ static initNames(void)
     MakeName(0x0045A0B3, "viewport_widget_draw");
     MakeName(0x0045A0E7, "viewport_render");
     MakeName(0x0045A1A4, "viewport_paint");
-    MakeName(0x0045A3EB, "paint1a");
-    MakeName(0x0045A474, "paint1b");
-    MakeName(0x0045A4FD, "paint1c");
-    MakeName(0x0045A586, "paint1d");
+    MakeName(0x0045A3EB, "AddToStringPlotLista");
+    MakeName(0x0045A474, "AddToStringPlotListb");
+    MakeName(0x0045A4FD, "AddToStringPlotListc");
+    MakeName(0x0045A586, "AddToStringPlotListd");
     MakeName(0x0045A711, "paint2a");
     MakeName(0x0045A892, "paint2b");
     MakeName(0x0045AA21, "paint2c");
