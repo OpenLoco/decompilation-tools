@@ -672,7 +672,46 @@ static initObject_vehicle(void)
 {
     auto id;
     id = loco_makeStubStruct("vehicle_object_sound_3", 0x1B);
-    loco_setStructFld(id, 0x00, U8, "sound_object_id");
+    loco_setStructFld(id, 0x00, U8, "soundObjectId");
+    loco_setStructFld(id, 0x01, U16, "defaultFrequency");
+    loco_setStructFld(id, 0x03, U8, "defaultVolume");
+    loco_setStructFld(id, 0x04, U16, "firstGearFrequency");
+    loco_setStructFld(id, 0x06, U16, "firstGearSpeed");
+    loco_setStructFld(id, 0x08, U16, "secondGearFreqFactor");
+    loco_setStructFld(id, 0x0A, U16, "secondGearSpeed");
+    loco_setStructFld(id, 0x0C, U16, "thirdGearFreqFactor");
+    loco_setStructFld(id, 0x0E, U16, "thirdGearSpeed");
+    loco_setStructFld(id, 0x10, U16, "fourthGearFreqFactor");
+    loco_setStructFld(id, 0x12, U8, "var_12");
+    loco_setStructFld(id, 0x13, U8, "var_13");
+    loco_setStructFld(id, 0x14, U16, "freqIncreaseStep");
+    loco_setStructFld(id, 0x16, U16, "freqDecreaseStep");
+    loco_setStructFld(id, 0x18, U8, "volumeIncreaseStep");
+    loco_setStructFld(id, 0x19, U8, "volumeDecreaseStep");
+    loco_setStructFld(id, 0x1A, U8, "speedFreqFactor");
+
+    id = loco_makeStubStruct("vehicle_object_sound_2", 0x11);
+    loco_setStructFld(id, 0x00, U8, "soundObjectId");
+    loco_setStructFld(id, 0x01, U16, "defaultFrequency");
+    loco_setStructFld(id, 0x03, U8, "defaultVolume");
+    loco_setStructFld(id, 0x04, U16, "var_04");
+    loco_setStructFld(id, 0x06, U8, "var_06");
+    loco_setStructFld(id, 0x07, U16, "var_07");
+    loco_setStructFld(id, 0x09, U8, "var_09");
+    loco_setStructFld(id, 0xA, U16, "freqIncreaseStep");
+    loco_setStructFld(id, 0xC, U16, "freqDecreaseStep");
+    loco_setStructFld(id, 0xE, U8, "volumeIncreaseStep");
+    loco_setStructFld(id, 0xF, U8, "volumeDecreaseStep");
+    loco_setStructFld(id, 0x10, U8, "speedFreqFactor");
+
+    id = loco_makeStubStruct("vehicle_object_sound_1", 0xB);
+    loco_setStructFld(id, 0x00, U8, "soundObjectId");
+    loco_setStructFld(id, 0x01, U32, "minSpeed");
+    loco_setStructFld(id, 0x05, U8, "speedFreqFactor");
+    loco_setStructFld(id, 0x06, U16, "baseFrequency");
+    loco_setStructFld(id, 0x08, U8, "speedVolumeFactor");
+    loco_setStructFld(id, 0x09, U8, "baseVolume");
+    loco_setStructFld(id, 0x0A, U8, "maxVolume");
 
     id = loco_makeStubStruct("simple_animation", 0x3);
     loco_setStructFld(id, 0x00, U8, "object_id");
@@ -751,9 +790,10 @@ static initObject_vehicle(void)
     loco_setStructFld(id, 0x114, U16, "designed");
     loco_setStructFld(id, 0x116, U16, "obsolete");
     loco_setStructFld(id, 0x118, U8, "rack_rail_type");
-    loco_setStructFld(id, 0x119, U8, "start_sound_type");
-    loco_setStructSub(id, 0x11A, "vehicle_object_sound_3", "sound", 1);
-    loco_setStructFld(id, 0x15A, U8, "num_sounds");
+    loco_setStructFld(id, 0x119, U8, "drivingSoundType");
+    loco_setStructSub(id, 0x11A, "vehicle_object_sound_3", "drivingSound", 1);
+    loco_setStructFld(id, 0x15A, U8, "numStartSounds");
+    loco_setStructFldArray(id, 0x15B, U8, "startSounds", 3);
 }
 
 static initObject_tree(void)
