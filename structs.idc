@@ -1362,7 +1362,157 @@ static loco_initStation(void)
 
 static loco_initEntities(void)
 {
+    auto id;
     loco_makeStubStruct("entity_t", 128);
+
+    id = loco_makeStubStruct("EntityBase", 32);
+    loco_setStructFld(id, 0x00, U8, "baseType");
+    loco_setStructFld(id, 0x01, U8, "type");
+    loco_setStructFld(id, 0x02, U16, "nextQuadrantId");
+    loco_setStructFld(id, 0x04, U16, "nextEntityId");
+    loco_setStructFld(id, 0x0A, U16, "id");
+    loco_setStructFld(id, 0x0E, U16, "x");
+    loco_setStructFld(id, 0x10, U16, "y");
+    loco_setStructFld(id, 0x12, U16, "z");
+    loco_setStructFld(id, 0x16, U16, "spriteLeft");
+    loco_setStructFld(id, 0x18, U16, "spriteTop");
+    loco_setStructFld(id, 0x1A, U16, "spriteRight");
+    loco_setStructFld(id, 0x1C, U16, "spriteBottom");
+    loco_setStructFld(id, 0x1E, U8, "spriteYaw");
+    loco_setStructFld(id, 0x1F, U8, "spritePitch");
+
+    loco_initVehicles();
+}
+
+static loco_initVehicles(void)
+{
+    auto id;
+
+    id = loco_makeStubStruct("VehicleHead", 128);
+    loco_setStructSub(id, 0x00, "EntityBase", "base", 1);
+    loco_setStructFld(id, 0x21, U8, "owner");
+    loco_setStructFld(id, 0x26, U16, "head");
+    loco_setStructFld(id, 0x30, U16, "tileX");
+    loco_setStructFld(id, 0x32, U16, "tileY");
+    loco_setStructFld(id, 0x34, U8, "tileBaseZ");
+    loco_setStructFld(id, 0x35, U8, "trackType");
+    loco_setStructFld(id, 0x3A, U16, "nextCarId");
+    loco_setStructFld(id, 0x42, U8, "mode");
+    loco_setStructFld(id, 0x46, U32, "orderTableOffset");
+    loco_setStructFld(id, 0x4A, U16, "currentOrder");
+    loco_setStructFld(id, 0x4C, U16, "sizeOfOrderTable");
+    loco_setStructFld(id, 0x54, U16, "stationId");
+    loco_setStructFld(id, 0x5D, U8, "status");
+    loco_setStructFld(id, 0x5E, U8, "vehicleType");
+    loco_setStructFld(id, 0x77, U16, "lastAverageSpeed");
+
+    id = loco_makeStubStruct("Vehicle1", 128);
+    loco_setStructSub(id, 0x00, "EntityBase", "base", 1);
+    loco_setStructFld(id, 0x21, U8, "owner");
+    loco_setStructFld(id, 0x26, U16, "head");
+    loco_setStructFld(id, 0x30, U16, "tileX");
+    loco_setStructFld(id, 0x32, U16, "tileY");
+    loco_setStructFld(id, 0x34, U8, "tileBaseZ");
+    loco_setStructFld(id, 0x35, U8, "trackType");
+    loco_setStructFld(id, 0x3A, U16, "nextCarId");
+    loco_setStructFld(id, 0x42, U8, "mode");
+
+    id = loco_makeStubStruct("Vehicle2", 128);
+    loco_setStructSub(id, 0x00, "EntityBase", "base", 1);
+    loco_setStructFld(id, 0x21, U8, "owner");
+    loco_setStructFld(id, 0x26, U16, "head");
+    loco_setStructFld(id, 0x30, U16, "tileX");
+    loco_setStructFld(id, 0x32, U16, "tileY");
+    loco_setStructFld(id, 0x34, U8, "tileBaseZ");
+    loco_setStructFld(id, 0x35, U8, "trackType");
+    loco_setStructFld(id, 0x3A, U16, "nextCarId");
+    loco_setStructFld(id, 0x42, U8, "mode");
+    loco_setStructFld(id, 0x44, U8, "drivingSoundId");
+    loco_setStructFld(id, 0x45, U8, "drivingSoundVolume");
+    loco_setStructFld(id, 0x46, U16, "drivingSoundFrequency");
+    loco_setStructFld(id, 0x48, U16, "objectId");
+    loco_setStructFld(id, 0x4C, U16, "soundWindowNumber");
+    loco_setStructFld(id, 0x4E, U8, "soundWindowType");
+    loco_setStructFld(id, 0x50, U16, "totalPower");
+    loco_setStructFld(id, 0x52, U16, "totalWeight");
+    loco_setStructFld(id, 0x54, U16, "maxSpeed");
+    loco_setStructFld(id, 0x56, U32, "currentSpeed");
+    loco_setStructFld(id, 0x5C, U16, "rackRailMaxSpeed");
+    loco_setStructFld(id, 0x62, U32, "refundCost");
+    loco_setStructFld(id, 0x72, U8, "reliability");
+
+    id = loco_makeStubStruct("VehicleBody", 128);
+    loco_setStructSub(id, 0x00, "EntityBase", "base", 1);
+    loco_setStructFld(id, 0x21, U8, "owner");
+    loco_setStructFld(id, 0x24, U8, "colourScheme.primary");
+    loco_setStructFld(id, 0x25, U8, "colourScheme.secondary");
+    loco_setStructFld(id, 0x26, U16, "head");
+    loco_setStructFld(id, 0x30, U16, "tileX");
+    loco_setStructFld(id, 0x32, U16, "tileY");
+    loco_setStructFld(id, 0x34, U8, "tileBaseZ");
+    loco_setStructFld(id, 0x35, U8, "trackType");
+    loco_setStructFld(id, 0x39, U8, "objectSpriteType");
+    loco_setStructFld(id, 0x3A, U16, "nextCarId");
+    loco_setStructFld(id, 0x40, U16, "objectId");
+    loco_setStructFld(id, 0x42, U8, "mode");
+    loco_setStructFld(id, 0x48, U32, "acceptedCargoTypes");
+    loco_setStructFld(id, 0x4C, U8, "cargoType");
+    loco_setStructFld(id, 0x4D, U8, "maxCargo");
+    loco_setStructFld(id, 0x4E, U16, "townCargoFrom");
+    loco_setStructFld(id, 0x51, U8, "primaryCargoQty");
+    loco_setStructFld(id, 0x54, U8, "bodyIndex");
+    loco_setStructFld(id, 0x56, U32, "creationDay");
+
+    id = loco_makeStubStruct("VehicleBogie", 128);
+    loco_setStructSub(id, 0x00, "EntityBase", "base", 1);
+    loco_setStructFld(id, 0x21, U8, "owner");
+    loco_setStructFld(id, 0x24, U8, "colourScheme.primary");
+    loco_setStructFld(id, 0x25, U8, "colourScheme.secondary");
+    loco_setStructFld(id, 0x26, U16, "head");
+    loco_setStructFld(id, 0x30, U16, "tileX");
+    loco_setStructFld(id, 0x32, U16, "tileY");
+    loco_setStructFld(id, 0x34, U8, "tileBaseZ");
+    loco_setStructFld(id, 0x35, U8, "trackType");
+    loco_setStructFld(id, 0x39, U8, "objectSpriteType");
+    loco_setStructFld(id, 0x3A, U16, "nextCarId");
+    loco_setStructFld(id, 0x40, U16, "objectId");
+    loco_setStructFld(id, 0x42, U8, "mode");
+    loco_setStructFld(id, 0x48, U32, "acceptedCargoTypes");
+    loco_setStructFld(id, 0x4C, U8, "cargoType");
+    loco_setStructFld(id, 0x4D, U8, "maxCargo");
+    loco_setStructFld(id, 0x4E, U16, "townCargoFrom");
+    loco_setStructFld(id, 0x51, U8, "secondaryCargoQty");
+    loco_setStructFld(id, 0x54, U8, "bodyIndex");
+    loco_setStructFld(id, 0x56, U32, "creationDay");
+    loco_setStructFld(id, 0x62, U32, "refundCost");
+    loco_setStructFld(id, 0x66, U16, "reliability");
+
+    id = loco_makeStubStruct("VehicleTail", 128);
+    loco_setStructSub(id, 0x00, "EntityBase", "base", 1);
+    loco_setStructFld(id, 0x21, U8, "owner");
+    loco_setStructFld(id, 0x26, U16, "head");
+    loco_setStructFld(id, 0x30, U16, "tileX");
+    loco_setStructFld(id, 0x32, U16, "tileY");
+    loco_setStructFld(id, 0x34, U8, "tileBaseZ");
+    loco_setStructFld(id, 0x35, U8, "trackType");
+    loco_setStructFld(id, 0x3A, U16, "nextCarId");
+    loco_setStructFld(id, 0x42, U8, "mode");
+    loco_setStructFld(id, 0x44, U8, "drivingSoundId");
+    loco_setStructFld(id, 0x45, U8, "drivingSoundVolume");
+    loco_setStructFld(id, 0x46, U16, "drivingSoundFrequency");
+    loco_setStructFld(id, 0x48, U16, "objectId");
+    loco_setStructFld(id, 0x4C, U16, "soundWindowNumber");
+    loco_setStructFld(id, 0x4E, U8, "soundWindowType");
+    loco_setStructFld(id, 0x4F, U16, "trainDanglingTimeout");
+
+    id = loco_makeStubStruct("Vehicle2or6", 128);
+    loco_setStructSub(id, 0x00, "EntityBase", "base", 1);
+    loco_setStructFld(id, 0x44, U8, "drivingSoundId");
+    loco_setStructFld(id, 0x45, U8, "drivingSoundVolume");
+    loco_setStructFld(id, 0x46, U16, "drivingSoundFrequency");
+    loco_setStructFld(id, 0x48, U16, "objectId");
+    loco_setStructFld(id, 0x4C, U16, "soundWindowNumber");
+    loco_setStructFld(id, 0x4E, U8, "soundWindowType");
 }
 
 static loco_initMapAnimations(void)
