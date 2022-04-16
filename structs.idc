@@ -1565,9 +1565,9 @@ static loco_initPaintStructs(void)
     loco_setStructFld(id, 0x00, U16, "x");
     loco_setStructFld(id, 0x02, U16, "y");
     loco_setStructFld(id, 0x04, U16, "z");
-    loco_setStructFld(id, 0x06, U16, "xEnd");
-    loco_setStructFld(id, 0x08, U16, "yEnd");
-    loco_setStructFld(id, 0x0A, U16, "zEnd");
+    loco_setStructFld(id, 0x06, U16, "zEnd");
+    loco_setStructFld(id, 0x08, U16, "xEnd");
+    loco_setStructFld(id, 0x0A, U16, "yEnd");
 
     id = loco_makeStubStruct("PaintStruct", 0x34);
     loco_setStructFld(id, 0x00, U32, "imageId");
