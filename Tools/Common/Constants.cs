@@ -2,6 +2,7 @@
 {
 	public static class Constants
 	{
-		public const string OpenLocoSourcePath = @"C:\Users\bigba\source\repos\OpenLoco\src\OpenLoco";
+		// replace with a path to your $OpenLoco\src\OpenLoco folder
+		public const string OpenLocoSourcePath = @"";
 	}
 }
