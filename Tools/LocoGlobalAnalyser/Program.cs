@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Common;
 
-var codeFiles = Directory.EnumerateFiles(Constants.OpenLocoSourcePath, "*", SearchOption.AllDirectories);
+var codeFiles = Directory.EnumerateFiles($@"{Constants.OpenLocoSourcePath}\src\OpenLoco", "*", SearchOption.AllDirectories);
 
 List<loco_global> locoGlobalList = new();
 

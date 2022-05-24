@@ -1,8 +1,8 @@
 ﻿using System.Text.RegularExpressions;
 using Common;
 
-var stringids = File.ReadAllLinesAsync(@$"{Constants.OpenLocoSourcePath}\Localisation\StringIds.h");
-var engbyml = File.ReadAllLinesAsync(@$"{Constants.OpenLocoSourcePath}\OpenLoco\data\language\en-GB.yml");
+var stringids = File.ReadAllLinesAsync(@$"{Constants.OpenLocoSourcePath}\src\OpenLoco\Localisation\StringIds.h");
+var engbyml = File.ReadAllLinesAsync(@$"{Constants.OpenLocoSourcePath}\data\language\en-GB.yml");
 
 stringids.Wait();
 engbyml.Wait();
