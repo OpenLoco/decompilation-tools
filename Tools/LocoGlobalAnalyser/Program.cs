@@ -48,7 +48,9 @@ var gamestateBottom = gamestateTop + gamestateSize;
 // write to file
 var ordered = locoGlobalDict.OrderByDescending(kv => kv.Value.Count);
 var strings = new List<string>();
-strings.Add($"Total count: {ordered.Count()}");
+strings.Add($"Unique count: {ordered.Count()} (the number of unique offsets used by loco_global or addr");
+strings.Add($"Multiuse count: {ordered.Where(a => a.Value.Count > 1).Count()} (the number of unique loco_globals that are used more than once)");
+strings.Add($"Total count: {ordered.SelectMany(a => a.Value).Count()} (the total number of loco_globals used)");
 
 var verbose = true;
 
