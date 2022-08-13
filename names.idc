@@ -43,6 +43,8 @@ static initNames(void)
     MakeName(0x004056BC, "video_create");
     MakeName(0x00406386, "game_loop");
     MakeName(0x00406520, "set_window_pos_wrapper");
+    MakeName(0x00406BF7, "malloc_wrapper");
+    MakeName(0x00406C02, "realloc_wrapper");
     MakeName(0x00406C12, "free_wrapper");
     MakeName(0x00406C24, "j_ReleaseCapture");
     MakeName(0x00406D13, "j_StartOpenLoco");
@@ -558,6 +560,9 @@ static initNames(void)
     MakeName(0x004D1090, "LeadUp1");
     MakeName(0x004D10BC, "LeadUp2");
     MakeName(0x004D1178, "TrailUp0");
+    MakeName(0x004D1355, "free");
+    MakeName(0x004D1401, "malloc");
+    MakeName(0x004D1B28, "realloc");
     MakeName(0x004D1F97, "start");
     MakeName(0x004D2D3F, "__cropzeros");
     MakeName(0x004D2D8D, "__positive");
