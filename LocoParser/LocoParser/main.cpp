@@ -17,6 +17,15 @@ namespace stdfs = std::filesystem;
 
 static std::mutex sMtx;
 
+static constexpr auto kClangParseOptions = CXTranslationUnit_IncludeBriefCommentsInCodeCompletion | CXTranslationUnit_KeepGoing
+    | CXTranslationUnit_Incomplete;
+
+static constexpr const char* kClangOptions[] = {
+    //"-std=c++17",
+    "-fparse-all-comments",
+    "-ferror-limit=0",
+};
+
 static std::string getString(CXString s)
 {
     const auto* cstr = clang_getCString(s);
@@ -77,6 +86,23 @@ static std::vector<std::string> tokenize(const std::string& s)
     return res;
 }
 
+static bool isHex(const std::string_view token)
+{
+    if (token.size() < 2)
+        return false;
+
+    if (token[0] != '0' || (token[1] != 'x' && token[1] != 'X'))
+        return false;
+
+    for (size_t i = 2; i < std::min<size_t>(token.size(), 10u); i++)
+    {
+        if (!isxdigit(token[i]))
+            return false;
+    }
+    
+    return true;
+}
+
 static std::vector<std::string> extractAddresses(const std::string& txt)
 {
     auto lines = split(txt, "\n");
@@ -95,8 +121,14 @@ static std::vector<std::string> extractAddresses(const std::string& txt)
     auto tokens = tokenize(line);
     for (auto& token : tokens)
     {
-        if (token.starts_with("0x") || token.starts_with("0X"))
+        if (isHex(token))
         {
+            if (token.size() > 10)
+            {
+                // Because someone left a comment like this:
+                // -> // 0x004BC701activatedWidgets
+                token.resize(10);
+            }
             res.push_back(token);
         }
     }
@@ -135,6 +167,7 @@ struct VarDef
 {
     std::string address;
     std::string name;
+    std::string type;
 };
 
 struct ParserContext
@@ -153,13 +186,12 @@ static void checkFuncDecl(ParserContext& ctx, CXCursor c)
     auto addrs = extractAddresses(strComment);
     if (addrs.empty())
         return;
-
+    
     for (size_t i = 0; i < addrs.size(); i++)
     {
         auto name = strMangled;
         if (i > 0)
             name += "_" + std::to_string(i);
-
         {
             std::lock_guard lock(sMtx);
             ctx.funcs.push_back(FunctionDef{ addrs[i], name });
@@ -179,11 +211,18 @@ static void checkVarDecl(ParserContext& ctx, CXCursor c, CXCursor parent)
     auto canonicalType = clang_getCanonicalType(cursorType);
     auto typeStr = getString(clang_getTypeSpelling(canonicalType));
 
-    auto n1 = typeStr.find_first_of(',') + 1;
-    while (typeStr[n1] == ' ')
-        n1++;
-    auto n2 = typeStr.find_first_of('>', n1);
-    auto addrVal = typeStr.substr(n1, (n2 - n1));
+    auto commaPos = typeStr.find_last_of(',');
+    auto gtPos = typeStr.find_first_of('>', commaPos);
+    auto ltPos = typeStr.find_first_of('<');
+
+    auto innerTypeVal = typeStr.substr(ltPos + 1, commaPos - ltPos - 1);
+
+    auto skip = 1;
+    while (typeStr[commaPos + skip] == ' ')
+    {
+        skip++;
+    }
+    auto addrVal = typeStr.substr(commaPos + skip, (gtPos - commaPos - skip));
     auto addr = atol(addrVal.c_str());
 
     {
@@ -191,7 +230,7 @@ static void checkVarDecl(ParserContext& ctx, CXCursor c, CXCursor parent)
         sprintf(addrString, "0x%08X", static_cast<uint32_t>(addr));
 
         std::lock_guard lock(sMtx);
-        ctx.vars.push_back({ addrString, varName });
+        ctx.vars.push_back({ addrString, varName, innerTypeVal });
     }
 }
 
@@ -209,10 +248,6 @@ static std::string toMb(const auto* str)
 
 static bool parseFiles(ParserContext& ctx, const std::vector<stdfs::path>& files)
 {
-    const char* cmdLineArgs[] = {
-        "-fparse-all-comments",
-    };
-
     CXIndex index = clang_createIndex(0, 0);
 
     std::vector<size_t> indices(files.size());
@@ -232,11 +267,11 @@ static bool parseFiles(ParserContext& ctx, const std::vector<stdfs::path>& files
             std::cout << "[" << (i + 1) << "/" << files.size() << "] Parsing '" << filePath << "'... \n";
         }
 
-        CXTranslationUnit unit = clang_parseTranslationUnit(
-            index, filePath.c_str(), cmdLineArgs, (int)std::size(cmdLineArgs), nullptr, 0,
-            CXTranslationUnit_DetailedPreprocessingRecord | CXTranslationUnit_IncludeBriefCommentsInCodeCompletion);
+        CXTranslationUnit unit = nullptr;
+        auto err = clang_parseTranslationUnit2(
+            index, filePath.c_str(), kClangOptions, (int)std::size(kClangOptions), nullptr, 0, kClangParseOptions, &unit);
 
-        if (unit == nullptr)
+        if (err != CXError_Success || unit == nullptr)
         {
             std::cerr << "Unable to parse translation unit. Quitting." << std::endl;
             return;
@@ -280,35 +315,33 @@ static bool parseFiles(ParserContext& ctx, const std::vector<stdfs::path>& files
 static void dumpCursor(CXCursor c, CXCursor parent)
 {
     auto parentSpelling = getString(clang_getCursorSpelling(parent));
-
+    auto displayName = getString(clang_getCursorDisplayName(c));
     auto spelling = getString(clang_getCursorSpelling(c));
     auto cursorKind = clang_getCursorKind(c);
     auto kindSpelling = getString(clang_getCursorKindSpelling(cursorKind));
+    auto prettyString = getString(clang_getCursorPrettyPrinted(c, nullptr));
 
     auto cursorType = clang_getCursorType(parent);
     auto canonicalType = clang_getCanonicalType(cursorType);
     auto typeStr = getString(clang_getTypeSpelling(canonicalType));
     auto strComment = getString(clang_Cursor_getRawCommentText(c));
 
-    std::cout << "NODE: " << spelling << "\n";
+    std::cout << "NODE: " << displayName << "\n";
     std::cout << "-> Parent: " << parentSpelling << "\n";
     std::cout << "-> Kind: " << kindSpelling << "\n";
+    // std::cout << "-> Pretty: " << prettyString << "\n";
     std::cout << "-> Comment: " << strComment << "\n";
 }
 
 static bool dumpAST(const std::string& filePath)
 {
-    const char* cmdLineArgs[] = {
-        "-fparse-all-comments",
-    };
+    CXIndex index = clang_createIndex(1, 1);
 
-    CXIndex index = clang_createIndex(0, 0);
+    CXTranslationUnit unit = nullptr;
+    auto err = clang_parseTranslationUnit2(
+        index, filePath.c_str(), kClangOptions, (int)std::size(kClangOptions), nullptr, 0, kClangParseOptions, &unit);
 
-    CXTranslationUnit unit = clang_parseTranslationUnit(
-        index, filePath.c_str(), cmdLineArgs, (int)std::size(cmdLineArgs), nullptr, 0,
-        CXTranslationUnit_DetailedPreprocessingRecord | CXTranslationUnit_IncludeBriefCommentsInCodeCompletion);
-
-    if (unit == nullptr)
+    if (err != CXError_Success || unit == nullptr)
     {
         std::cerr << "Unable to parse translation unit. Quitting." << std::endl;
         return false;
@@ -329,7 +362,7 @@ static bool dumpAST(const std::string& filePath)
     return true;
 }
 
-static bool dumpIdc(ParserContext& ctx)
+static bool dumpIdcNames(ParserContext& ctx)
 {
     std::cout << "Dumping name.idc... ";
 
@@ -358,6 +391,41 @@ static bool dumpIdc(ParserContext& ctx)
     nameFile << "}\n";
 
     std::cout << "OK\n";
+    return true;
+}
+
+static bool dumpIdcTypes(ParserContext& ctx)
+{
+    std::cout << "Dumping types.idc... ";
+
+    std::ofstream nameFile("types.idc");
+    if (!nameFile.is_open())
+    {
+        std::cerr << "Unable to open names.idc\n";
+        return false;
+    }
+
+    nameFile << "#include <idc.idc>\n";
+    nameFile << "\n";
+    nameFile << "static main(void)\n";
+    nameFile << "{\n";
+    nameFile << "    // Types\n";
+    for (auto& entry : ctx.vars)
+    {
+        nameFile << "    SetType(" << entry.address << ", \"" << entry.type << "\");\n";
+    }
+    nameFile << "}\n";
+
+    std::cout << "OK\n";
+    return true;
+}
+
+static bool dumpIdc(ParserContext& ctx)
+{
+    if (!dumpIdcNames(ctx))
+        return false;
+    if (!dumpIdcTypes(ctx))
+        return false;
     return true;
 }
 
