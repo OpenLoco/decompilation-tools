@@ -181,6 +181,7 @@ struct VarDef
 {
     std::string address;
     std::string name;
+    std::string type;
 };
 
 struct ParserContext
@@ -218,18 +219,23 @@ static void checkVarDecl(ParserContext& ctx, CXCursor c, CXCursor parent)
     auto spelling = getString(clang_getCursorSpelling(c));
     if (spelling != "loco_global")
         return;
-
     auto varName = getString(clang_getCursorSpelling(parent));
-
     auto cursorType = clang_getCursorType(parent);
     auto canonicalType = clang_getCanonicalType(cursorType);
     auto typeStr = getString(clang_getTypeSpelling(canonicalType));
 
-    auto n1 = typeStr.find_first_of(',') + 1;
-    while (typeStr[n1] == ' ')
-        n1++;
-    auto n2 = typeStr.find_first_of('>', n1);
-    auto addrVal = typeStr.substr(n1, (n2 - n1));
+    auto commaPos = typeStr.find_last_of(',');
+    auto gtPos = typeStr.find_first_of('>', commaPos);
+    auto ltPos = typeStr.find_first_of('<');
+
+    auto innerTypeVal = typeStr.substr(ltPos + 1, commaPos - ltPos - 1);
+
+    auto skip = 1;
+    while (typeStr[commaPos + skip] == ' ')
+    {
+        skip++;
+    }
+    auto addrVal = typeStr.substr(commaPos + skip, (gtPos - commaPos - skip));
     auto addr = atol(addrVal.c_str());
 
     {
@@ -237,7 +243,7 @@ static void checkVarDecl(ParserContext& ctx, CXCursor c, CXCursor parent)
         sprintf(addrString, "0x%08X", static_cast<uint32_t>(addr));
 
         std::lock_guard lock(sMtx);
-        ctx.vars.push_back({ addrString, varName });
+        ctx.vars.push_back({ addrString, varName, innerTypeVal });
     }
 }
 
@@ -515,7 +521,33 @@ static bool dumpAST(const Options& opts)
     return true;
 }
 
-static bool dumpIdc(ParserContext& ctx)
+static bool dumpIdcTypes(ParserContext& ctx)
+{
+    std::cout << "Dumping types.idc... ";
+
+    std::ofstream nameFile("types.idc");
+    if (!nameFile.is_open())
+    {
+        std::cerr << "Unable to open names.idc\n";
+        return false;
+    }
+
+    nameFile << "#include <idc.idc>\n";
+    nameFile << "\n";
+    nameFile << "static main(void)\n";
+    nameFile << "{\n";
+    nameFile << "    // Types\n";
+    for (auto& entry : ctx.vars)
+    {
+        nameFile << "    SetType(" << entry.address << ", \"" << entry.type << "\");\n";
+    }
+    nameFile << "}\n";
+
+    std::cout << "OK\n";
+    return true;
+}
+
+static bool dumpIdcNames(ParserContext& ctx)
 {
     std::cout << "Dumping name.idc... ";
     std::flush(std::cout);
@@ -545,6 +577,15 @@ static bool dumpIdc(ParserContext& ctx)
     nameFile << "}\n";
 
     std::cout << "OK\n";
+    return true;
+}
+
+static bool dumpIdc(ParserContext& ctx)
+{
+    if (!dumpIdcNames(ctx))
+        return false;
+    if (!dumpIdcTypes(ctx))
+        return false;
     return true;
 }
 
