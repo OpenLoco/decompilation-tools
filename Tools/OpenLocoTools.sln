@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringIdValidator", "OpenLoco String Id Validator\StringIdValidator.csproj", "{B1DC94CB-A2F8-4ED9-8DFC-1E77613F2329}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringIdValidator", "StringIdValidator\StringIdValidator.csproj", "{B1DC94CB-A2F8-4ED9-8DFC-1E77613F2329}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocoGlobalAnalyser", "LocoGlobalAnalyser\LocoGlobalAnalyser.csproj", "{CC046671-EA3C-459C-9C03-429BD6EB2249}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{5B9E2E07-6466-4916-8025-2A8C168D11D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageFileAnalyser", "LanguageFileAnalyser\LanguageFileAnalyser.csproj", "{F8B40817-380C-4F26-BC65-D4EE0F02F548}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StructToC#", "StructToC#\StructToC#.csproj", "{7B1D80E0-93F4-459E-8CDD-D80685528BA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{F8B40817-380C-4F26-BC65-D4EE0F02F548}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8B40817-380C-4F26-BC65-D4EE0F02F548}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8B40817-380C-4F26-BC65-D4EE0F02F548}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B1D80E0-93F4-459E-8CDD-D80685528BA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B1D80E0-93F4-459E-8CDD-D80685528BA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B1D80E0-93F4-459E-8CDD-D80685528BA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B1D80E0-93F4-459E-8CDD-D80685528BA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

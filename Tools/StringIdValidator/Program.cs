@@ -1,14 +1,15 @@
-﻿using System.Text.RegularExpressions;
+﻿global using LanguageFile = System.Collections.Generic.Dictionary<int, string>;
+using System.Text.RegularExpressions;
 using Common;
 
-var stringids = File.ReadAllLinesAsync(@$"{Constants.OpenLocoSourcePath}\src\OpenLoco\Localisation\StringIds.h");
+var stringids = File.ReadAllLinesAsync(@$"{Constants.OpenLocoSourcePath}\src\OpenLoco\src\Localisation\StringIds.h");
 var engbyml = File.ReadAllLinesAsync(@$"{Constants.OpenLocoSourcePath}\data\language\en-GB.yml");
 
 stringids.Wait();
 engbyml.Wait();
 
 var stringIdDict = ParseStringIds(stringids.Result);
-var enGbYaml = ParseYaml(engbyml.Result);
+var enGbYaml = Util.ParseLanguageFile(engbyml.Result);
 
 // format tooltips
 foreach (var v in stringIdDict)
@@ -37,45 +38,13 @@ foreach (var v in stringIdDict)
 }
 
 // do more validation logic here
-
-Console.WriteLine("No issues found");
 Console.ReadLine();
 
-static Dictionary<int, string> ParseYaml(string[] lines)
-{
-	var output = new Dictionary<int, string>();
-
-	var sanitised = lines
-		.Where(l => !string.IsNullOrEmpty(l))
-		.Select(l => l.Trim())
-		.Where(l => !l.StartsWith('#'))
-		.Where(l => !l.EndsWith(':'));
-
-	foreach (var line in sanitised)
-	{
-		var match = Regex.Match(line, @"(\d+): (.*$)");
-
-		if (match.Success)
-		{
-			var id = int.Parse(match.Groups[1].Captures[0].Value);
-			var str = match.Groups[2].Captures[0].Value;
-
-			output.Add(id, str);
-		}
-		else
-		{
-			Console.WriteLine($"[Warning] couldn't recognise string '{line}'");
-		}
-	}
-
-	return output;
-}
-
-static Dictionary<int, string> ParseStringIds(string[] lines)
+static LanguageFile ParseStringIds(string[] lines)
 {
 	var string_ids = lines.Select(s => s.Split('='));
 
-	var stringIdDict = new Dictionary<int, string>();
+	var stringIdDict = new LanguageFile();
 	foreach (var v in string_ids)
 	{
 		if (!v[0].Contains("constexpr") || !v[0].Contains("string_id"))
@@ -85,13 +54,13 @@ static Dictionary<int, string> ParseStringIds(string[] lines)
 
 		if (!v[0].Contains("constexpr string_id"))
 		{
-			Console.WriteLine($"[Error] each string_id must be declared as 'constexpr string_id");
+			Console.WriteLine($"[Error] each string_id must be declared as 'constexpr string_id' code=\"{v[0].Trim()}\"");
 			continue;
 		}
 
 		if (v.Length != 2)
 		{
-			Console.WriteLine($"[Error] each string_id must have 1 '=' sign");
+			Console.WriteLine($"[Error] each string_id must have 1 '=' sign code=\"{v[0].Trim()}\"");
 			continue;
 		}
 

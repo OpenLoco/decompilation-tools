@@ -1,9 +1,9 @@
 ﻿using System.Text.RegularExpressions;
 using Common;
 
-var codeFiles = Directory.EnumerateFiles($@"{Constants.OpenLocoSourcePath}\src\OpenLoco", "*", SearchOption.AllDirectories);
+var codeFiles = Directory.EnumerateFiles($@"{Constants.OpenLocoSourcePath}\src\OpenLoco\src\", "*", SearchOption.AllDirectories);
 
-List<loco_global> locoGlobalList = new();
+List<LocoGlobal> locoGlobalList = [];
 
 var regex = new Regex(@".*loco_global<([\w\d:\(\) \+\*\-\/\[\]_]+), (0x[a-fA-F0-9]{6,9})> (.*);.*", RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
@@ -17,7 +17,7 @@ foreach (var codeFile in codeFiles)
 		.Select(l =>
 		{
 			var m = regex.Matches(l.line);
-			return new loco_global(
+			return new LocoGlobal(
 				Path.GetFileName(codeFile),
 				l.lineNumber,
 				m[0].Groups[1].Value,
@@ -27,7 +27,7 @@ foreach (var codeFile in codeFiles)
 }
 
 var locoGlobalDict = locoGlobalList
-	.ToLookup(t => t.address, t => t)
+	.ToLookup(t => t.Address, t => t)
 	.ToDictionary(t => t.Key, t => t.ToList());
 
 // console log
@@ -40,6 +40,16 @@ foreach (var lg in locoGlobalDict)
 	}
 }
 
+// log bad loco_global variable names
+foreach (var lg in locoGlobalDict)
+{
+	var bad = lg.Value.Where(r => !r.VariableName.StartsWith('_'));
+	foreach (var badlg in bad)
+	{
+		Console.WriteLine($"bad - {badlg.VariableName}, {badlg.Filename}");
+	}
+}
+
 // gamestate struct offsets
 var gamestateTop = Convert.ToInt32("0x00525E18", 16);
 var gamestateSize = Convert.ToInt32("0x004A0644", 16);
@@ -47,10 +57,12 @@ var gamestateBottom = gamestateTop + gamestateSize;
 
 // write to file
 var ordered = locoGlobalDict.OrderByDescending(kv => kv.Value.Count);
-var strings = new List<string>();
-strings.Add($"Unique count: {ordered.Count()} (the number of unique offsets used by loco_global or addr");
-strings.Add($"Multiuse count: {ordered.Where(a => a.Value.Count > 1).Count()} (the number of unique loco_globals that are used more than once)");
-strings.Add($"Total count: {ordered.SelectMany(a => a.Value).Count()} (the total number of loco_globals used)");
+var strings = new List<string>
+{
+	$"Unique count: {ordered.Count()} (the number of unique offsets used by loco_global or addr",
+	$"Multiuse count: {ordered.Count(a => a.Value.Count > 1)} (the number of unique loco_globals that are used more than once)",
+	$"Total count: {ordered.Sum(a => a.Value.Count)} (the total number of loco_globals used)"
+};
 
 var verbose = true;
 
@@ -65,12 +77,12 @@ foreach (var kv in ordered)
 
 	strings.Add($"{kv.Key} - {kv.Value.Count}{gameStateOffset}");
 
-	// print every occurence of the loco_global and its corrresponding file+line number
+	// print every occurrence of the loco_global and its corresponding file+line number
 	if (verbose)
 	{
 		foreach (var occurence in kv.Value)
 		{
-			strings.Add($"\t - {occurence.type} {occurence.filename}:{occurence.lineNumber}");
+			strings.Add($"\t - {occurence.Type} {occurence.Filename}:{occurence.LineNumber}");
 		}
 	}
 }
@@ -83,6 +95,6 @@ Console.ReadLine();
 
 // done
 
-string sanitiseHexAddr(string addr) => $"0x{addr.Trim().Replace("0x", string.Empty).ToUpper().TrimStart('0').PadLeft(8, '0')}"; // need c#11 for multiline interpolated strings
+static string sanitiseHexAddr(string addr) => $"0x{addr.Trim().Replace("0x", string.Empty).ToUpper().TrimStart('0').PadLeft(8, '0')}"; // need c#11 for multiline interpolated strings
 
-internal record loco_global(string filename, int lineNumber, string type, string address, string variableName);
+internal record LocoGlobal(string Filename, int LineNumber, string Type, string Address, string VariableName);
