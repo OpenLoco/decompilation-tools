@@ -17,6 +17,25 @@ namespace stdfs = std::filesystem;
 
 static std::mutex sMtx;
 
+static constexpr auto kParsingOptions = CXTranslationUnit_DetailedPreprocessingRecord | CXTranslationUnit_Incomplete
+    | CXTranslationUnit_IncludeBriefCommentsInCodeCompletion | CXTranslationUnit_SkipFunctionBodies
+    | CXTranslationUnit_KeepGoing;
+
+static constexpr const char* kParseArgs[] = {
+    "-fparse-all-comments", //
+    "-std=c++20",           //
+    "-xc++",                //
+    "-m32",                 //
+};
+
+struct Options
+{
+    std::string inputFileOrFolder;
+    std::string srcPath;
+    std::string modules;
+    bool showErrors{};
+};
+
 static std::string getString(CXString s)
 {
     const auto* cstr = clang_getCString(s);
@@ -77,16 +96,43 @@ static std::vector<std::string> tokenize(const std::string& s)
     return res;
 }
 
+static bool isCommentLine(const std::string_view line)
+{
+    if (line.find("* 0x") != line.npos || line.find("* 0X") != line.npos)
+        return true;
+    if (line.find("// 0x") != line.npos || line.find("// 0X") != line.npos)
+        return true;
+    return false;
+}
+
+static bool isValidHex(const std::string_view token)
+{
+    if (!token.starts_with("0x") && !token.starts_with("0X"))
+        return false;
+    const auto hex = token.substr(2);
+    for (auto chr : hex)
+    {
+        if (!isxdigit(chr))
+            return false;
+    }
+    return true;
+}
+
 static std::vector<std::string> extractAddresses(const std::string& txt)
 {
     auto lines = split(txt, "\n");
     if (lines.empty())
         return {};
 
-    auto line = lines[0];
-    while (!line.empty() && (line.front() == '/' || line.front() == ' '))
+    // Find the line with the address
+    std::string line;
+    for (auto& l : lines)
     {
-        line = line.substr(1);
+        if (isCommentLine(l))
+        {
+            line = l;
+            break;
+        }
     }
     if (line.empty())
         return {};
@@ -95,7 +141,7 @@ static std::vector<std::string> extractAddresses(const std::string& txt)
     auto tokens = tokenize(line);
     for (auto& token : tokens)
     {
-        if (token.starts_with("0x") || token.starts_with("0X"))
+        if (isValidHex(token))
         {
             res.push_back(token);
         }
@@ -135,6 +181,7 @@ struct VarDef
 {
     std::string address;
     std::string name;
+    std::string type;
 };
 
 struct ParserContext
@@ -172,18 +219,23 @@ static void checkVarDecl(ParserContext& ctx, CXCursor c, CXCursor parent)
     auto spelling = getString(clang_getCursorSpelling(c));
     if (spelling != "loco_global")
         return;
-
     auto varName = getString(clang_getCursorSpelling(parent));
-
     auto cursorType = clang_getCursorType(parent);
     auto canonicalType = clang_getCanonicalType(cursorType);
     auto typeStr = getString(clang_getTypeSpelling(canonicalType));
 
-    auto n1 = typeStr.find_first_of(',') + 1;
-    while (typeStr[n1] == ' ')
-        n1++;
-    auto n2 = typeStr.find_first_of('>', n1);
-    auto addrVal = typeStr.substr(n1, (n2 - n1));
+    auto commaPos = typeStr.find_last_of(',');
+    auto gtPos = typeStr.find_first_of('>', commaPos);
+    auto ltPos = typeStr.find_first_of('<');
+
+    auto innerTypeVal = typeStr.substr(ltPos + 1, commaPos - ltPos - 1);
+
+    auto skip = 1;
+    while (typeStr[commaPos + skip] == ' ')
+    {
+        skip++;
+    }
+    auto addrVal = typeStr.substr(commaPos + skip, (gtPos - commaPos - skip));
     auto addr = atol(addrVal.c_str());
 
     {
@@ -191,7 +243,7 @@ static void checkVarDecl(ParserContext& ctx, CXCursor c, CXCursor parent)
         sprintf(addrString, "0x%08X", static_cast<uint32_t>(addr));
 
         std::lock_guard lock(sMtx);
-        ctx.vars.push_back({ addrString, varName });
+        ctx.vars.push_back({ addrString, varName, innerTypeVal });
     }
 }
 
@@ -207,11 +259,92 @@ static std::string toMb(const auto* str)
     return res;
 }
 
-static bool parseFiles(ParserContext& ctx, const std::vector<stdfs::path>& files)
+static std::string normalizePathSeparator(std::string path)
 {
-    const char* cmdLineArgs[] = {
-        "-fparse-all-comments",
-    };
+    for (auto& chr : path)
+    {
+        if (chr == '\\' || chr == '/')
+        {
+#ifdef _WIN32
+            chr = '\\';
+#else
+            chr = '/';
+#endif
+        }
+    }
+    return path;
+}
+
+static std::string appendPath(const std::string lhs, const std::string& rhs)
+{
+    if (lhs.empty())
+        return rhs;
+    if (rhs.empty())
+        return lhs;
+
+    if (lhs.back() == '/' || lhs.back() == '\\')
+        return lhs + rhs;
+    return lhs + "/" + rhs;
+}
+
+static std::vector<std::string> buildIncludePaths(const std::string& rootPath, const std::string& modules)
+{
+    std::vector<std::string> res;
+
+    const auto modulesSplit = split(modules, ";");
+    for (const auto& mod : modulesSplit)
+    {
+        if (mod.empty())
+            continue;
+
+        // src
+        {
+            const auto modPath = mod + "/src";
+            const auto includePath = normalizePathSeparator(appendPath(rootPath, modPath));
+            res.push_back("-I" + includePath);
+        }
+
+        // include
+        {
+            const auto modPath = mod + "/include";
+            const auto includePath = normalizePathSeparator(appendPath(rootPath, modPath));
+            res.push_back("-I" + includePath);
+        }
+
+        // include/OpenLoco/<mod>
+        {
+            const auto modPath = mod + "/include/OpenLoco/" + mod;
+            const auto includePath = normalizePathSeparator(appendPath(rootPath, modPath));
+            res.push_back("-I" + includePath);
+        }
+    }
+
+    return res;
+}
+
+static auto buildArgs(const std::string& rootPath, const std::string& modules)
+{
+    auto includePathsArgs = buildIncludePaths(rootPath, modules);
+    auto numArgs = (int)(std::size(kParseArgs) + includePathsArgs.size());
+    auto args = std::make_unique<const char*[]>(numArgs);
+    for (size_t i = 0; i < std::size(kParseArgs); i++)
+    {
+        args[i] = kParseArgs[i];
+    }
+    for (size_t i = 0; i < includePathsArgs.size(); i++)
+    {
+        // This is a leak but don't care, shitty clang API.
+        char* arg = new char[includePathsArgs[i].size() + 1];
+        strcpy(arg, includePathsArgs[i].c_str());
+
+        args[i + std::size(kParseArgs)] = arg;
+    }
+    return std::make_pair(std::move(args), (int)numArgs);
+}
+
+static bool parseFiles(ParserContext& ctx, const std::vector<stdfs::path>& files, const Options& opts)
+{
+    auto [args, numArgs] = buildArgs(opts.srcPath, opts.modules);
 
     CXIndex index = clang_createIndex(0, 0);
 
@@ -233,8 +366,7 @@ static bool parseFiles(ParserContext& ctx, const std::vector<stdfs::path>& files
         }
 
         CXTranslationUnit unit = clang_parseTranslationUnit(
-            index, filePath.c_str(), cmdLineArgs, (int)std::size(cmdLineArgs), nullptr, 0,
-            CXTranslationUnit_DetailedPreprocessingRecord | CXTranslationUnit_IncludeBriefCommentsInCodeCompletion);
+            index, filePath.c_str(), args.get(), numArgs, nullptr, 0, kParsingOptions);
 
         if (unit == nullptr)
         {
@@ -256,12 +388,29 @@ static bool parseFiles(ParserContext& ctx, const std::vector<stdfs::path>& files
                 {
                     checkVarDecl(ctx, c, parent);
                 }
+                else if (kind == CXToken_Comment)
+                {
+                }
                 return CXChildVisit_Recurse;
             },
             &ctx);
 
+        if (opts.showErrors)
+        {
+            const auto numDiagnostics = clang_getNumDiagnostics(unit);
+            for (unsigned i = 0; i < numDiagnostics; ++i)
+            {
+                CXDiagnostic diag = clang_getDiagnostic(unit, i);
+                CXString string = clang_formatDiagnostic(diag, clang_defaultDiagnosticDisplayOptions());
+                std::cout << clang_getCString(string) << std::endl;
+                clang_disposeString(string);
+            }
+        }
+
         clang_disposeTranslationUnit(unit);
     });
+
+    std::cout << "Sorting data...\n";
 
     std::sort(ctx.funcs.begin(), ctx.funcs.end(), [](auto& a, auto& b) { return a.address < b.address; });
     ctx.funcs.erase(
@@ -272,9 +421,35 @@ static bool parseFiles(ParserContext& ctx, const std::vector<stdfs::path>& files
     ctx.vars.erase(
         std::unique(ctx.vars.begin(), ctx.vars.end(), [](auto& a, auto& b) { return a.address == b.address; }), ctx.vars.end());
 
+    std::cout << "Cleanup...\n";
+
     clang_disposeIndex(index);
 
     return true;
+}
+
+static std::string getStorageClassSpelling(CX_StorageClass cls)
+{
+    switch (cls)
+    {
+        case CX_SC_Invalid:
+            return "";
+        case CX_SC_None:
+            return "";
+        case CX_SC_Extern:
+            return "extern";
+        case CX_SC_Static:
+            return "static";
+        case CX_SC_PrivateExtern:
+            return "private extern";
+        case CX_SC_OpenCLWorkGroupLocal:
+            return "OpenCL work group local";
+        case CX_SC_Auto:
+            return "auto";
+        case CX_SC_Register:
+            return "register";
+    }
+    return "";
 }
 
 static void dumpCursor(CXCursor c, CXCursor parent)
@@ -285,33 +460,50 @@ static void dumpCursor(CXCursor c, CXCursor parent)
     auto cursorKind = clang_getCursorKind(c);
     auto kindSpelling = getString(clang_getCursorKindSpelling(cursorKind));
 
+    auto storageClass = CX_SC_Invalid;
+    if (cursorKind == CXCursor_VarDecl || cursorKind == CXCursor_FunctionDecl || cursorKind == CXCursor_CXXMethod)
+    {
+        storageClass = clang_Cursor_getStorageClass(c);
+    }
     auto cursorType = clang_getCursorType(parent);
     auto canonicalType = clang_getCanonicalType(cursorType);
-    auto typeStr = getString(clang_getTypeSpelling(canonicalType));
+    auto typeStr = getString(clang_getTypeSpelling(cursorType));
     auto strComment = getString(clang_Cursor_getRawCommentText(c));
-
+    auto strBriefComment = getString(clang_Cursor_getBriefCommentText(c));
     std::cout << "NODE: " << spelling << "\n";
     std::cout << "-> Parent: " << parentSpelling << "\n";
+    std::cout << "-> Storage: " << getStorageClassSpelling(storageClass) << "\n";
     std::cout << "-> Kind: " << kindSpelling << "\n";
+    std::cout << "-> Type: " << typeStr << "\n";
     std::cout << "-> Comment: " << strComment << "\n";
+    std::cout << "-> Brief: " << strBriefComment << "\n";
 }
 
-static bool dumpAST(const std::string& filePath)
+static bool dumpAST(const Options& opts)
 {
-    const char* cmdLineArgs[] = {
-        "-fparse-all-comments",
-    };
+    auto [args, numArgs] = buildArgs(opts.srcPath, opts.modules);
 
     CXIndex index = clang_createIndex(0, 0);
 
     CXTranslationUnit unit = clang_parseTranslationUnit(
-        index, filePath.c_str(), cmdLineArgs, (int)std::size(cmdLineArgs), nullptr, 0,
-        CXTranslationUnit_DetailedPreprocessingRecord | CXTranslationUnit_IncludeBriefCommentsInCodeCompletion);
+        index, opts.inputFileOrFolder.c_str(), args.get(), numArgs, nullptr, 0, kParsingOptions);
 
     if (unit == nullptr)
     {
         std::cerr << "Unable to parse translation unit. Quitting." << std::endl;
         return false;
+    }
+
+    if (opts.showErrors)
+    {
+        const auto numDiagnostics = clang_getNumDiagnostics(unit);
+        for (unsigned i = 0; i < numDiagnostics; ++i)
+        {
+            CXDiagnostic diag = clang_getDiagnostic(unit, i);
+            CXString string = clang_formatDiagnostic(diag, clang_defaultDiagnosticDisplayOptions());
+            std::cout << clang_getCString(string) << std::endl;
+            clang_disposeString(string);
+        }
     }
 
     CXCursor cursor = clang_getTranslationUnitCursor(unit);
@@ -329,9 +521,36 @@ static bool dumpAST(const std::string& filePath)
     return true;
 }
 
-static bool dumpIdc(ParserContext& ctx)
+static bool dumpIdcTypes(ParserContext& ctx)
+{
+    std::cout << "Dumping types.idc... ";
+
+    std::ofstream nameFile("types.idc");
+    if (!nameFile.is_open())
+    {
+        std::cerr << "Unable to open names.idc\n";
+        return false;
+    }
+
+    nameFile << "#include <idc.idc>\n";
+    nameFile << "\n";
+    nameFile << "static main(void)\n";
+    nameFile << "{\n";
+    nameFile << "    // Types\n";
+    for (auto& entry : ctx.vars)
+    {
+        nameFile << "    SetType(" << entry.address << ", \"" << entry.type << "\");\n";
+    }
+    nameFile << "}\n";
+
+    std::cout << "OK\n";
+    return true;
+}
+
+static bool dumpIdcNames(ParserContext& ctx)
 {
     std::cout << "Dumping name.idc... ";
+    std::flush(std::cout);
 
     std::ofstream nameFile("names.idc");
     if (!nameFile.is_open())
@@ -361,6 +580,15 @@ static bool dumpIdc(ParserContext& ctx)
     return true;
 }
 
+static bool dumpIdc(ParserContext& ctx)
+{
+    if (!dumpIdcNames(ctx))
+        return false;
+    if (!dumpIdcTypes(ctx))
+        return false;
+    return true;
+}
+
 int main(int argc, const char* argv[])
 {
     enum class Action
@@ -370,7 +598,7 @@ int main(int argc, const char* argv[])
         DumpAST,
     } action{};
 
-    std::string inputFileOrFolder;
+    Options options;
 
     for (int i = 1; i < argc; i++)
     {
@@ -382,10 +610,32 @@ int main(int argc, const char* argv[])
         {
             if (i + 1 >= argc)
             {
-                std::cerr << "Missing argument for -f\n";
+                std::cerr << "Missing argument for -f (file)\n";
                 return EXIT_FAILURE;
             }
-            inputFileOrFolder = argv[++i];
+            options.inputFileOrFolder = argv[++i];
+        }
+        else if (strcmp(argv[i], "-r") == 0)
+        {
+            if (i + 1 >= argc)
+            {
+                std::cerr << "Missing argument for -r (root path)\n";
+                return EXIT_FAILURE;
+            }
+            options.srcPath = argv[++i];
+        }
+        else if (strcmp(argv[i], "-m") == 0)
+        {
+            if (i + 1 >= argc)
+            {
+                std::cerr << "Missing argument for -m (modules)\n";
+                return EXIT_FAILURE;
+            }
+            options.modules = argv[++i];
+        }
+        else if (strcmp(argv[i], "-e") == 0)
+        {
+            options.showErrors = true;
         }
     }
 
@@ -395,15 +645,15 @@ int main(int argc, const char* argv[])
         return EXIT_FAILURE;
     }
 
-    if (inputFileOrFolder.empty())
+    if (options.srcPath.empty())
     {
-        std::cerr << "Missing argument for -f\n";
+        std::cerr << "Missing argument for -r (root path)\n";
         return EXIT_FAILURE;
     }
 
     if (action == Action::MakeIDC)
     {
-        auto files = findFiles(inputFileOrFolder);
+        auto files = findFiles(options.srcPath);
         if (files.empty())
         {
             std::cerr << "No files found to process\n";
@@ -411,7 +661,7 @@ int main(int argc, const char* argv[])
         }
 
         ParserContext ctx;
-        if (!parseFiles(ctx, files))
+        if (!parseFiles(ctx, files, options))
         {
             return EXIT_FAILURE;
         }
@@ -423,7 +673,13 @@ int main(int argc, const char* argv[])
     }
     else if (action == Action::DumpAST)
     {
-        if (!dumpAST(inputFileOrFolder))
+        if (options.inputFileOrFolder.empty())
+        {
+            std::cerr << "Missing argument for -f (file)\n";
+            return EXIT_FAILURE;
+        }
+
+        if (!dumpAST(options))
         {
             return EXIT_FAILURE;
         }
